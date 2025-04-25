@@ -20,6 +20,17 @@
     scrollbar-width: thin; /* Firefox */
     scrollbar-color: #999 transparent; /* Firefox */
     border-bottom: 1px solid #eee;
+    padding-right: 15px;
+}
+
+.bar-container.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100; /* Para asegurarnos de que se queda por encima de otros elementos */
+    background-color: #fff; /* Fondo blanco para evitar que se vean otros elementos debajo */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para darle un efecto flotante */
 }
 
 /* Estilo personalizado para scroll horizontal (WebKit) */
@@ -79,3 +90,29 @@
     font-weight: 600;
     color: #333;
 }
+
+.modal-dialog {
+  max-width: 600px;
+}
+
+.modal-content {
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body {
+  overflow-y: auto;
+  flex: 1 1 auto;
+  padding: 1rem;
+}
+
+.modal-footer {
+  position: sticky;
+  bottom: 0;
+  background-color: #fff;
+  border-top: 1px solid #dee2e6;
+  z-index: 10;
+  padding: 1rem;
+}
+  

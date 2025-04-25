@@ -21,5 +21,38 @@
         
         <script src="{{ asset('assets/jquery.js') }}"></script>
         <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+
+        <script>
+            // Función para manejar el sticky de las categorías
+            window.onscroll = function() { toggleSticky() };
+        
+            var categoriesContainer = document.querySelector('.bar-container');
+            var stickyOffset = categoriesContainer.offsetTop;
+        
+            function toggleSticky() {
+                if (window.pageYOffset > stickyOffset) {
+                    categoriesContainer.classList.add('fixed');
+                } else {
+                    categoriesContainer.classList.remove('fixed');
+                }
+            }
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const qtyInput = document.getElementById('modalQuantity');
+                const btnDecrease = document.getElementById('decreaseQty');
+                const btnIncrease = document.getElementById('increaseQty');
+            
+                btnDecrease.addEventListener('click', () => {
+                    let value = parseInt(qtyInput.value);
+                    if (value > 1) qtyInput.value = value - 1;
+                });
+            
+                btnIncrease.addEventListener('click', () => {
+                    qtyInput.value = parseInt(qtyInput.value) + 1;
+                });
+            });
+        </script>
     </body>
 </html>
