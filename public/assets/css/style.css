@@ -1,0 +1,81 @@
+* {
+    font-family: 'Poppins';
+}
+
+.button-gray{
+    border: 1px solid #d6d6d6 !important;
+    color: #212529;
+    font-size: .8rem !important;
+}
+.button-no-border{
+    border: none !important;
+    color: #212529;
+    font-size: .8rem !important;
+}
+
+.categories-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0.5rem 0;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #999 transparent; /* Firefox */
+    border-bottom: 1px solid #eee;
+}
+
+/* Estilo personalizado para scroll horizontal (WebKit) */
+.categories-container::-webkit-scrollbar {
+    height: 6px;
+}
+.categories-container::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+.categories-container::-webkit-scrollbar-thumb:hover {
+    background-color: #333;
+}
+.categories-container::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+
+
+.search-button i {
+    font-size: 20px;
+    color: #212529 !important;
+}
+
+.card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-body h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.card-body p {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.card-body .btn {
+    font-size: 0.875rem;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+}
+
+.card-body .price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+}
