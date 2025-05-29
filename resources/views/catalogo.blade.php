@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+@section('metadata')
+<title>{{ tenant('id') }} - {{ env('APP_NAME') }}</title>
+@endsection 
 
 @php
     $categories = collect([
