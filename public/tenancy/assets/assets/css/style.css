@@ -1,0 +1,211 @@
+* {
+    font-family: 'Poppins';
+}
+
+.loader-overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 1);
+    top: 0;
+    left: 0;
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-gray{
+    border: 1px solid #d6d6d6 !important;
+    color: #212529;
+    font-size: .8rem !important;
+}
+.button-no-border{
+    border: none !important;
+    color: #212529;
+    font-size: .8rem !important;
+}
+
+.categories-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0.5rem 0;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #999 transparent; /* Firefox */
+    border-bottom: 1px solid #eee;
+    padding-right: 15px;
+}
+
+.bar-container.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100; /* Para asegurarnos de que se queda por encima de otros elementos */
+    background-color: #fff; /* Fondo blanco para evitar que se vean otros elementos debajo */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para darle un efecto flotante */
+}
+
+/* Estilo personalizado para scroll horizontal (WebKit) */
+.categories-container::-webkit-scrollbar {
+    height: 6px;
+}
+.categories-container::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+.categories-container::-webkit-scrollbar-thumb:hover {
+    background-color: #333;
+}
+.categories-container::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+
+
+.search-button i {
+    font-size: 20px;
+    color: #212529 !important;
+}
+
+.card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-body h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.card-body p {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.card-body .btn {
+    font-size: 0.875rem;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+}
+
+.card-body .price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.modal-dialog {
+  max-width: 600px;
+}
+
+.modal-content {
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body {
+  overflow-y: auto;
+  flex: 1 1 auto;
+  padding: 1rem;
+}
+
+.modal-footer {
+  position: sticky;
+  bottom: 0;
+  background-color: #fff;
+  border-top: 1px solid #dee2e6;
+  z-index: 10;
+  padding: 1rem;
+}
+  
+
+
+.search_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    transition: width 0.4s ease;
+    z-index: 1040;
+}
+
+.search_overlay.open {
+    width: 100%;
+}
+
+.search_wrap {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 1050;
+    transition: all 0.4s ease;
+}
+
+.search_wrap.open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.search_wrap form {
+    position: relative;
+    width: 100%;
+}
+
+.search_wrap .form-control {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    border-radius: 0;
+    font-size: 1rem;
+    color: white;
+    padding: 10px 0;
+    background-color: transparent;
+}
+
+.search_wrap .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search_icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-search {
+    position: absolute;
+    top: 30%;
+    right: 0;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    z-index: 1060;
+}
