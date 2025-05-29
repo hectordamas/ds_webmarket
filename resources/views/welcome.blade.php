@@ -78,10 +78,21 @@
                                     @endforeach
                                 </div>
                                 <!-- Botón de búsqueda -->
-                                <div>
-                                    <a href="#" class="btn btn-success rounded-circle">
+                                <div class="position-relative">
+                                    <!-- Botón para abrir buscador -->
+                                    <a href="javascript:void(0)" class="btn btn-success rounded-circle search_trigger">
                                         <i class="fas fa-search"></i>
                                     </a>
+                                
+                                    <!-- Overlay y contenedor del buscador -->
+                                    <div class="search_overlay"></div>
+                                    <div class="search_wrap">
+                                        <span class="close-search"><i class="fas fa-times"></i></span>
+                                        <form>
+                                            <input type="text" placeholder="Buscar Producto" class="form-control" id="search_input">
+                                            <button type="submit" class="search_icon"><i class="fas fa-search"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +131,7 @@
                                         </div>
 
                                         <div class="col-4">
-                                            <img src="{{ $product->image }}" alt="{{ $product->name }}">
+                                            <img src="{{ $product->image }}" alt="{{ $product->name }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         </div>
                                     </div>
                                 </div>
@@ -157,16 +168,172 @@
 </div>
 
 
+<!-- Offcanvas del Carrito con pestañas -->
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasCartLabel">🛒 Carrito de Compras</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+        <!-- Navegación de pestañas -->
+        <ul class="nav nav-tabs nav-justified mb-3" id="cartTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link disabled active text-success fw-semibold d-flex flex-column align-items-center py-2" id="pedido-tab" data-bs-toggle="tab" data-bs-target="#pedido" type="button" role="tab" aria-controls="pedido" aria-selected="true">
+                    <i class="fas fa-shopping-bag mb-1 fs-5"></i>
+                    Pedido
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link disabled text-muted fw-semibold d-flex flex-column align-items-center py-2" id="checkout-tab" data-bs-toggle="tab" data-bs-target="#checkout" type="button" role="tab" aria-controls="checkout" aria-selected="false">
+                    <i class="fas fa-credit-card mb-1 fs-5"></i>
+                    Checkout
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link disabled text-muted fw-semibold d-flex flex-column align-items-center py-2" id="confirmar-tab" data-bs-toggle="tab" data-bs-target="#confirmar" type="button" role="tab" aria-controls="confirmar" aria-selected="false">
+                    <i class="fas fa-check-double mb-1 fs-5"></i>
+                    Confirmar
+                </button>
+            </li>
+        </ul>
+
+
+        <!-- Contenido de las pestañas -->
+        <div class="tab-content flex-grow-1" id="cartTabsContent">
+            <!-- TAB: Pedido -->
+            <div class="tab-pane fade show active" id="pedido" role="tabpanel" aria-labelledby="pedido-tab">
+                @if(true)
+                    <div class="d-flex justify-content-center align-items-center flex-column text-center py-5">
+                        <dotlottie-player
+                            src="{{ asset('assets/img/cart-empty.lottie') }}"
+                            background="transparent"
+                            speed="1"
+                            style="width: 200px;"
+                            loop
+                            autoplay
+                        ></dotlottie-player>                     
+
+                        <h6 class="text-muted">Tu carrito está vacío</h6>
+                        <p class="text-muted small">¡Explora nuestro catálogo y agrega tus productos favoritos!</p>
+
+                    </div>
+                @else
+                <div id="cartItems">
+                    <!-- Item 1 -->
+                    <div class="d-flex align-items-center border-bottom py-2">
+                        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=100&q=80" alt="Producto" class="rounded me-3" style="width: 70px; height: 70px; object-fit: cover;">
+                        <div class="flex-grow-1">
+                            <strong class="d-block">Hamburguesa Clásica</strong>
+                            <small class="text-muted">x2</small>
+                        </div>
+                        <div class="text-end">
+                            <span class="text-success fw-bold">$11.98</span><br>
+                            <a href="#" class="text-danger small">Eliminar</a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center border-bottom py-2">
+                        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=100&q=80" alt="Producto" class="rounded me-3" style="width: 70px; height: 70px; object-fit: cover;">
+                        <div class="flex-grow-1">
+                            <strong class="d-block">Hamburguesa Clásica</strong>
+                            <small class="text-muted">x2</small>
+                        </div>
+                        <div class="text-end">
+                            <span class="text-success fw-bold">$11.98</span><br>
+                            <a href="#" class="text-danger small">Eliminar</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="mt-4">
+                    <h5>Total: $<span id="cartTotal">0.00</span></h5>
+                </div>
+
+                <div class="mb-2">
+                    <button class="btn btn-success w-100" onclick="goToTab('checkout')">
+                        Siguiente <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </div>
+                @endif
+            </div>
+
+            <!-- TAB: Checkout -->
+            <div class="tab-pane fade" id="checkout" role="tabpanel" aria-labelledby="checkout-tab">
+                <form id="checkoutForm" class="pt-2">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" placeholder="Ingrese su nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Teléfono</label>
+                        <input type="tel" class="form-control" name="telefono" placeholder="+58..." required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Dirección</label>
+                        <textarea class="form-control" name="direccion" rows="2" placeholder="Dirección de entrega" required></textarea>
+                    </div>
+                </form>
+                <div class="mb-2">
+                    <button class="btn btn-success w-100" onclick="goToTab('confirmar')">
+                        Siguiente <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </div>
+                <div class="mb-2">
+                    <button class="btn btn-secondary w-100" onclick="goToTab('pedido')">
+                       <i class="fas fa-arrow-left ms-2"></i> Volver 
+                    </button>
+                </div>
+            </div>
+
+            <!-- TAB: Confirmar -->
+            <div class="tab-pane fade" id="confirmar" role="tabpanel" aria-labelledby="confirmar-tab">
+                <div class="pt-2">
+                    <h6 class="fw-bold">Resumen del Pedido</h6>
+                    <div id="orderSummary">
+                        <p class="text-muted">Cargando resumen...</p>
+                    </div>
+
+                    <div class="mt-3">
+                        <h6 class="fw-bold">Datos del Cliente</h6>
+                        <p class="mb-1"><strong>Nombre:</strong> <span id="summaryNombre">—</span></p>
+                        <p class="mb-1"><strong>Teléfono:</strong> <span id="summaryTelefono">—</span></p>
+                        <p class="mb-1"><strong>Dirección:</strong> <span id="summaryDireccion">—</span></p>
+                    </div>
+
+                    <div class="mb-2">
+                        <a href="#" class="btn btn-success w-100" id="enviarWhatsapp">
+                            <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
+                        </a>
+                    </div>
+                    <div class="mb-2">
+                        <button class="btn btn-secondary w-100" onclick="goToTab('checkout')">
+                           <i class="fas fa-arrow-left ms-2"></i> Volver 
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+
+<!-- Botón flotante del carrito -->
+<a href="javascript:void(0);" id="btnCartManual"
+    class="btn btn-success position-fixed d-flex align-items-center justify-content-between shadow-lg"
+   style="bottom: 20px; right: 20px; z-index: 10; padding: 20px 20px; font-weight: 600; width: 300px;">
+    <i class="fas fa-shopping-cart me-2"></i> 
+    <span>Su Pedido: ${{ number_format($cartTotal ?? 0, 2, '.', ',') }}</span>
+</a>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content shadow">
         <div class="modal-header">
-          <h5 class="modal-title fw-bold" id="exampleModalLabel">Detalle del Producto</h5>
+          <h5 class="modal-title fw-bold" id="exampleModalLabel">Detalles del Producto</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <div class="text-center mb-3">
-            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=500&q=80" alt="Producto" style="max-width: 200px;" class="img-fluid rounded">
+          <div class="text-center mb-3" style="cursor: pointer;">
+            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=500&q=80" alt="Producto" style="max-width: 200px; cursor: pointer;" class="img-fluid rounded">
           </div>
           <div class="d-flex justify-content-between">
             <div>
@@ -181,44 +348,59 @@
           </div>
   
           <!-- Ingredientes obligatorios -->
-          <h6 class="fw-bold mt-4">Ingredientes obligatorios</h6>
-          <table class="table table-sm table-bordered table-striped">
+          <h6 class="fw-bold mt-4 mb-2">Ingredientes obligatorios</h6>
+          <table class="table table-sm table-striped">
             <tbody>
               <tr>
-                <td><input type="checkbox" name="ingredientes[]" value="Carne" checked disabled> Carne</td>
+                <td>Carne</td>
+                <td class="text-end"><input type="checkbox" name="ingredientes[]" value="Carne" checked > </td>
               </tr>
               <tr>
-                <td><input type="checkbox" name="ingredientes[]" value="Queso" checked> Queso</td>
+                <td>Queso</td>
+                <td class="text-end"><input type="checkbox" name="ingredientes[]" value="Queso" checked > </td>
               </tr>
               <tr>
-                <td><input type="checkbox" name="ingredientes[]" value="Lechuga" checked> Lechuga</td>
+                <td>Lechuga</td>
+                <td class="text-end"><input type="checkbox" name="ingredientes[]" value="Lechuga" checked > </td>
               </tr>
               <tr>
-                <td><input type="checkbox" name="ingredientes[]" value="Tomate" checked> Tomate</td>
+                <td>Tomate</td>
+                <td class="text-end"><input type="checkbox" name="ingredientes[]" value="Tomate" checked > </td>
               </tr>
             </tbody>
           </table>
   
           <!-- Extras opcionales -->
-          <h6 class="fw-bold mt-4">Extras opcionales</h6>
-          <table class="table table-sm table-bordered table-striped">
+          <h6 class="fw-bold mt-4 mb-2">Extras opcionales</h6>
+          <table class="table table-sm table-striped">
             <tbody>
               <tr>
-                <td><input type="checkbox" name="extras[]" value="Tocineta"> Tocineta (+$1.00)</td>
+                <td>Tocineta (+$1.00)</td>
+                <td class="text-end"><input type="checkbox" name="extras[]" value="Tocineta" checked disabled> </td>
               </tr>
               <tr>
-                <td><input type="checkbox" name="extras[]" value="Doble queso"> Doble Queso (+$1.50)</td>
+                <td>Doble Queso (+$1.50)</td>
+                <td class="text-end"><input type="checkbox" name="extras[]" value="Doble queso" checked disabled> </td>
               </tr>
               <tr>
-                <td><input type="checkbox" name="extras[]" value="Huevo frito"> Huevo frito (+$0.75)</td>
+                <td>Huevo frito (+$0.75)</td>
+                <td class="text-end"><input type="checkbox" name="extras[]" value="Huevo frito" checked disabled> </td>
               </tr>
               <tr>
-                <td><input type="checkbox" name="extras[]" value="Pepinillos"> Pepinillos (+$0.50)</td>
+                <td>Pepinillos (+$0.50)</td>
+                <td class="text-end"><input type="checkbox" name="extras[]" value="Pepinillos" checked disabled> </td>
               </tr>
             </tbody>
           </table>
-        </div>
+
+            <div class="mt-4">
+                <label for="modalObservations" class="fw-bold mb-2">Observaciones</label>
+                <textarea class="form-control" id="modalObservations" rows="2" placeholder="Sin cebolla, bien cocido, etc."></textarea>
+            </div>
   
+        </div>
+
+
         <div class="modal-footer shadow-lg">
             <div class="d-flex w-100 gap-2">
               <div class="w-50">
@@ -234,21 +416,8 @@
               </button>
             </div>
           </div>
-          
-          
 
       </div>
     </div>
 </div>
-  
-
-
-
-
-<!-- Botón flotante del carrito -->
-<a href="{{ url('cart.index') }}" class="btn btn-success position-fixed d-flex align-items-center justify-content-between shadow"
-   style="bottom: 20px; right: 20px; z-index: 10; padding: 20px 20px; font-weight: 600; width: 300px;">
-    <i class="fas fa-shopping-cart me-2"></i> 
-    <span>Su Pedido: ${{ number_format($cartTotal ?? 0, 2, '.', ',') }}</span>
-</a>
 @endsection

@@ -2,6 +2,19 @@
     font-family: 'Poppins';
 }
 
+.loader-overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 1);
+    top: 0;
+    left: 0;
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .button-gray{
     border: 1px solid #d6d6d6 !important;
     color: #212529;
@@ -116,3 +129,83 @@
   padding: 1rem;
 }
   
+
+
+.search_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    transition: width 0.4s ease;
+    z-index: 1040;
+}
+
+.search_overlay.open {
+    width: 100%;
+}
+
+.search_wrap {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 1050;
+    transition: all 0.4s ease;
+}
+
+.search_wrap.open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.search_wrap form {
+    position: relative;
+    width: 100%;
+}
+
+.search_wrap .form-control {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    border-radius: 0;
+    font-size: 1rem;
+    color: white;
+    padding: 10px 0;
+    background-color: transparent;
+}
+
+.search_wrap .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search_icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-search {
+    position: absolute;
+    top: 30%;
+    right: 0;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    z-index: 1060;
+}
