@@ -12,11 +12,11 @@
                         <div class="col-xl-12">
                             <div class="auth-form">
                                 <div class="d-flex justify-content-center">
-                                    <img src="{{ asset('assets/img/logo-color.png') }}" alt="Logo {{ env('APP_NAME') }}" width="180"  style="margin-bottom: 20px;">
+                                    <img src="{{ asset('assets/img/logo-color.png') }}" alt="Logo {{ env('APP_NAME') }}" width="180"  style="margin-bottom: 25px;">
                                 </div>
-                                <p>Bienvenido a DS WebMarket, inicia sesión para gestionar tu SAAS</p>
+                                <p>Bienvenido a DS WebMarket, inicia sesión para gestionar tu catálogo</p>
 
-                                <form method="POST" action="{{ route('login') }}">
+                                <form method="POST" action="{{ url('login') }}">
                                     @csrf
 
                                     <div class="form-group">

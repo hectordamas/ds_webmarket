@@ -12,7 +12,7 @@ class HomeController extends Controller
     }
 
 
-    public function index()
+    public function getData()
     {
         // Total pedidos
         $pedidos = 128;
@@ -64,12 +64,21 @@ class HomeController extends Controller
             ],
         ]);
 
-        return view('home', compact(
+        return compact(
             'pedidos',
             'populares',
             'clientes',
             'pedidosPorEstado',
             'ultimosPedidos'
-        ));
+        );
+    }
+
+    public function home(){
+        return view('home', $this->getData());
+    }
+
+    public function dashboard(){
+        return view('tenant.dashboard', $this->getData());
+
     }
 }

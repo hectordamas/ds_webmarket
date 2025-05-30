@@ -199,6 +199,7 @@ return [
         // '--force' => true, // This needs to be true to seed tenant databases in production
     ],
 
+
     'early-identification' => env('TENANCY_EARLY_IDENTIFICATION', true),
     'abort-without-identified-hostname' => false,
 ];
