@@ -21,6 +21,7 @@ return [
         'localhost',
         '127.0.0.1',
         'ds_webmarket.test',
+        'hectordamas.site',
     ],
 
     /**
