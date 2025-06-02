@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 use App\Http\Controllers\Auth\TenantLoginController;
-use App\Http\Controllers\{HomeController};
+use App\Http\Controllers\Tenant\{HomeController};
 
 Route::middleware([
     'web',
@@ -17,10 +17,11 @@ Route::middleware([
         return view('catalogo');
     });
 
-    Route::get('/login', [TenantLoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [TenantLoginController::class, 'login'])->name('tenant.login');
-    Route::post('/logout', [TenantLoginController::class, 'logout'])->name('logout');
-    Route::get('dashboard', [HomeController::class, 'dashboard'])->middleware('tenant.auth')->name('dashboard');;
+    Route::get('login', [TenantLoginController::class, 'showLoginForm']);
+    Route::post('login', [TenantLoginController::class, 'login'])->name('tenant.login');
+    Route::post('logout', [TenantLoginController::class, 'logout'])->name('logout');
+
+    Route::get('dashboard', [HomeController::class, 'dashboard'])->middleware('tenant.auth')->name('dashboard');
 });
 
 

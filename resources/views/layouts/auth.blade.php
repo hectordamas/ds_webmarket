@@ -20,7 +20,7 @@
 	<!-- FAVICONS ICON -->
 	<link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}" />
 	
-    <link href="{{ asset('authAssets/css/style.css') }} " rel="stylesheet">
+    <link href="{{ asset('authAssets/css/style.css?v=1') }} " rel="stylesheet">
 	
 </head>
 <body class="h-100">

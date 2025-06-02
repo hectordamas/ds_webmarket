@@ -19,7 +19,7 @@
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
 
-                                    <div class="form-group">
+                                    <div class="form-group pr-1">
                                         <label><strong>Correo Electrónico</strong></label>
                                         <input type="email" name="email"
                                                class="form-control @error('email') is-invalid @enderror"
@@ -30,7 +30,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group pr-1">
                                         <label><strong>Contraseña</strong></label>
                                         <input type="password" name="password"
                                                class="form-control @error('password') is-invalid @enderror"

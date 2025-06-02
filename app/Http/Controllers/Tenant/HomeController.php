@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tenant;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('tenant.auth');
     }
 
-
-    public function getData()
-    {
+    public function getData(){
         // Total pedidos
         $pedidos = 128;
 
@@ -73,8 +72,8 @@ class HomeController extends Controller
         );
     }
 
-    public function home(){
-        return view('home', $this->getData());
-    }
+    public function dashboard(){
+        return view('tenant.dashboard', $this->getData());
 
+    }
 }

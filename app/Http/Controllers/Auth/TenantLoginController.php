@@ -26,7 +26,7 @@ class TenantLoginController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Correo o contraseña inválido.',
+            'email' => 'Correo o contraseña inválida.',
         ])->onlyInput('email');
     }
 
@@ -35,6 +35,7 @@ class TenantLoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        
         return redirect('/login');
     }
 

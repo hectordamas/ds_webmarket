@@ -104,10 +104,10 @@
           </div>
           <div class="d-block">
             <h2 class="h5 mb-3">Hola, {{ Auth::user()->name }} </h2>
-            <form action="">
+            <form action="{{ url('logout') }}" method="POST" class="logout-form">
               @csrf
             </form>
-            <a href="../../pages/examples/sign-in.html" class="btn btn-secondary btn-sm d-inline-flex align-items-center">
+            <a href="javascript:void(0)" class="btn btn-secondary btn-sm d-inline-flex align-items-center logout-button">
               <svg class="icon icon-xxs me-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>            
               Salir
             </a>
@@ -124,7 +124,7 @@
       <ul class="nav flex-column pt-3 pt-md-0">
         <li class="nav-item">
           <a href="{{ url('/') }}" class="nav-link d-flex align-items-center">
-              <img class="img-fluid" src="{{ asset('assets/img/logo-light.png') }}" style="max-width: 150px;" alt="Theme-Logo" >
+              <img class="img-fluid" src="{{ asset('assets/img/logo-light.png') }}" style="max-width: 150px;" alt="{{ env('APP_NAME')}} Logo" >
           </a>
         </li>
         <li role="separator" class="dropdown-divider border-gray-700"></li>
@@ -273,9 +273,9 @@
                   Support
                 </a>
                 <div role="separator" class="dropdown-divider my-1"></div>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                <a class="dropdown-item d-flex align-items-center logout-button" href="javascript:void(0)">
                   <svg class="dropdown-icon text-danger me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>                
-                  Logout
+                  Salir
                 </a>
               </div>
             </li>
@@ -347,6 +347,8 @@
 </main>
 
 <!-- Core -->
+<script src="{{ asset('assets/jquery.js') }}"></script>
+
 <script src="{{ asset('adminAssets/vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
 <script src="{{ asset('adminAssets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
@@ -384,6 +386,14 @@
 
 <!-- Volt JS -->
 <script src="{{ asset('adminAssets/assets/js/volt.js') }}"></script>
+
+<script>
+  $(document).ready(function(){
+    $('.logout-button').click(function(){
+      $('.logout-form').submit();
+    })
+  });
+</script>
 
 @yield('scripts')
 
