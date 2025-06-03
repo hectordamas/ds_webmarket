@@ -20,8 +20,7 @@ return [
     'central_domains' => [
         'localhost',
         '127.0.0.1',
-        'ds_webmarket.test',
-        'hectordamas.site',
+        env('CENTRAL_DOMAIN')
     ],
 
     /**
