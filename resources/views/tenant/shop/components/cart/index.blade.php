@@ -42,7 +42,6 @@
             <!-- TAB: Confirmar -->
             <div class="tab-pane fade" id="confirmar" role="tabpanel" aria-labelledby="confirmar-tab">
                 @include('tenant.shop.components.cart.confirmar')
-
             </div>
         </div>  
     </div>

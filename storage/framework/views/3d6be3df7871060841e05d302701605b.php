@@ -427,6 +427,10 @@
 
             // Si pasa validación, mostrar resumen
             goToTab('confirmar');
+
+            $('#summaryNombre').text($('[name="nombre"]').val());
+            $('#summaryTelefono').text('+58 ' + $('[name="telefono"]').val());
+            $('#summaryDireccion').text($('[name="direccion"]').val());
         });
     });
 </script>

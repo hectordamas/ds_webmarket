@@ -42,7 +42,6 @@
             <!-- TAB: Confirmar -->
             <div class="tab-pane fade" id="confirmar" role="tabpanel" aria-labelledby="confirmar-tab">
                 <?php echo $__env->make('tenant.shop.components.cart.confirmar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
             </div>
         </div>  
     </div>

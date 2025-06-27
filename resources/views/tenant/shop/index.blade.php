@@ -403,6 +403,7 @@
             const nombre = $('[name="nombre"]').val().trim();
             const cedula = $('[name="cedula"]').val().trim();
             const telefono = $('[name="telefono"]').val().trim();
+            const metodo_pago = $('[name="metodo_pago"]').val().trim();
             const tipoPedido = $('input[name="tipo_pedido"]:checked').val();
             const direccion = $('[name="direccion"]').val().trim();
 
@@ -426,6 +427,16 @@
 
             // Si pasa validación, mostrar resumen
             goToTab('confirmar');
+
+            $('#summaryNombre').text($('[name="nombre"]').val());
+            $('#summaryTelefono').text('+58 ' + $('[name="telefono"]').val());
+            $('#summaryMetodoDePago').text($('[name="telefono"]').val())
+            if (tipoPedido === 'delivery' && direccion) {
+                $('.direccion').show()
+                $('#summaryDireccion').text($('[name="metodo_pago"]').val());
+            } else{
+                $('.direccion').hide()
+            }
         });
     });
 </script>
