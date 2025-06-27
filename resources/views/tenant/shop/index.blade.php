@@ -20,7 +20,7 @@
                                 <!-- Contenedor de categorías con la clase `categories-container` -->
                                 <div class="categories-container d-flex gap-2">
                                     @foreach ($categories as $item)
-                                        <a href="/#{{ $item->slug }}" class="btn btn-outline-dark fw-semibold text-uppercase rounded-pill px-3 py-2 category-btn">
+                                        <a href="{{ url('/#' . $item->slug) }}" class="btn btn-outline-dark fw-semibold text-uppercase rounded-pill px-3 py-2 category-btn">
                                             {{ $item->name }}
                                         </a>
                                     @endforeach
@@ -397,6 +397,8 @@
 
 <script>
     $(document).ready(function () {
+
+
         $('#btnToConfirmar').on('click', function () {
             const nombre = $('[name="nombre"]').val().trim();
             const cedula = $('[name="cedula"]').val().trim();
@@ -423,10 +425,6 @@
             }
 
             // Si pasa validación, mostrar resumen
-            $('#summaryNombre').text(nombre);
-            $('#summaryTelefono').text('+58 ' + telefono);
-            $('#summaryDireccion').text(tipoPedido === 'pickup' ? 'Para llevar o recoger' : direccion);
-
             goToTab('confirmar');
         });
     });

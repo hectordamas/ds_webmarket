@@ -19,4 +19,4 @@
            <i class="fas fa-arrow-left ms-2"></i> Volver 
         </button>
     </div>
-</div>
+</div><?php /**PATH C:\laragon\www\ds_webmarket\resources\views/tenant/shop/components/cart/confirmar.blade.php ENDPATH**/ ?>

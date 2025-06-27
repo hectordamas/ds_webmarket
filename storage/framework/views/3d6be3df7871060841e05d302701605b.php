@@ -19,7 +19,7 @@
                                 <!-- Contenedor de categorías con la clase `categories-container` -->
                                 <div class="categories-container d-flex gap-2">
                                     <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <a href="/#<?php echo e($item->slug); ?>" class="btn btn-outline-dark fw-semibold text-uppercase rounded-pill px-3 py-2 category-btn">
+                                        <a href="<?php echo e(url('/#' . $item->slug)); ?>" class="btn btn-outline-dark fw-semibold text-uppercase rounded-pill px-3 py-2 category-btn">
                                             <?php echo e($item->name); ?>
 
                                         </a>
@@ -398,6 +398,8 @@
 
 <script>
     $(document).ready(function () {
+
+
         $('#btnToConfirmar').on('click', function () {
             const nombre = $('[name="nombre"]').val().trim();
             const cedula = $('[name="cedula"]').val().trim();
@@ -424,10 +426,6 @@
             }
 
             // Si pasa validación, mostrar resumen
-            $('#summaryNombre').text(nombre);
-            $('#summaryTelefono').text('+58 ' + telefono);
-            $('#summaryDireccion').text(tipoPedido === 'pickup' ? 'Para llevar o recoger' : direccion);
-
             goToTab('confirmar');
         });
     });

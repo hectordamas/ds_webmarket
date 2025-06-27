@@ -54,7 +54,7 @@
             <label for="productQuantity" class="fw-bold mb-2">Cantidad</label>
             <div class="input-group" style="width: 140px;">
                 <button class="btn btn-outline-dark" type="button" id="decreaseQty">−</button>
-                <input type="number" class="form-control text-center" value="1" min="1" id="productQuantity">
+                <input type="number" class="form-control text-center" value="1" min="1" id="productQuantity" readonly>
                 <button class="btn btn-outline-dark" type="button" id="increaseQty">+</button>
             </div>
         </div>
