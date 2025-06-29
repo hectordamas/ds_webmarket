@@ -40,7 +40,7 @@ class TenantController extends Controller
 
         // Asociar dominio
         $tenant->domains()->create([
-            'domain' => $request->domain,
+            'domain' => $request->id . '.' . env('CENTRAL_DOMAIN'),
         ]);
 
         // Intentar crear la base de datos (opcional y depende de permisos)

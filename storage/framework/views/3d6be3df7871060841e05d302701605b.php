@@ -207,7 +207,8 @@
         const productId = $(this).data('product-id');
         const pedido = $('#pedido');
         const btnCartManual = $('#btnCartManual');
-        
+        const resumenCart = $('#resumen-cart');
+
         const quantity = $('#productQuantity').val();
         const observations = $('#productObservations').val();
         const selectedOptions = {};
@@ -243,6 +244,8 @@
                 if (response.success) {
                     pedido.html(response.items)
                     btnCartManual.html(response.buttonContent)
+                    resumenCart.html(response.resumenCart)
+
                     Swal.fire({
                         icon: 'success',
                         title: '¡Producto agregado!',
@@ -280,6 +283,8 @@
                 if (response.success) {
                     $('#pedido').html(response.items);
                     $('#btnCartManual').html(response.buttonContent);
+                    $('#resumen-cart').html(response.resumenCart)
+
                     Swal.fire({
                         icon: 'success',
                         title: 'Producto eliminado',
@@ -308,6 +313,7 @@
                 if (response.success) {
                     $('#pedido').html(response.items);
                     $('#btnCartManual').html(response.buttonContent);
+                    $('#resumen-cart').html(response.resumenCart)
                     Swal.fire({
                         icon: 'success',
                         text: 'Carrito vaciado con éxito!.',
@@ -404,6 +410,7 @@
             const nombre = $('[name="nombre"]').val().trim();
             const cedula = $('[name="cedula"]').val().trim();
             const telefono = $('[name="telefono"]').val().trim();
+            const metodo_pago = $('[name="metodo_pago"]').val().trim();
             const tipoPedido = $('input[name="tipo_pedido"]:checked').val();
             const direccion = $('[name="direccion"]').val().trim();
 
@@ -430,7 +437,13 @@
 
             $('#summaryNombre').text($('[name="nombre"]').val());
             $('#summaryTelefono').text('+58 ' + $('[name="telefono"]').val());
-            $('#summaryDireccion').text($('[name="direccion"]').val());
+            $('#summaryMetodoDePago').text($('[name="telefono"]').val())
+            if (tipoPedido === 'delivery' && direccion) {
+                $('.direccion').show()
+                $('#summaryDireccion').text($('[name="metodo_pago"]').val());
+            } else{
+                $('.direccion').hide()
+            }
         });
     });
 </script>

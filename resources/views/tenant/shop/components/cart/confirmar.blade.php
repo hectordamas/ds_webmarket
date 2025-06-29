@@ -14,33 +14,11 @@
     </div>
 
     <hr>
-    @if(Cart::count() > 0)
-        <ul class="list-group mb-3">
-            @foreach(Cart::content() as $item)
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div>
-                        <div class="fw-semibold">{{ $item->name }}</div>
-                        <small class="text-muted">x{{ $item->qty }}</small>
-                        <ul class="small ps-3 mt-1 mb-0">
-                            @foreach($item->options->extras as $group => $opts)
-                                <li><strong>{{ $group }}:</strong> {{ implode(', ', $opts) }}</li>
-                            @endforeach
-                            @if($item->options->observations)
-                                <li><em>📝 {{ $item->options->observations }}</em></li>
-                            @endif
-                        </ul>
-                    </div>
-                    <span class="fw-bold text-tenant">${{ number_format($item->price * $item->qty, 2) }}</span>
-                </li>
-            @endforeach
-            <li class="list-group-item d-flex justify-content-between">
-                <strong>Total:</strong>
-                <strong class="text-tenant">${{ Cart::subtotal() }}</strong>
-            </li>
-        </ul>
-    @else
-        <div class="text-muted text-center">No hay productos en el carrito.</div>
-    @endif
+
+    <div id="resumen-cart">
+        @include('tenant.shop.components.cart.resumen-cart')
+    </div>
+
 </div>
 
 <div class="pt-2">

@@ -79,14 +79,15 @@ class CartController extends Controller
 
         $items = view('tenant.shop.components.cart.items')->render();
         $buttonContent = view('tenant.shop.components.cart.button-content')->render();
+        $resumenCart = view('tenant.shop.components.cart.resumen-cart')->render();
 
         return response()->json([
             "success" => "Producto agregado al carrito",
             "items" => $items,
             "buttonContent" => $buttonContent,
             'cartItems' => Cart::content(),
-            'item' => $item
-
+            'item' => $item,
+            'resumenCart' => $resumenCart
         ]);
     }
 
@@ -100,11 +101,13 @@ class CartController extends Controller
     
         $items = view('tenant.shop.components.cart.items')->render();
         $buttonContent = view('tenant.shop.components.cart.button-content')->render();
-    
+        $resumenCart = view('tenant.shop.components.cart.resumen-cart')->render();
+
         return response()->json([
             'success' => true,
             'items' => $items,
-            'buttonContent' => $buttonContent
+            'buttonContent' => $buttonContent,
+            'resumenCart' => $resumenCart
         ]);
     }
 
@@ -113,11 +116,13 @@ class CartController extends Controller
         
         $items = view('tenant.shop.components.cart.items')->render();
         $buttonContent = view('tenant.shop.components.cart.button-content')->render();
-    
+        $resumenCart = view('tenant.shop.components.cart.resumen-cart')->render();
+
         return response()->json([
             'success' => true,
             'items' => $items,
-            'buttonContent' => $buttonContent
+            'buttonContent' => $buttonContent,
+            'resumenCart' => $resumenCart
         ]);
     }
 }
