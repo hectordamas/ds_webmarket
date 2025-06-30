@@ -146,9 +146,9 @@ class CartController extends Controller
             $telefono = '+58' . ltrim($telefono, '0');
         }
 
-        $mensaje = "===============================\n";
+        $mensaje = "============================\n";
         $mensaje .= "*ORDEN N.º {$pedidoId}* \n";
-        $mensaje .= "===============================\n";
+        $mensaje .= "============================\n";
         $mensaje .= "*DATOS DEL CLIENTE*\n";
         $mensaje .= "----------------------------------\n";
         $mensaje .= "*Cédula / RIF:* {$data['cedula']}\n";
@@ -162,9 +162,9 @@ class CartController extends Controller
             $mensaje .= "*Dirección:* Para recoger en local\n";
         }
 
-        $mensaje .= "================================\n";
+        $mensaje .= "=============================\n";
         $mensaje .= "*CARRITO DE COMPRAS*\n";
-        $mensaje .= "================================\n";
+        $mensaje .= "=============================\n";
 
         $total = 0;
         $cantidadTotal = 0;
@@ -194,19 +194,13 @@ class CartController extends Controller
             $cantidadTotal += $cantidad;
         }
 
-        $mensaje .= "========================\n";
+        $mensaje .= "=====================\n";
         $mensaje .= "*Unidades:* {$cantidadTotal}\n";
         $mensaje .= "*Total:* " . number_format($total, 2, '.', ',') . " US$\n";
-        $mensaje .= "========================\n";
+        $mensaje .= "=====================\n";
 
         $mensaje .= "*Método de pago:* {$data['metodo_pago']}\n";
         $mensaje .= "*Tipo de pedido:* {$data['tipo_pedido']}\n";
-
-
-        /*$mensaje .= "----------------------------------\n";
-        $mensaje .= "*Repetir Pedido:* https://scarola.whataplus.com\n";
-        $mensaje .= "*Seguimiento:* https://scarola.whataplus.com/track-order-page/?on=" . base64_encode($pedidoId) . "\n";
-        $mensaje .= "*Sistema soportado por:* https://whataplus.com\n";*/
 
         // Redirigir al número de WhatsApp
         $numeroWhatsApp = '584241930033';
