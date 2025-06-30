@@ -29,35 +29,34 @@
                         <input type="text" id="id" class="form-control" value="{{ $tenant->id }}" disabled>
                     </div>
                     <div class="form group col-md-3 mb-3">
-                        <label for="nombre_empresa">Nombre de la Empresa</label>
-                        <input type="text" name="nombre_empresa" id="nombre_empresa" class="form-control" value="{{ old('nombre_empresa', $tenant->nombre_empresa ?? '') }}">
+                        <label for="nombre_empresa"  class="form-label">Nombre de la Empresa</label>
+                        <input type="text" name="nombre_empresa" id="nombre_empresa" class="form-control" value="{{ $tenant->nombre_empresa }}">
                     </div>
                     <div class="form-group col-md-3 mb-3">
                         <label for="database" class="form-label">Nombre de la Base de Datos</label>
                         <input type="text" name="database" id="database" class="form-control"
-                            value="{{ old('database', $tenant->data['tenancy_db_name'] ?? '') }}" required>
+                            value="{{ $tenant->tenancy_db_name }}" required>
                     </div>
                     <div class="form-group col-md-3 mb-3">
                         <label for="username" class="form-label">Usuario de la BD</label>
                         <input type="text" name="username" id="username" class="form-control"
-                            value="{{ old('username', $tenant->data['tenancy_db_username'] ?? '') }}" required>
+                            value="{{ $tenant->tenancy_db_username }}" required>
                     </div>
                     <div class="form-group col-md-3 mb-3">
                         <label for="password" class="form-label">Contraseña de la BD</label>
-                        <input type="password" name="password" id="password" class="form-control"
-                            placeholder="Dejar en blanco para no cambiar">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Dejar en blanco para no cambiar">
                     </div>
 
                     <div class="form-group col-md-3 mb-3">
                         <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
                         <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control"
-                            value="{{ old('fecha_vencimiento', $tenant->fecha_vencimiento ? \Carbon\Carbon::parse($tenant->fecha_vencimiento)->format('Y-m-d') : '') }}" required>
+                            value="{{  $tenant->fecha_vencimiento ? \Carbon\Carbon::parse($tenant->fecha_vencimiento)->format('Y-m-d') : '' }}" required>
                     </div>
                     <div class="form-group col-md-3 mb-3">
                         <label class="form-label d-block">Activo</label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" name="activo" id="activo"
-                                {{ old('activo', $tenant->activo) ? 'checked' : '' }}>
+                                {{ $tenant->activo ? 'checked' : '' }}>
                             <label class="form-check-label" for="activo">Habilitado</label>
                         </div>
                     </div>

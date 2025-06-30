@@ -1,5 +1,5 @@
 <?php $__env->startSection('metadata'); ?>
-    <title><?php echo e(tenant('id')); ?> - <?php echo e(env('APP_NAME')); ?></title>
+    <title><?php echo e(tenant('nombre_empresa')); ?> - <?php echo e(env('APP_NAME')); ?></title>
     <?php echo $__env->make('tenant.shop.styles', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 
@@ -410,7 +410,7 @@
             const nombre = $('[name="nombre"]').val().trim();
             const cedula = $('[name="cedula"]').val().trim();
             const telefono = $('[name="telefono"]').val().trim();
-            const metodo_pago = $('[name="metodo_pago"]').val().trim();
+            const metodo_pago = $('[name="metodo_pago"]').val();
             const tipoPedido = $('input[name="tipo_pedido"]:checked').val();
             const direccion = $('[name="direccion"]').val().trim();
 
@@ -419,6 +419,7 @@
             if (!nombre) errores.push("El nombre es obligatorio.");
             if (!cedula) errores.push("La cédula es obligatoria.");
             if (!telefono) errores.push("El teléfono es obligatorio.");
+            if (!metodo_pago) errores.push("El Método de Pago es obligatorio.");
             if (tipoPedido === 'delivery' && !direccion) errores.push("La dirección es obligatoria para Delivery.");
 
             if (errores.length > 0) {

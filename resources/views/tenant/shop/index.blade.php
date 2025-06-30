@@ -1,6 +1,6 @@
 @extends('tenant.layouts.app')
 @section('metadata')
-    <title>{{ tenant('id') }} - {{ env('APP_NAME') }}</title>
+    <title>{{ tenant('nombre_empresa') }} - {{ env('APP_NAME') }}</title>
     @include('tenant.shop.styles')
 @endsection
 
@@ -409,7 +409,7 @@
             const nombre = $('[name="nombre"]').val().trim();
             const cedula = $('[name="cedula"]').val().trim();
             const telefono = $('[name="telefono"]').val().trim();
-            const metodo_pago = $('[name="metodo_pago"]').val().trim();
+            const metodo_pago = $('[name="metodo_pago"]').val();
             const tipoPedido = $('input[name="tipo_pedido"]:checked').val();
             const direccion = $('[name="direccion"]').val().trim();
 
@@ -418,6 +418,7 @@
             if (!nombre) errores.push("El nombre es obligatorio.");
             if (!cedula) errores.push("La cédula es obligatoria.");
             if (!telefono) errores.push("El teléfono es obligatorio.");
+            if (!metodo_pago) errores.push("El Método de Pago es obligatorio.");
             if (tipoPedido === 'delivery' && !direccion) errores.push("La dirección es obligatoria para Delivery.");
 
             if (errores.length > 0) {

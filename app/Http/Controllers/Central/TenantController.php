@@ -58,7 +58,6 @@ class TenantController extends Controller
     public function edit(string $id)
     {
         $tenant = Tenant::with('domains')->findOrFail($id);
-
         return view('central.admin.tenant.edit', compact('tenant'));
     }
 
@@ -67,7 +66,6 @@ class TenantController extends Controller
         $request->validate([
             'database' => 'required|string',
             'username' => 'required|string',
-            'password' => 'required|string',
             'nombre_empresa' => 'required|string'
         ]);
 

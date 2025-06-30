@@ -16,6 +16,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Dominio</th>
+                            <th>Empresa</th>
                             <th>Base de Datos</th>
                             <th>Acciones</th>
                         </tr>
@@ -28,6 +29,7 @@
                                     <?php echo e($tenant->domains->first()->domain ?? 'Sin dominio'); ?>
 
                                 </td>
+                                <td><?php echo e($tenant->nombre_empresa); ?></td>
                                 <td><?php echo e($tenant->tenancy_db_name); ?></td>
                                 <td>
                                     <div class="d-flex gap-1">

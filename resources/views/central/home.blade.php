@@ -17,6 +17,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Dominio</th>
+                            <th>Empresa</th>
                             <th>Base de Datos</th>
                             <th>Acciones</th>
                         </tr>
@@ -28,6 +29,7 @@
                                 <td>
                                     {{ $tenant->domains->first()->domain ?? 'Sin dominio' }}
                                 </td>
+                                <td>{{ $tenant->nombre_empresa }}</td>
                                 <td>{{ $tenant->tenancy_db_name }}</td>
                                 <td>
                                     <div class="d-flex gap-1">

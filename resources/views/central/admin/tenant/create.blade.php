@@ -26,7 +26,7 @@
                         <input type="text" name="id" id="id" class="form-control" value="{{ old('id') }}" required>
                     </div>
                     <div class="form group col-md-3 mb-3">
-                        <label for="nombre_empresa">Nombre de la Empresa</label>
+                        <label for="nombre_empresa"  class="form-label">Nombre de la Empresa</label>
                         <input type="text" name="nombre_empresa" id="nombre_empresa" class="form-control" value="{{ old('nombre_empresa') }}">
                     </div>
                     <div class="form-group col-md-3 mb-3">

@@ -9,7 +9,7 @@
             <p class="mb-1"><span class="fw-semibold">Teléfono:</span> <span id="summaryTelefono">—</span></p>
             <p class="mb-1"><span class="fw-semibold">Método de Pago:</span> <span id="summaryMetodoDePago">—</span></p>
             <p class="mb-1 direccion"><span class="fw-semibold">Dirección:</span> <span id="summaryDireccion">—</span></p>
-            <p class="mb-1"><span class="fw-semibold">Tipo de Pedido:</strspanong> <span id="summaryTipoDePedido">—</span></p>
+            <p class="mb-1"><span class="fw-semibold">Tipo de Pedido:</span> <span id="summaryTipoDePedido">—</span></p>
         </div>
     </div>
 
