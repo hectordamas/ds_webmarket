@@ -5,6 +5,9 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body d-flex flex-column" id="cart-offcanvas-container">
+
+
+
         <!-- Navegación de pestañas -->
         <ul class="nav nav-tabs nav-justified mb-3" id="cartTabs" role="tablist">
             <li class="nav-item" role="presentation">
@@ -44,6 +47,8 @@
                 @include('tenant.shop.components.cart.confirmar')
             </div>
         </div>  
+
+
     </div>
 </div>
 

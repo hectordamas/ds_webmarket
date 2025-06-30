@@ -454,7 +454,7 @@
 
 
 <script>
-$('#enviarWhatsapp').on('click', function(e) {
+$(document).on('click', '#enviarWhatsapp', function(e) {
     e.preventDefault();
 
     const data = {
@@ -487,7 +487,7 @@ $('#enviarWhatsapp').on('click', function(e) {
             alert('Error al enviar el pedido.');
         },
         complete: function() {
-            $('#enviarWhatsapp').html('<i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp');
+            $('#enviarWhatsapp').html('<i class="fas fa-shopping-bag me-2"></i> <i class="fab fa-whatsapp me-2"></i> PULSE PARA ENVIAR SU PEDIDO');
         }
     });
 });
@@ -515,9 +515,7 @@ $('#enviarWhatsapp').on('click', function(e) {
       },
       success: function(response) {
         if(response.success) {
-          alert('Orden confirmada con éxito');
-          // Aquí puedes mostrar el componente completo con el botón WhatsApp, 
-          // o redirigir a otra vista, etc.
+            $('#confirmar').html(response.html);
         } else {
           alert('Error al guardar la orden');
         }

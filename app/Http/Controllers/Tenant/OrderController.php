@@ -43,28 +43,33 @@ class OrderController extends Controller
             $orderProduct->save();
 
             // 3. Guardar las opciones (si hay)
-            if (!empty($item->options->extras)) {
-                foreach ($item->options->extras as $grupo => $opciones) {
-                    foreach ($opciones as $opcion) {
-                        // Intentar separar el nombre y el precio si tiene formato: "Mostaza (+$0.50)"
-                        $nombre = $opcion;
-                        $precio = 0;
-                        if (preg_match('/(.+)\s+\(\+\$(\d+(?:\.\d+)?)\)/', $opcion, $match)) {
-                            $nombre = trim($match[1]);
-                            $precio = (float) $match[2];
-                        }
-
-                        $op = new OrderProductOption();
-                        $op->order_product_id = $orderProduct->id;
-                        $op->option_group_name = $grupo;
-                        $op->option_name = $nombre;
-                        $op->price = $precio;
-                        $op->save();
+            foreach ($item->options->extras as $grupo => $opciones) {
+                foreach ($opciones as $opcion) {
+                    // Intentar separar el nombre y el precio si tiene formato: "Mostaza (+$0.50)"
+                    $nombre = $opcion;
+                    $precio = 0;
+                    if (preg_match('/(.+)\s+\(\+\$(\d+(?:\.\d+)?)\)/', $opcion, $match)) {
+                        $nombre = trim($match[1]);
+                        $precio = (float) $match[2];
                     }
+                    $op = new OrderProductOption();
+                    $op->order_product_id = $orderProduct->id;
+                    $op->option_group_name = $grupo;
+                    $op->option_name = $nombre;
+                    $op->price = $precio;
+                    $op->save();
                 }
             }
         }
 
-        return response()->json(['success' => true, 'order_id' => $order->id]);
+        $html = view('tenant.shop.components.cart.completed', [
+            'order' => $order
+        ])->render();
+
+        return response()->json([
+            'success' => true, 
+            'order_id' => $order->id,
+            'html' => $html
+        ]);
     }
 }
