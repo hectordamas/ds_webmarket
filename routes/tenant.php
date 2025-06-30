@@ -46,6 +46,7 @@ Route::middleware([
         Route::post('add', 'add');
         Route::post('cart/remove', 'remove');
         Route::post('cart/destroy', 'destroy');
+        Route::post('enviar-pedido',  'enviarWhatsapp');
     });
 
 

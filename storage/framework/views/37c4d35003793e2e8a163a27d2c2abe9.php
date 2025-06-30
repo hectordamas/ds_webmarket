@@ -3,7 +3,7 @@
         <?php $__currentLoopData = Cart::content(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <li class="list-group-item d-flex justify-content-between align-items-start">
                 <div>
-                    <div class="fw-semibold"><?php echo e($item->name); ?></div>
+                    <span class="fw-semibold"><?php echo e($item->name); ?></span>
                     <small class="text-muted">x<?php echo e($item->qty); ?></small>
                     <ul class="small ps-3 mt-1 mb-0">
                         <?php $__currentLoopData = $item->options->extras; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $group => $opts): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

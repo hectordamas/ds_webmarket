@@ -3,7 +3,7 @@
         @foreach(Cart::content() as $item)
             <li class="list-group-item d-flex justify-content-between align-items-start">
                 <div>
-                    <div class="fw-semibold">{{ $item->name }}</div>
+                    <span class="fw-semibold">{{ $item->name }}</span>
                     <small class="text-muted">x{{ $item->qty }}</small>
                     <ul class="small ps-3 mt-1 mb-0">
                         @foreach($item->options->extras as $group => $opts)

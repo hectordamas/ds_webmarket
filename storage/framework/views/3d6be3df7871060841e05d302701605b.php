@@ -437,15 +437,60 @@
 
             $('#summaryNombre').text($('[name="nombre"]').val());
             $('#summaryTelefono').text('+58 ' + $('[name="telefono"]').val());
-            $('#summaryMetodoDePago').text($('[name="telefono"]').val())
+            $('#summaryCedula').text($('[name="cedula"]').val());
+            $('#summaryMetodoDePago').text($('[name="metodo_pago"]').val())
+            $('#summaryTipoDePedido').text($('input[name="tipo_pedido"]:checked').val())
             if (tipoPedido === 'delivery' && direccion) {
                 $('.direccion').show()
-                $('#summaryDireccion').text($('[name="metodo_pago"]').val());
+                $('#summaryDireccion').text($('[name="direccion"]').val());
             } else{
                 $('.direccion').hide()
+                $('#summaryDireccion').text('');
             }
         });
     });
+</script>
+
+
+<script>
+$('#enviarWhatsapp').on('click', function(e) {
+    e.preventDefault();
+
+    const data = {
+        _token: '<?php echo e(csrf_token()); ?>',
+        nombre: $('input[name="nombre"]').val(),
+        cedula: $('input[name="cedula"]').val(),
+        telefono: $('input[name="telefono"]').val(),
+        direccion: $('textarea[name="direccion"]').val(),
+        detalle_direccion: $('input[name="detalle_direccion"]').val(),
+        metodo_pago: $('select[name="metodo_pago"]').val(),
+        tipo_pedido: $('input[name="tipo_pedido"]:checked').val(),
+    };
+
+    $.ajax({
+        url: "<?php echo e(url('enviar-pedido')); ?>",
+        method: "POST",
+        data: data,
+        beforeSend: function() {
+            $('#enviarWhatsapp').text('Enviando...');
+        },
+        success: function(response) {
+            if (response.url) {
+                console.log(response.url)
+                window.open(response.url, '_blank');
+            } else {
+                alert('No se pudo generar el mensaje.');
+            }
+        },
+        error: function(xhr) {
+            alert('Error al enviar el pedido.');
+        },
+        complete: function() {
+            $('#enviarWhatsapp').html('<i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp');
+        }
+    });
+});
+
 </script>
 <?php $__env->stopSection(); ?>
 

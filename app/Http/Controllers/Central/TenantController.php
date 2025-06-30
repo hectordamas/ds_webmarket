@@ -46,10 +46,9 @@ class TenantController extends Controller
         $tenant = Tenant::find($request->id);
         
         // Asocia el dominio
-        $tenant->domains()->create([
-            'domain' => $request->domain,
+       $tenant->domains()->create([
+            'domain' => $request->id . '.' . env('CENTRAL_DOMAIN'),
         ]);
-
         /*
         Crear el tenant con permisos de root
         $tenant = Tenant::create([
@@ -101,7 +100,7 @@ class TenantController extends Controller
         $tenant = Tenant::findOrFail($id);
         $tenant->domains()->delete(); // elimina el anterior (opcional según lógica)
         $tenant->domains()->create([
-            'domain' => $request->domain,
+            'domain' => $id . '.' . env('CENTRAL_DOMAIN'),
         ]);
 
         return redirect()->route('tenants.index')->with('success', 'Tenant actualizado correctamente.');

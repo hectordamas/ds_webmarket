@@ -125,4 +125,95 @@ class CartController extends Controller
             'resumenCart' => $resumenCart
         ]);
     }
+
+    public function enviarWhatsapp(Request $request)
+    {
+        $data = $request->validate([
+            'nombre' => 'required|string',
+            'cedula' => 'required|string',
+            'telefono' => 'required|string',
+            'direccion' => 'nullable|string',
+            'detalle_direccion' => 'nullable|string',
+            'metodo_pago' => 'required|string',
+            'tipo_pedido' => 'required|string',
+        ]);
+
+        $pedidoId = rand(1000, 9999);
+
+        // Preparar número telefónico
+        $telefono = $data['telefono'];
+        if (!str_starts_with($telefono, '+')) {
+            $telefono = '+58' . ltrim($telefono, '0');
+        }
+
+        $mensaje = "===============================\n";
+        $mensaje .= "*ORDEN N.º {$pedidoId}* \n";
+        $mensaje .= "===============================\n";
+        $mensaje .= "*DATOS DEL CLIENTE*\n";
+        $mensaje .= "----------------------------------\n";
+        $mensaje .= "*Cédula / RIF:* {$data['cedula']}\n";
+        $mensaje .= "*Nombre:* {$data['nombre']}\n";
+        $mensaje .= "*Teléfono:* {$telefono}\n";
+
+        if ($data['tipo_pedido'] === 'delivery') {
+            $direccion = trim($data['direccion'] . ' ' . ($data['detalle_direccion'] ?? ''));
+            $mensaje .= "*Dirección:* {$direccion}\n";
+        } else {
+            $mensaje .= "*Dirección:* Para recoger en local\n";
+        }
+
+        $mensaje .= "================================\n";
+        $mensaje .= "*CARRITO DE COMPRAS*\n";
+        $mensaje .= "================================\n";
+
+        $total = 0;
+        $cantidadTotal = 0;
+
+        foreach (Cart::content() as $item) {
+            $cantidad = $item->qty;
+            $precioUnitario = number_format($item->price, 2, '.', ',');
+            $precioTotal = number_format($item->price * $cantidad, 2, '.', ',');
+            $nombreProducto = $item->name;
+
+            $mensaje .= "{$nombreProducto}\n";
+            $mensaje .= "{$cantidad} x {$precioUnitario} US$ = *{$precioTotal} US$* \n";
+
+            // Extras
+            foreach ($item->options->extras as $grupo => $opciones) {
+                $mensaje .= "  - {$grupo}: " . implode(', ', $opciones) . "\n";
+            }
+
+            // Observaciones
+            if ($item->options->observations) {
+                $mensaje .= "  - *Nota:* {$item->options->observations}\n";
+            }
+
+            $mensaje .= "----------------------------------\n";
+
+            $total += $item->price * $cantidad;
+            $cantidadTotal += $cantidad;
+        }
+
+        $mensaje .= "========================\n";
+        $mensaje .= "*Unidades:* {$cantidadTotal}\n";
+        $mensaje .= "*Total:* " . number_format($total, 2, '.', ',') . " US$\n";
+        $mensaje .= "========================\n";
+
+        $mensaje .= "*Método de pago:* {$data['metodo_pago']}\n";
+        $mensaje .= "*Tipo de pedido:* {$data['tipo_pedido']}\n";
+
+
+        /*$mensaje .= "----------------------------------\n";
+        $mensaje .= "*Repetir Pedido:* https://scarola.whataplus.com\n";
+        $mensaje .= "*Seguimiento:* https://scarola.whataplus.com/track-order-page/?on=" . base64_encode($pedidoId) . "\n";
+        $mensaje .= "*Sistema soportado por:* https://whataplus.com\n";*/
+
+        // Redirigir al número de WhatsApp
+        $numeroWhatsApp = '584241930033';
+        $url = "https://wa.me/{$numeroWhatsApp}?text=" . urlencode($mensaje);
+
+        return response()->json(['url' => $url]);
+    }
+
+
 }
