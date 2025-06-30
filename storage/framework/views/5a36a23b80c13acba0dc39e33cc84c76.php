@@ -1,4 +1,4 @@
-<div class="flex-grow-1 overflow-auto px-2" style="max-height: calc(100vh - 270px);">
+<div class="flex-grow-1 overflow-auto px-2" style="max-height: calc(100vh - 290px);">
 
     <div class="pt-2">
         <h6 class="fw-bold">Datos del Cliente</h6>
@@ -9,7 +9,7 @@
             <p class="mb-1"><span class="fw-semibold">Teléfono:</span> <span id="summaryTelefono">—</span></p>
             <p class="mb-1"><span class="fw-semibold">Método de Pago:</span> <span id="summaryMetodoDePago">—</span></p>
             <p class="mb-1 direccion"><span class="fw-semibold">Dirección:</span> <span id="summaryDireccion">—</span></p>
-            <p class="mb-1"><span class="fw-semibold">Tipo de Pedido:</strspanong> <span id="summaryTipoDePedido">—</span></p>
+            <p class="mb-1"><span class="fw-semibold">Tipo de Pedido:</span> <span id="summaryTipoDePedido">—</span></p>
         </div>
     </div>
 
@@ -23,9 +23,14 @@
 
 <div class="pt-2 px-2">
     <div class="mb-2">
+        <button id="btnConfirmar" class="btn btn-tenant w-100">
+            Confirmar Orden
+        </button>
+
+        <!--
         <a href="#" class="btn btn-tenant w-100" id="enviarWhatsapp">
             <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
-        </a>
+        </a>-->
     </div>
     <div class="mb-2">
         <button class="btn btn-dark w-100" onclick="goToTab('checkout')">

@@ -1,4 +1,4 @@
-<div class="flex-grow-1 overflow-auto px-2" style="max-height: calc(100vh - 270px);">
+<div class="flex-grow-1 overflow-auto px-2" style="max-height: calc(100vh - 290px);">
 
     <div class="pt-2">
         <h6 class="fw-bold">Datos del Cliente</h6>
@@ -23,9 +23,14 @@
 
 <div class="pt-2 px-2">
     <div class="mb-2">
+        <button id="btnConfirmar" class="btn btn-tenant w-100">
+            Confirmar Orden
+        </button>
+
+        <!--
         <a href="#" class="btn btn-tenant w-100" id="enviarWhatsapp">
             <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
-        </a>
+        </a>-->
     </div>
     <div class="mb-2">
         <button class="btn btn-dark w-100" onclick="goToTab('checkout')">

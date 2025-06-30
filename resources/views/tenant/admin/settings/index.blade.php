@@ -17,22 +17,22 @@
                 <form method="POST" action="{{ url('settings/update') }}" enctype="multipart/form-data" class="row">
                     @csrf
 
-                    <div class="form-group col-md-6 mb-3">
+                    <div class="form-group col-md-3 mb-3">
                         <label>Logo actual:</label><br>
                         <img src="{{ asset($settings['logo'] ?? 'assets/img/logo-color.png') }}" height="60" alt="Logo actual">
                     </div>
 
-                    <div class="form-group col-md-6 mb-3">
+                    <div class="form-group col-md-3 mb-3">
                         <label for="logo">Subir nuevo logo:</label>
                         <input type="file" name="logo" id="logo" class="form-control">
                     </div>
 
-                    <div class="form-group col-md-6 mb-3">
+                    <div class="form-group col-md-3 mb-3">
                         <label for="whatsapp_human">Número de WhatsApp:</label>
                         <input type="text" name="whatsapp_human" id="whatsapp_human" class="form-control" value="{{ $settings['whatsapp_human'] ?? '' }}" placeholder="+58 424-1234567">
                     </div>
 
-                    <div class="form-group col-md-6 mb-3">
+                    <div class="form-group col-md-3 mb-3">
                         <label for="color_primary">Color Primario:</label>
                         <input type="color" name="color_primary" id="color_primary" class="form-control" value="{{ $settings['color_primary'] ?? '#00b894' }}">
                     </div>

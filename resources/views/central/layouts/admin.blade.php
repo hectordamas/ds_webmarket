@@ -14,12 +14,12 @@
                 [
                     'name' => 'Lista de Dominios',
                     'icon' => '<i class="fas fa-list"></i>',
-                    'ruta' => 'products'
+                    'ruta' => 'home'
                 ],
                 [
                     'name' => 'Crear Dominios',
                     'icon' => '<i class="far fa-plus-square"></i>',
-                    'ruta' => 'products/create'
+                    'ruta' => 'tenants/create'
                 ]
             ]
         ], 

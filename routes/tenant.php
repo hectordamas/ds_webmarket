@@ -15,7 +15,8 @@ use App\Http\Controllers\Tenant\{
     ShopController, 
     OptionGroupController, 
     OptionController, 
-    CartController
+    CartController,
+    OrderController
 };
 
 Route::middleware([
@@ -49,6 +50,11 @@ Route::middleware([
         Route::post('enviar-pedido',  'enviarWhatsapp');
     });
 
+    //OrderController
+    Route::controller(OrderController::class)->group(function(){
+        Route::post('orders/store', 'store');
+
+    });
 
     //Rutas con Auth
     Route::middleware('tenant.auth')->group(function () {

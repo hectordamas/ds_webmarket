@@ -1,3 +1,6 @@
+<?php $__env->startSection('metadata'); ?>
+<title>Crear Tenant - <?php echo e(env('APP_NAME')); ?> </title>
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
 <div class="row">
     <div class="col-md-12">
@@ -18,8 +21,12 @@
                 <form action="<?php echo e(route('tenants.store')); ?>" method="POST" class="row">
                     <?php echo csrf_field(); ?>
                     <div class="form-group col-md-3 mb-3">
-                        <label for="id" class="form-label">ID del Tenant</label>
+                        <label for="id" class="form-label">Prefijo del Subdominio</label>
                         <input type="text" name="id" id="id" class="form-control" value="<?php echo e(old('id')); ?>" required>
+                    </div>
+                    <div class="form group col-md-3 mb-3">
+                        <label for="nombre_empresa"  class="form-label">Nombre de la Empresa</label>
+                        <input type="text" name="nombre_empresa" id="nombre_empresa" class="form-control" value="<?php echo e(old('nombre_empresa')); ?>">
                     </div>
                     <div class="form-group col-md-3 mb-3">
                         <label for="database" class="form-label">Nombre de la Base de Datos</label>
@@ -33,10 +40,7 @@
                         <label for="password" class="form-label">Contraseña de la BD</label>
                         <input type="password" name="password" id="password" class="form-control">
                     </div>
-                    <div class="form-group col-md-3 mb-3">
-                        <label for="domain" class="form-label">Dominio</label>
-                        <input type="text" name="domain" id="domain" class="form-control" placeholder="cliente1.midominio.com" value="<?php echo e(old('domain')); ?>" required>
-                    </div>
+
                     <div class="form-group col-md-3 mb-3">
                         <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
                         <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control" value="<?php echo e(old('fecha_vencimiento')); ?>" required>
