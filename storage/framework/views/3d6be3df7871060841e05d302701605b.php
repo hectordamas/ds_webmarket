@@ -452,6 +452,38 @@
     });
 </script>
 
+<script>
+  $('#btnConfirmar').on('click', function() {
+    const data = {
+      _token: '<?php echo e(csrf_token()); ?>',
+      nombre: $('input[name="nombre"]').val(),
+      cedula: $('input[name="cedula"]').val(),
+      telefono: $('input[name="telefono"]').val(),
+      direccion: $('textarea[name="direccion"]').val(),
+      metodo_pago: $('select[name="metodo_pago"]').val(),
+      tipo_pedido: $('input[name="tipo_pedido"]:checked').val(),
+    };
+
+    $.ajax({
+      url: "<?php echo e(url('orders/store')); ?>",
+      method: 'POST',
+      data: data,
+      beforeSend: function() {
+          $('#btnConfirmar').text('Enviando...');
+      },
+      success: function(response) {
+        if(response.success) {
+            $('#confirmar').html(response.html);
+        } else {
+          alert('Error al guardar la orden');
+        }
+      },
+      error: function(xhr) {
+          alert('Error al enviar el pedido.');
+      },
+    });
+  });
+</script>
 
 <script>
 $(document).on('click', '#enviarWhatsapp', function(e) {
@@ -492,39 +524,6 @@ $(document).on('click', '#enviarWhatsapp', function(e) {
     });
 });
 
-</script>
-
-<script>
-  $('#btnConfirmar').on('click', function() {
-    const data = {
-      _token: '<?php echo e(csrf_token()); ?>',
-      nombre: $('input[name="nombre"]').val(),
-      cedula: $('input[name="cedula"]').val(),
-      telefono: $('input[name="telefono"]').val(),
-      direccion: $('textarea[name="direccion"]').val(),
-      metodo_pago: $('select[name="metodo_pago"]').val(),
-      tipo_pedido: $('input[name="tipo_pedido"]:checked').val(),
-    };
-
-    $.ajax({
-      url: "<?php echo e(url('orders/store')); ?>",
-      method: 'POST',
-      data: data,
-      beforeSend: function() {
-          $('#btnConfirmar').text('Enviando...');
-      },
-      success: function(response) {
-        if(response.success) {
-            $('#confirmar').html(response.html);
-        } else {
-          alert('Error al guardar la orden');
-        }
-      },
-      error: function(xhr) {
-          alert('Error al enviar el pedido.');
-      },
-    });
-  });
 </script>
 <?php $__env->stopSection(); ?>
 

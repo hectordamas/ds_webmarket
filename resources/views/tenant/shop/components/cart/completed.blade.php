@@ -12,7 +12,7 @@
     <h2 class="fw-bold text-tenant mb-3" id="numeroPedido">{{ $order->id ?? '—' }}</h2>
 
     {{-- Tiempo estimado --}}
-    <p class="small text-warning mb-3">
+    <p class="small  mb-3">
         <i class="fas fa-hourglass-half me-1"></i> 
         Tiempo de entrega: Entrega estimada de su pedido 30 minutos.
     </p>
@@ -32,8 +32,8 @@
 
     {{-- Botones secundarios --}}
     <div class="d-grid gap-2 mb-4">
-        <a href="" class="btn btn-tenant">Seguimiento del pedido</a>
-        <a href="" class="btn btn-outline-dark">Hacer otro pedido</a>
+        <a href="{{ url('track-order-page/' . $order->id) }}" target="_blank" class="btn btn-tenant">Seguimiento del pedido</a>
+        <a href="{{ url('/') }}" target="_blank"  class="btn btn-outline-dark">Hacer otro pedido</a>
     </div>
 
     {{-- Footer --}}

@@ -53,6 +53,7 @@ Route::middleware([
     //OrderController
     Route::controller(OrderController::class)->group(function(){
         Route::post('orders/store', 'store');
+        Route::get('track-order-page/{id}', 'track');
 
     });
 

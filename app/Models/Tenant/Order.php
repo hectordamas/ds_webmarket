@@ -4,7 +4,7 @@ namespace App\Models\Tenant;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Modles\Tenant\{OrderProduct};
+use App\Models\Tenant\{OrderProduct};
 
 class Order extends Model
 {
