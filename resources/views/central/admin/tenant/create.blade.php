@@ -1,4 +1,7 @@
 @extends('central.layouts.admin')
+@section('metadata')
+<title>Crear Tenant - {{ env('APP_NAME') }} </title>
+@endsection
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -19,8 +22,12 @@
                 <form action="{{ route('tenants.store') }}" method="POST" class="row">
                     @csrf
                     <div class="form-group col-md-3 mb-3">
-                        <label for="id" class="form-label">ID del Tenant</label>
+                        <label for="id" class="form-label">Prefijo del Subdominio</label>
                         <input type="text" name="id" id="id" class="form-control" value="{{ old('id') }}" required>
+                    </div>
+                    <div class="form group col-md-3 mb-3">
+                        <label for="nombre_empresa">Nombre de la Empresa</label>
+                        <input type="text" name="nombre_empresa" id="nombre_empresa" class="form-control" value="{{ old('nombre_empresa') }}">
                     </div>
                     <div class="form-group col-md-3 mb-3">
                         <label for="database" class="form-label">Nombre de la Base de Datos</label>
@@ -34,10 +41,7 @@
                         <label for="password" class="form-label">Contraseña de la BD</label>
                         <input type="password" name="password" id="password" class="form-control">
                     </div>
-                    <div class="form-group col-md-3 mb-3">
-                        <label for="domain" class="form-label">Dominio</label>
-                        <input type="text" name="domain" id="domain" class="form-control" placeholder="cliente1.midominio.com" value="{{ old('domain') }}" required>
-                    </div>
+
                     <div class="form-group col-md-3 mb-3">
                         <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
                         <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control" value="{{ old('fecha_vencimiento') }}" required>

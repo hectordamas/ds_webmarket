@@ -4,12 +4,12 @@
         <h6 class="fw-bold">Datos del Cliente</h6>
         <hr>
         <div class="mt-3">
-            <p class="mb-1"><strong>Nombre:</strong> <span id="summaryNombre">—</span></p>
-            <p class="mb-1"><strong>Cédula:</strong> <span id="summaryCedula">—</span></p>
-            <p class="mb-1"><strong>Teléfono:</strong> <span id="summaryTelefono">—</span></p>
-            <p class="mb-1"><strong>Método de Pago:</strong> <span id="summaryMetodoDePago">—</span></p>
-            <p class="mb-1 direccion"><strong>Dirección:</strong> <span id="summaryDireccion">—</span></p>
-            <p class="mb-1"><strong>Tipo de Pedido:</strong> <span id="summaryTipoDePedido">—</span></p>
+            <p class="mb-1"><span class="fw-semibold">Nombre:</span> <span id="summaryNombre">—</span></p>
+            <p class="mb-1"><span class="fw-semibold">Cédula:</span> <span id="summaryCedula">—</span></p>
+            <p class="mb-1"><span class="fw-semibold">Teléfono:</span> <span id="summaryTelefono">—</span></p>
+            <p class="mb-1"><span class="fw-semibold">Método de Pago:</span> <span id="summaryMetodoDePago">—</span></p>
+            <p class="mb-1 direccion"><span class="fw-semibold">Dirección:</span> <span id="summaryDireccion">—</span></p>
+            <p class="mb-1"><span class="fw-semibold">Tipo de Pedido:</strspanong> <span id="summaryTipoDePedido">—</span></p>
         </div>
     </div>
 

@@ -26,7 +26,7 @@ class TenantController extends Controller
             'id' => 'required|unique:tenants,id',
             'database' => 'required|string',
             'username' => 'required|string',
-            'domain' => 'required|string',
+            'nombre_empresa' => 'required|string'
         ]);
 
         DB::table('tenants')->insert([
@@ -37,6 +37,7 @@ class TenantController extends Controller
                 'tenancy_db_password' => $request->password,
             ]),
             'fecha_vencimiento' => $request->fecha_vencimiento,
+            'nombre_empresa' => $request->nombre_empresa,
             'activo' => $request->has('activo'),
             'created_at' => now(),
             'updated_at' => now(),
@@ -49,20 +50,6 @@ class TenantController extends Controller
        $tenant->domains()->create([
             'domain' => $request->id . '.' . env('CENTRAL_DOMAIN'),
         ]);
-        /*
-        Crear el tenant con permisos de root
-        $tenant = Tenant::create([
-            'id' => $request->id,
-            'tenancy_db_name' => $request->database, 
-            'tenancy_db_username' => $request->username,
-            'tenancy_db_password' => $request->password,
-        ]);
-
-        Asociar dominio
-        $tenant->domains()->create([
-            'domain' => $request->domain,
-        ]);
-        */
 
         return redirect()->route('tenants.index')->with('success', 'Tenant creado exitosamente.');
     }
@@ -72,7 +59,7 @@ class TenantController extends Controller
     {
         $tenant = Tenant::with('domains')->findOrFail($id);
 
-        return view('admin.tenant.edit', compact('tenant'));
+        return view('central.admin.tenant.edit', compact('tenant'));
     }
 
     public function update(Request $request, string $id)
@@ -81,7 +68,7 @@ class TenantController extends Controller
             'database' => 'required|string',
             'username' => 'required|string',
             'password' => 'required|string',
-            'domain' => 'required|string',
+            'nombre_empresa' => 'required|string'
         ]);
 
         // Actualizar datos JSON del tenant
@@ -92,6 +79,7 @@ class TenantController extends Controller
                 'tenancy_db_password' => $request->password,
             ]),
             'fecha_vencimiento' => $request->fecha_vencimiento,
+            'nombre_empresa' => $request->nombre_empresa,
             'activo' => $request->has('activo'),
             'updated_at' => now(),
         ]);
