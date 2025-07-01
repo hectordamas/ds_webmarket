@@ -53,6 +53,23 @@
             ]
         ],
         [
+            'name' => 'Usuarios',
+            'icon' => '<i class="fas fa-user"></i>',
+            'ruta' => 'orders',
+            'subitems' => [
+                [
+                    'name' => 'Lista de Usuarios',
+                    'icon' => '<i class="fas fa-list"></i>',
+                    'ruta' => 'usuarios'
+                ],
+                [
+                    'name' => 'Registrar Usuario',
+                    'icon' => '<i class="fas fa-plus"></i>',
+                    'ruta' => 'usuarios/create'
+                ]
+            ]
+        ],
+        [
             'name' => 'Configuración',
             'icon' => '<i class="fas fa-cog"></i>',
             'ruta' => 'settings',

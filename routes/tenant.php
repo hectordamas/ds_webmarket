@@ -16,7 +16,8 @@ use App\Http\Controllers\Tenant\{
     OptionGroupController, 
     OptionController, 
     CartController,
-    OrderController
+    OrderController,
+    UsersController
 };
 
 Route::middleware([
@@ -54,7 +55,7 @@ Route::middleware([
     Route::controller(OrderController::class)->group(function(){
         Route::post('orders/store', 'store');
         Route::get('track-order-page/{id}', 'track');
-
+        Route::get('track-content/{id}', 'trackContent');
     });
 
     //Rutas con Auth
@@ -106,6 +107,15 @@ Route::middleware([
         Route::controller(SettingsController::class)->group(function () {
             Route::get('settings', 'index')->name('settings.index');
             Route::post('settings/update', 'update')->name('settings.update');
+        });
+
+        Route::prefix('usuarios')->controller(UsersController::class)->group(function () {
+            Route::get('/', 'index');           // Lista
+            Route::get('create', 'create');    // Formulario nuevo
+            Route::post('store', 'store');      // Guardar
+            Route::get('{user}/edit', 'edit');   // Editar
+            Route::put('{user}', 'update');    // Actualizar
+            Route::delete('{user}', 'destroy'); // Eliminar
         });
 
 

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->decimal('total', 10, 2)->default(0);
             
             $table->text('notas')->nullable();
-
+            $table->string('status')->default('Pendiente');
         });
     }
 

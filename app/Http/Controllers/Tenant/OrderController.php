@@ -80,4 +80,16 @@ class OrderController extends Controller
             'order' => $order
         ]);
     }
+
+    public function trackContent($id){
+        $order = Order::find($id);
+
+        $html = view('tenant.shop.orders.track-content', [
+            'order' => $order
+        ])->render();
+
+        return response()->json([
+            'html' => $html
+        ]);
+    }
 }
