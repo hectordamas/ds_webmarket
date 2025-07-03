@@ -118,6 +118,11 @@ Route::middleware([
             Route::delete('{user}', 'destroy'); // Eliminar
         });
 
+        Route::controller(OrderController::class)->group(function(){
+            Route::get('orders', 'index');
+            Route::get('orders/ver-detalles/{id}', 'show');
+        });
+
 
     });
 });

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Central;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\{Tenant};
+use App\Models\{Tenant, User};
+use Stancl\Tenancy\Tenancy;
 
 class TenantController extends Controller
 {
@@ -26,7 +27,10 @@ class TenantController extends Controller
             'id' => 'required|unique:tenants,id',
             'database' => 'required|string',
             'username' => 'required|string',
-            'nombre_empresa' => 'required|string'
+            'nombre_empresa' => 'required|string',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
         ]);
 
         DB::table('tenants')->insert([
@@ -50,6 +54,18 @@ class TenantController extends Controller
        $tenant->domains()->create([
             'domain' => $request->id . '.' . env('CENTRAL_DOMAIN'),
         ]);
+
+        Tenancy::initialize($tenant);
+
+        // 5. Crear el usuario admin dentro del tenant
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+        // 6. Finalizar contexto
+        Tenancy::end();
 
         return redirect()->route('tenants.index')->with('success', 'Tenant creado exitosamente.');
     }

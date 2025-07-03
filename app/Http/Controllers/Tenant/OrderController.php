@@ -9,6 +9,14 @@ use Cart;
 
 class OrderController extends Controller
 {
+    public function index(){
+        $orders = Order::orderBy('id', 'desc')->get();
+        
+        return view('tenant.admin.orders.index', [
+            'orders' => $orders
+        ]); 
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -70,6 +78,14 @@ class OrderController extends Controller
             'success' => true, 
             'order_id' => $order->id,
             'html' => $html
+        ]);
+    }
+
+    public function show($id){
+        $order = Order::find($id);
+
+        return view('tenant.admin.orders.show', [
+            'order' => $order
         ]);
     }
 
