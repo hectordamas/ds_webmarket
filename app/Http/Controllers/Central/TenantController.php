@@ -55,18 +55,6 @@ class TenantController extends Controller
             'domain' => $request->id . '.' . env('CENTRAL_DOMAIN'),
         ]);
 
-        Tenancy::initialize($tenant);
-
-        // 5. Crear el usuario admin dentro del tenant
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-
-        // 6. Finalizar contexto
-        Tenancy::end();
-
         return redirect()->route('tenants.index')->with('success', 'Tenant creado exitosamente.');
     }
 
@@ -74,6 +62,7 @@ class TenantController extends Controller
     public function edit(string $id)
     {
         $tenant = Tenant::with('domains')->findOrFail($id);
+         
         return view('central.admin.tenant.edit', compact('tenant'));
     }
 
@@ -104,6 +93,9 @@ class TenantController extends Controller
         $tenant->domains()->create([
             'domain' => $id . '.' . env('CENTRAL_DOMAIN'),
         ]);
+
+        //Tenancy::initialize($tenant);        
+        //Tenancy::end();
 
         return redirect()->route('tenants.index')->with('success', 'Tenant actualizado correctamente.');
     }
