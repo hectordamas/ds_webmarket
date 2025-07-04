@@ -54,26 +54,6 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
-                        <hr>
-                            <h6 class="fw-bold">Usuario Principal</h6>
-                        <hr>
-                    </div>
-
-                    <div class="mb-3 col-md-3">
-                        <label class="form-label">Nombre</label>
-                        <input type="text" name="name" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3 col-md-3">
-                        <label class="form-label">Correo Electrónico</label>
-                        <input type="email" name="email" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3 col-md-3">
-                        <label class="form-label">Contraseña</label>
-                        <input type="password" name="password" class="form-control" required>
-                    </div>
 
 
                     <div class="d-flex justify-content-end">

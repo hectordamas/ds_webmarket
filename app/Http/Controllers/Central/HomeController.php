@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function index(){
         $tenants = Tenant::all();
 
-        return view('central.home', compact(
+        return view('central.admin.tenant.index', compact(
             'tenants'
         ));
     }

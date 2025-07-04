@@ -28,9 +28,6 @@ class TenantController extends Controller
             'database' => 'required|string',
             'username' => 'required|string',
             'nombre_empresa' => 'required|string',
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
         ]);
 
         DB::table('tenants')->insert([
@@ -61,9 +58,23 @@ class TenantController extends Controller
 
     public function edit(string $id)
     {
-        $tenant = Tenant::with('domains')->findOrFail($id);
-         
-        return view('central.admin.tenant.edit', compact('tenant'));
+        $tenant = Tenant::with('domains')->findOrFail($id); 
+
+        // Iniciar contexto tenant
+        app(Tenancy::class)->initialize($tenant);   
+
+        // Cargar usuarios como objetos
+        $users = User::all()->map(function ($user) {
+            $clone = clone $user;
+            $clone->setConnection(null); // Rompe la conexión al tenant
+            return $clone;
+        }); 
+
+        // Cerrar contexto tenant
+        app(Tenancy::class)->end(); 
+
+        // Retornar vista con modelos "seguros"
+        return view('central.admin.tenant.edit', compact('tenant', 'users'));
     }
 
     public function update(Request $request, string $id)
