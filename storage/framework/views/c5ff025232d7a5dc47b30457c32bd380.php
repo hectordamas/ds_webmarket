@@ -1,12 +1,6 @@
 <?php
     $menus = collect([
         [
-          'name' => 'Dashboard',
-          'icon' => '<i class="fas fa-chart-pie"></i>',
-          'ruta' => 'home',
-          'subitems' => []
-        ],
-        [
             'name' => 'Dominios',
             'icon' => '<i class="fas fa-globe"></i>',
             'ruta' => 'products',
@@ -29,22 +23,16 @@
           'ruta' => 'categories',
             'subitems' => [
                 [
-                    'name' => 'Lista de Categorías',
+                    'name' => 'Lista de Usuarios',
                     'icon' => '<i class="fas fa-list"></i>',
-                    'ruta' => 'categories'
+                    'ruta' => 'users'
                 ],
                 [
-                    'name' => 'Crear Categorías',
+                    'name' => 'Crear Usuarios',
                     'icon' => '<i class="far fa-plus-square"></i>',
-                    'ruta' => 'categories/create'
+                    'ruta' => 'users/create'
                 ]
             ]          
-        ], 
-        [
-          'name' => 'Configuración',
-          'icon' => '<i class="fas fa-cog"></i>',
-          'ruta' => 'settings',
-          'subitems' => []
         ]
     ])->map(function ($item) {
         $item['subitems'] = collect($item['subitems'])->map(fn($sub) => (object) $sub)->all();

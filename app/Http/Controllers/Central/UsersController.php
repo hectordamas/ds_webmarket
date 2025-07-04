@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Central;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\{User};
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
-        //
+        $users = User::orderBy('id', 'desc')->get();
+
+        return view('central.admin.users.index', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -39,12 +42,14 @@ class UsersController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
-        //
+        $user = User::find($id);
+
+        return view('central.admin.users.edit', [
+            'user' => $user
+        ]);
     }
 
     /**
