@@ -8,8 +8,11 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header d-flex justify-content-between">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>Listado de Usuarios</h5>
+                <a href="{{ route('users.create') }}" class="btn btn-primary">
+                    <i class="far fa-plus-square"></i> Registrar Usuario
+                </a>
             </div>
             <div class="card-block">
                 <table class="table table-bordered table-striped">

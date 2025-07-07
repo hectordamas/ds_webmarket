@@ -27,7 +27,22 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if($request->password){
+            $user->password = $request->password;
+        }
+        $user->save();
+
+        return redirect()->back()->with('success', 'Usuario registrado con éxito!');
+
     }
 
 
@@ -48,6 +63,11 @@ class UsersController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+        ]);
+
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -62,6 +82,9 @@ class UsersController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        
+        return redirect()->back()->with('success', 'Usuario eliminado con éxito!');
     }
 }
