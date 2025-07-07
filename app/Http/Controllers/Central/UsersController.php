@@ -36,9 +36,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        if($request->password){
-            $user->password = $request->password;
-        }
+        $user->password = bcrypt($request->password);
         $user->save();
 
         return redirect()->back()->with('success', 'Usuario registrado con éxito!');
@@ -65,14 +63,14 @@ class UsersController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'email' => 'required',
         ]);
 
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
         if($request->password){
-            $user->password = $request->password;
+            $user->password = bcrypt($request->password);
         }
         $user->save();
 

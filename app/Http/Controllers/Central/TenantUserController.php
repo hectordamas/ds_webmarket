@@ -23,7 +23,7 @@ class TenantUserController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->email);
+        $user->password = bcrypt($request->password);
         $user->save();
 
         app(Tenancy::class)->end(); 
@@ -38,7 +38,7 @@ class TenantUserController extends Controller
 
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
         ]);
 
         $user = User::find($request->id);

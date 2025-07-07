@@ -17,7 +17,8 @@ use App\Http\Controllers\Tenant\{
     OptionController, 
     CartController,
     OrderController,
-    UsersController
+    UsersController,
+    PaymentsController
 };
 
 Route::middleware([
@@ -121,6 +122,11 @@ Route::middleware([
         Route::controller(OrderController::class)->group(function(){
             Route::get('orders', 'index');
             Route::get('orders/ver-detalles/{id}', 'show');
+        });
+
+        Route::controller(PaymentsController::class)->group(function(){
+            Route::get('payments', 'index');
+            Route::post('payments/store', 'store');
         });
 
 

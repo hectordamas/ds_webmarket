@@ -1,4 +1,4 @@
-@php
+<?php
     $menus = collect([
         [
             'name' => 'Dashboard',
@@ -85,53 +85,53 @@
         $item['subitems'] = collect($item['subitems'])->map(fn($sub) => (object) $sub)->all();
         return (object) $item;
     });
-@endphp
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    @yield('metadata')
+    <?php echo $__env->yieldContent('metadata'); ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('assets/img/favicon.png') }}" type="image/x-icon"> 
+    <link rel="icon" href="<?php echo e(asset('assets/img/favicon.png')); ?>" type="image/x-icon"> 
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('files/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('files/bower_components/bootstrap/dist/css/bootstrap.min.css')); ?>">
 
     <!-- Radial Chart CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('files/assets/pages/chart/radial/css/radial.css') }}" media="all">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('files/assets/pages/chart/radial/css/radial.css')); ?>" media="all">
 
     <!-- Feather Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('files/assets/icon/feather/css/feather.css') }}">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('files/assets/icon/feather/css/feather.css')); ?>">
 
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('files/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('files/assets/pages/data-table/css/buttons.dataTables.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('files/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('files/assets/pages/data-table/extensions/buttons/css/buttons.dataTables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('files/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('files/assets/pages/data-table/css/buttons.dataTables.min.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('files/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('files/assets/pages/data-table/extensions/buttons/css/buttons.dataTables.min.css')); ?>">
 
     <!-- Select2 CSS -->
-    <link rel="stylesheet" href="{{ asset('files/bower_components/select2/dist/css/select2.min.css') }}" />
+    <link rel="stylesheet" href="<?php echo e(asset('files/bower_components/select2/dist/css/select2.min.css')); ?>" />
 
     <!-- Multi Select CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('files/bower_components/bootstrap-multiselect/dist/css/bootstrap-multiselect.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('files/bower_components/multiselect/css/multi-select.css') }}" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('files/bower_components/bootstrap-multiselect/dist/css/bootstrap-multiselect.css')); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('files/bower_components/multiselect/css/multi-select.css')); ?>" />
 
     <!-- Main Styles -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('files/assets/css/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('files/assets/css/jquery.mCustomScrollbar.css') }}">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('files/assets/css/style.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('files/assets/css/jquery.mCustomScrollbar.css')); ?>">
 
 
 
     <!-- Style.css -->
-    @yield('styles')
+    <?php echo $__env->yieldContent('styles'); ?>
 </head>
 <!-- Menu sidebar static layout -->
 
@@ -185,8 +185,8 @@
                         <a class="mobile-menu" id="mobile-collapse" href="#!">
                             <i class="feather icon-menu"></i>
                         </a>
-                        <a href="{{ url('dashboard') }}">
-                            <img class="img-fluid w-100" style="max-width:160px;" src="{{ asset('assets/img/logo-light.png') }}" alt="{{ env('APP_NAME') }} Logo" />
+                        <a href="<?php echo e(url('dashboard')); ?>">
+                            <img class="img-fluid w-100" style="max-width:160px;" src="<?php echo e(asset('assets/img/logo-light.png')); ?>" alt="<?php echo e(env('APP_NAME')); ?> Logo" />
                         </a>
                         <a class="mobile-options">
                             <i class="feather icon-more-horizontal"></i>
@@ -278,9 +278,9 @@
                             <li class="user-profile header-notification">
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
-                                        <img src="{{ asset('files/assets/images/avatar-4.jpg') }}" class="img-radius"
-                                            alt="{{ Auth::user()->name }} foto de perfil">
-                                        <span>{{ Auth::user()->name }}</span>
+                                        <img src="<?php echo e(asset('files/assets/images/avatar-4.jpg')); ?>" class="img-radius"
+                                            alt="<?php echo e(Auth::user()->name); ?> foto de perfil">
+                                        <span><?php echo e(Auth::user()->name); ?></span>
                                         <i class="feather icon-chevron-down"></i>
                                     </div>
                                     <ul class="show-notification profile-notification dropdown-menu"
@@ -290,8 +290,8 @@
                                                 <i class="feather icon-log-out"></i> Salir
                                             </a>
                                         
-                                            <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
-                                                @csrf
+                                            <form id="logout-form" action="<?php echo e(url('logout')); ?>" method="POST" class="d-none">
+                                                <?php echo csrf_field(); ?>
                                             </form>
                                         </li>
                                     </ul>
@@ -312,27 +312,28 @@
                             <!-- Luego en el loop -->
 
                             <ul class="pcoded-item pcoded-left-item">
-                                @foreach ($menus as $menu)
-                                    <li class="{{ count($menu->subitems) ? 'pcoded-hasmenu' : '' }} {{ isMenuActive($menu) }}">
-                                        <a href="{{ count($menu->subitems) ? 'javascript:void(0)' : url($menu->ruta) }}">
-                                            <span class="pcoded-micon">{!! $menu->icon !!}</span>
-                                            <span class="pcoded-mtext">{{ $menu->name }}</span>
+                                <?php $__currentLoopData = $menus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <li class="<?php echo e(count($menu->subitems) ? 'pcoded-hasmenu' : ''); ?> <?php echo e(isMenuActive($menu)); ?>">
+                                        <a href="<?php echo e(count($menu->subitems) ? 'javascript:void(0)' : url($menu->ruta)); ?>">
+                                            <span class="pcoded-micon"><?php echo $menu->icon; ?></span>
+                                            <span class="pcoded-mtext"><?php echo e($menu->name); ?></span>
                                         </a>
                                     
-                                        @if (count($menu->subitems))
+                                        <?php if(count($menu->subitems)): ?>
                                             <ul class="pcoded-submenu">
-                                                @foreach ($menu->subitems as $sub)
-                                                    <li class="{{ request()->is($sub->ruta) ? 'active' : '' }}">
-                                                        <a href="{{ url($sub->ruta) }}">
-                                                            {!! $sub->icon !!}
-                                                            <span class="pcoded-mtext">{{ $sub->name }}</span>
+                                                <?php $__currentLoopData = $menu->subitems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sub): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <li class="<?php echo e(request()->is($sub->ruta) ? 'active' : ''); ?>">
+                                                        <a href="<?php echo e(url($sub->ruta)); ?>">
+                                                            <?php echo $sub->icon; ?>
+
+                                                            <span class="pcoded-mtext"><?php echo e($sub->name); ?></span>
                                                         </a>
                                                     </li>
-                                                @endforeach
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </ul>
-                                        @endif
+                                        <?php endif; ?>
                                     </li>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
                         </div>
                     </nav>
@@ -341,7 +342,7 @@
                             <div class="main-body">
                                 <div class="page-wrapper">
                                     <div class="page-body">
-                                      @yield('content')
+                                      <?php echo $__env->yieldContent('content'); ?>
                                     </div>
                                 </div>
                             </div>
@@ -352,89 +353,89 @@
         </div>
     </div>
 
-    <script src="{{ asset('files/bower_components/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('files/bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('files/bower_components/popper.js/dist/umd/popper.min.js') }}"></script>
-    <script src="{{ asset('files/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('files/bower_components/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
-    <script src="{{ asset('files/bower_components/modernizr/modernizr.js') }}"></script>
-    <script src="{{ asset('files/bower_components/modernizr/feature-detects/css-scrollbars.js') }}"></script>
-    <script src="{{ asset('files/bower_components/chart.js/dist/Chart.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/widget/gauge/gauge.min.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/widget/amchart/amcharts.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/widget/amchart/serial.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/widget/amchart/gauge.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/widget/amchart/pie.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/widget/amchart/light.js') }}"></script>
-    <script src="{{ asset('files/assets/js/pcoded.min.js') }}"></script>
-    <script src="{{ asset('files/assets/js/vartical-layout.min.js') }}"></script>
-    <script src="{{ asset('files/assets/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/dashboard/crm-dashboard.min.js') }}"></script>
+    <script src="<?php echo e(asset('files/bower_components/jquery/dist/jquery.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/jquery-ui/jquery-ui.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/popper.js/dist/umd/popper.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/bootstrap/dist/js/bootstrap.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/jquery-slimscroll/jquery.slimscroll.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/modernizr/modernizr.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/modernizr/feature-detects/css-scrollbars.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/chart.js/dist/Chart.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/widget/gauge/gauge.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/widget/amchart/amcharts.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/widget/amchart/serial.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/widget/amchart/gauge.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/widget/amchart/pie.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/widget/amchart/light.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/js/pcoded.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/js/vartical-layout.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/js/jquery.mCustomScrollbar.concat.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/dashboard/crm-dashboard.min.js')); ?>"></script>
 
-    <script src="{{ asset('files/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/data-table/js/jszip.min.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/data-table/js/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/data-table/js/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/data-table/extensions/buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/data-table/extensions/buttons/js/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/data-table/extensions/buttons/js/jszip.min.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/data-table/extensions/buttons/js/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/data-table/extensions/buttons/js/buttons.colVis.min.js') }}"></script>
-    <script src="{{ asset('files/bower_components/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('files/bower_components/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="<?php echo e(asset('files/bower_components/datatables.net/js/jquery.dataTables.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/data-table/js/jszip.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/data-table/js/pdfmake.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/data-table/js/vfs_fonts.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/data-table/extensions/buttons/js/dataTables.buttons.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/data-table/extensions/buttons/js/buttons.flash.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/data-table/extensions/buttons/js/jszip.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/data-table/extensions/buttons/js/vfs_fonts.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/data-table/extensions/buttons/js/buttons.colVis.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/datatables.net-buttons/js/buttons.print.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/datatables.net-buttons/js/buttons.html5.min.js')); ?>"></script>
     
-    <script src="{{ asset('files/assets/pages/data-table/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('files/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('files/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/data-table/extensions/buttons/js/extension-btns-custom.js') }}"></script>
+    <script src="<?php echo e(asset('files/assets/pages/data-table/js/dataTables.bootstrap4.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/data-table/extensions/buttons/js/extension-btns-custom.js')); ?>"></script>
 
-    <script src="{{ asset('files/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="<?php echo e(asset('files/bower_components/select2/dist/js/select2.full.min.js')); ?>"></script>
     <!-- Multiselect js -->
-    <script src="{{ asset('files/bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js') }}"></script>
-    <script src="{{ asset('files/bower_components/multiselect/js/jquery.multi-select.js') }}"></script>
-    <script src="{{ asset('files/assets/js/jquery.quicksearch.js') }}"></script>
-    <script src="{{ asset('files/assets/pages/advance-elements/select2-custom.js') }}"></script>
+    <script src="<?php echo e(asset('files/bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/bower_components/multiselect/js/jquery.multi-select.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/js/jquery.quicksearch.js')); ?>"></script>
+    <script src="<?php echo e(asset('files/assets/pages/advance-elements/select2-custom.js')); ?>"></script>
 
-    <script src="{{ asset('files/assets/js/script.js') }}"></script>
-    <script src="{{ asset('assets/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    <script src="<?php echo e(asset('files/assets/js/script.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/sweetalert2/sweetalert2.all.min.js')); ?>"></script>
 
-    @yield('scripts')
+    <?php echo $__env->yieldContent('scripts'); ?>
 
-    <script src="{{ asset('files/admin/script.js') }}"></script>
+    <script src="<?php echo e(asset('files/admin/script.js')); ?>"></script>
 
-    @if(session()->has('success'))
+    <?php if(session()->has('success')): ?>
     <script>	
         Swal.fire({
-            text: "{{ session('success') }}",
+            text: "<?php echo e(session('success')); ?>",
             icon: "success",
             confirmButtonText: "Continuar", 
             confirmButtonColor: '#28a745'
         });
     </script>
-    @endif	
+    <?php endif; ?>	
 
-    @if(session()->has('error'))
+    <?php if(session()->has('error')): ?>
     <script>	
         Swal.fire({
-            text: "{{ session('error') }}",
+            text: "<?php echo e(session('error')); ?>",
             icon: "error",
             confirmButtonText: "Entendido!", 
             confirmButtonColor: '#dc3545'
         });
     </script>
-    @endif	
+    <?php endif; ?>	
 
-    @foreach($errors->all() as $error)
+    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <script>	
         Swal.fire({
-            text: "{{ $error }}",
+            text: "<?php echo e($error); ?>",
             icon: "error",
             confirmButtonText: "Entendido!", 
             confirmButtonColor: '#dc3545'
         });
     </script>
-    @endforeach
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </body>
 
-</html>
+</html><?php /**PATH C:\laragon\www\dswebmarket\resources\views/tenant/layouts/admin.blade.php ENDPATH**/ ?>
