@@ -32,7 +32,7 @@ class PaymentsController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $payment = Payment::find();
+        $payment = Payment::find($id);
         $payment->name = $request->name;
         $payment->active = $request->has('active');
         $payment->save();
@@ -40,5 +40,5 @@ class PaymentsController extends Controller
         return redirect()->back()->with('success', 'Método de pago creado con éxito!');
     }
 
-    
+
 }

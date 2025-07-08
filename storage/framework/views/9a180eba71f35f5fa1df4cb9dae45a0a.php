@@ -1,10 +1,10 @@
-@extends('tenant.layouts.admin')
 
-@section('metadata')
-<title>{{ env('APP_NAME') }} - Lista de Órdenes</title>
-@endsection
 
-@section('content')
+<?php $__env->startSection('metadata'); ?>
+<title><?php echo e(env('APP_NAME')); ?> - Lista de Órdenes</title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
 
 <div class="row">
     <div class="col-12">
@@ -14,9 +14,9 @@
             </div>
 
             <div class="card-body table-responsive">
-                @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
+                <?php if(session('success')): ?>
+                    <div class="alert alert-success"><?php echo e(session('success')); ?></div>
+                <?php endif; ?>
 
                 <table class="table table-bordered table-hover table-striped" id="datatable-buttons-table">
                     <thead class="table-dark">
@@ -31,16 +31,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($orders as $order)
+                        <?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td>{{ $order->id }}</td>
-                                <td>{{ $order->nombre }}</td>
-                                <td>{{ $order->cedula }}</td>
-                                <td>{{ $order->metodo_pago }}</td>
-                                <td class="text-success fw-bold">${{ number_format($order->total, 2, '.', ',') }}</td>
-                                <td>{{ $order->status }}</td>
+                                <td><?php echo e($order->id); ?></td>
+                                <td><?php echo e($order->nombre); ?></td>
+                                <td><?php echo e($order->cedula); ?></td>
+                                <td><?php echo e($order->metodo_pago); ?></td>
+                                <td class="text-success fw-bold">$<?php echo e(number_format($order->total, 2, '.', ',')); ?></td>
+                                <td><?php echo e($order->status); ?></td>
                                 <td>
-                                    <a href="javascript:void(0)" data-id="{{ $order->id }}" class="btn btn-dark btn-sm viewDetailsButton">
+                                    <a href="javascript:void(0)" data-id="<?php echo e($order->id); ?>" class="btn btn-dark btn-sm viewDetailsButton">
                                         <i class="fas fa-list"></i> Ver Detalles
                                     </a>
                                     <a href="javascript:void(0)" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
@@ -48,7 +48,7 @@
                                     </a>
                                 </td>
                             </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
@@ -65,7 +65,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{{ url('') }}" class="row">
+        <form action="<?php echo e(url('')); ?>" class="row">
             <div class="col-md-6 form-group">
                 <label for="">
                     Estatus
@@ -104,9 +104,9 @@
     </div>
   </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
+<?php $__env->startSection('scripts'); ?>
 <script>
     $(document).on('click', '.viewDetailsButton', function(){
         var id = $(this).data('id');
@@ -118,9 +118,9 @@
 
         $.ajax({
             method: 'POST',
-            url: "{{ url('orden-detalle') }}",
+            url: "<?php echo e(url('orden-detalle')); ?>",
             data: {
-                _token: '{{ csrf_token() }}',
+                _token: '<?php echo e(csrf_token()); ?>',
                 id: id
             },
             success: function(response){
@@ -141,4 +141,6 @@
     });
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('tenant.layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\dswebmarket\resources\views/tenant/admin/orders/index.blade.php ENDPATH**/ ?>

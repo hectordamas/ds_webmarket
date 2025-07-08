@@ -122,6 +122,8 @@ Route::middleware([
         Route::controller(OrderController::class)->group(function(){
             Route::get('orders', 'index');
             Route::get('orders/ver-detalles/{id}', 'show');
+            Route::post('orden-detalle', 'detalle');
+
         });
 
         Route::controller(PaymentsController::class)->group(function(){

@@ -33,6 +33,12 @@
                     'ruta' => 'users/create'
                 ]
             ]          
+        ],
+        [
+            'name' => 'Solicitudes',
+            'icon' => '<i class="fas fa-envelope"></i>',
+            'ruta' => 'formRequest',
+            'subitems' => []    
         ]
     ])->map(function ($item) {
         $item['subitems'] = collect($item['subitems'])->map(fn($sub) => (object) $sub)->all();

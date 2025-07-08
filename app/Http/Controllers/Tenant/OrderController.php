@@ -89,6 +89,15 @@ class OrderController extends Controller
         ]);
     }
 
+    public function detalle(Request $request)
+    {
+        $orderId = $request->input('id');
+        $order = Order::findOrFail($orderId);
+
+        // Retornamos un view parcial con los datos
+        return view('tenant.admin.orders.partials.detalle', compact('order'))->render();
+    }
+
     public function track($id){
         $order = Order::find($id);
 
