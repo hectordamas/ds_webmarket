@@ -40,5 +40,20 @@ class PaymentsController extends Controller
         return redirect()->back()->with('success', 'Método de pago creado con éxito!');
     }
 
+    public function toggleActive(Request $request){
+        $payment = Payment::findOrFail($request->id);
+        $payment->active = $request->active;
+        $payment->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function destroy($id)
+    {
+        $payment = Payment::findOrFail($id);
+        $payment->delete();
+
+        return redirect()->back()->with('success', 'Método de pago eliminado con éxito!');
+    }
 
 }

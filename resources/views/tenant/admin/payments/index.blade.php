@@ -1,7 +1,7 @@
 @extends('tenant.layouts.admin')
 
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Lista de Productos</title>
+<title>{{ env('APP_NAME') }} - Métodos de Pago</title>
 @endsection
 
 @section('content')
@@ -69,9 +69,18 @@
                         <tr>
                             <td>{{ $payment->id }}</td>
                             <td>{{ $payment->name }}</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                            <td>
+                                <input type="checkbox" {{ $payment->active ? 'checked' : '' }} name="active" data-id="{{ $payment->id }}" class="active-payment">
+                            </td>
+                            <td>
+                                <form action="{{ url('payments/destroy/'.$payment->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este método de pago?');">
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>                     
+                          </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -81,4 +90,35 @@
     </div>
 </div>
 
+@endsection
+
+
+@section('scripts')
+<script>
+    $(document).on('change', '.active-payment', function () {
+        var id = $(this).data('id');
+        var active = $(this).is(':checked') ? 1 : 0;
+
+        $.ajax({
+            url: "{{ url('payments/toggle-active') }}",
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: id,
+                active: active
+            },
+            success: function (response) {
+                console.log('Estado actualizado');
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo actualizar el estado del método de pago.'
+                });
+            }
+        });
+    });
+
+</script>
 @endsection

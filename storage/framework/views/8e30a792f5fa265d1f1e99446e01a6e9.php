@@ -1,7 +1,7 @@
 
 
 <?php $__env->startSection('metadata'); ?>
-<title><?php echo e(env('APP_NAME')); ?> - Lista de Productos</title>
+<title><?php echo e(env('APP_NAME')); ?> - Métodos de Pago</title>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -14,7 +14,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="<?php echo e(url('payments/create')); ?>" method="POST" class="row">
+        <form action="<?php echo e(url('payments/store')); ?>" method="POST" class="row">
             <?php echo csrf_field(); ?>
 
             <div class="col-md-6 form-group">
@@ -69,9 +69,18 @@
                         <tr>
                             <td><?php echo e($payment->id); ?></td>
                             <td><?php echo e($payment->name); ?></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                            <td>
+                                <input type="checkbox" <?php echo e($payment->active ? 'checked' : ''); ?> name="active" data-id="<?php echo e($payment->id); ?>" class="active-payment">
+                            </td>
+                            <td>
+                                <form action="<?php echo e(url('payments/destroy/'.$payment->id)); ?>" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este método de pago?');">
+                                    <?php echo csrf_field(); ?>
+                                    <button class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>                     
+                          </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
@@ -83,4 +92,34 @@
 
 <?php $__env->stopSection(); ?>
 
+
+<?php $__env->startSection('scripts'); ?>
+<script>
+    $(document).on('change', '.active-payment', function () {
+        var id = $(this).data('id');
+        var active = $(this).is(':checked') ? 1 : 0;
+
+        $.ajax({
+            url: "<?php echo e(url('payments/toggle-active')); ?>",
+            method: 'POST',
+            data: {
+                _token: '<?php echo e(csrf_token()); ?>',
+                id: id,
+                active: active
+            },
+            success: function (response) {
+                console.log('Estado actualizado');
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo actualizar el estado del método de pago.'
+                });
+            }
+        });
+    });
+
+</script>
+<?php $__env->stopSection(); ?>
 <?php echo $__env->make('tenant.layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\dswebmarket\resources\views/tenant/admin/payments/index.blade.php ENDPATH**/ ?>

@@ -26,7 +26,7 @@
                             <th>Cedula</th>
                             <th>Método de Pago</th>
                             <th>Total</th>
-                            <th></th>
+                            <th>Status</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -67,18 +67,23 @@
       <div class="modal-body">
         <form action="{{ url('') }}" class="row">
             <div class="col-md-6 form-group">
-                <label for="">
+                <label for="status">
                     Estatus
                 </label>
-                <select name="" id="" class="form-control">
-                    
+                <select name="status" id="status" class="form-control" required>
+                    <option value="">Seleccione una Opción</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Confirmado">Confirmado</option>
+                    <option value="Enviado">Enviado</option>
+                    <option value="Entregado">Entregado</option>
+                    <option value="Cancelado">Cancelado</option>
                 </select>
             </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
       </div>
     </div>
   </div>

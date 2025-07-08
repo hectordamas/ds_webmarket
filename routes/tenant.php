@@ -123,12 +123,14 @@ Route::middleware([
             Route::get('orders', 'index');
             Route::get('orders/ver-detalles/{id}', 'show');
             Route::post('orden-detalle', 'detalle');
-
         });
 
         Route::controller(PaymentsController::class)->group(function(){
             Route::get('payments', 'index');
             Route::post('payments/store', 'store');
+            Route::post('payments/toggle-active',  'toggleActive');
+            Route::post('payments/destroy/{id}', 'destroy');
+
         });
 
 
