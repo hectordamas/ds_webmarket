@@ -38,12 +38,29 @@
                                 <td><?php echo e($order->cedula); ?></td>
                                 <td><?php echo e($order->metodo_pago); ?></td>
                                 <td class="text-success fw-bold">$<?php echo e(number_format($order->total, 2, '.', ',')); ?></td>
-                                <td><?php echo e($order->status); ?></td>
+                                <td>
+                                    <?php
+                                        $statusColors = [
+                                            'Pendiente'   => 'secondary',
+                                            'Confirmado'  => 'info',
+                                            'Enviado'     => 'primary',
+                                            'Entregado'   => 'success',
+                                            'Cancelado'   => 'danger',
+                                        ];
+                                        $color = $statusColors[$order->status] ?? 'dark';
+                                    ?>
+                                    <span class="badge bg-<?php echo e($color); ?>"><?php echo e($order->status); ?></span>
+                                </td>                                
                                 <td>
                                     <a href="javascript:void(0)" data-id="<?php echo e($order->id); ?>" class="btn btn-dark btn-sm viewDetailsButton">
                                         <i class="fas fa-list"></i> Ver Detalles
                                     </a>
-                                    <a href="javascript:void(0)" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+                                    <a href="javascript:void(0)" 
+                                       class="btn btn-success btn-sm updateStatusBtn" 
+                                       data-id="<?php echo e($order->id); ?>"
+                                       data-current-status="<?php echo e($order->status); ?>"
+                                       data-bs-toggle="modal" 
+                                       data-bs-target="#updateStatusModal">
                                         <i class="far fa-edit"></i> Actualizar Estatus
                                     </a>
                                 </td>
@@ -66,6 +83,8 @@
       </div>
       <div class="modal-body">
         <form action="<?php echo e(url('')); ?>" class="row">
+            <input type="hidden" id="order_id">
+
             <div class="col-md-6 form-group">
                 <label for="status">
                     Estatus
@@ -82,8 +101,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
       </div>
     </div>
   </div>
@@ -144,6 +163,63 @@
         });
     });
 
+</script>
+
+<script>
+    let selectedOrderId = null;
+
+    // Abrir modal y cargar ID
+    $(document).on('click', '.updateStatusBtn', function () {
+        selectedOrderId = $(this).data('id');
+        $('#order_id').val(selectedOrderId);
+        $('#status').val($(this).data('current-status'));
+    });
+
+    // Guardar cambios
+    $('.btn-primary').on('click', function () {
+        const newStatus = $('#status').val();
+        const id = $('#order_id').val();
+
+        if (!newStatus) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Selecciona un estado',
+                text: 'Por favor selecciona un estatus antes de guardar'
+            });
+            return;
+        }
+
+        $.ajax({
+            url: "<?php echo e(url('orders/update-status')); ?>",
+            method: 'POST',
+            data: {
+                _token: '<?php echo e(csrf_token()); ?>',
+                id: id,
+                status: newStatus
+            },
+            success: function () {
+                $('#updateStatusModal').modal('hide');
+
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Actualizado!',
+                    text: 'El estado de la orden fue actualizado correctamente.',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+
+                // Opcional: recargar la página o actualizar directamente el texto
+                setTimeout(() => location.reload(), 1000);
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo actualizar el estado de la orden.'
+                });
+            }
+        });
+    });
 </script>
 <?php $__env->stopSection(); ?>
 

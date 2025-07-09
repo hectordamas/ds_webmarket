@@ -117,4 +117,18 @@ class OrderController extends Controller
             'html' => $html
         ]);
     }
+
+    public function updateStatus(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:orders,id',
+            'status' => 'required|string'
+        ]);
+    
+        $order = Order::findOrFail($request->id);
+        $order->status = $request->status;
+        $order->save();
+    
+        return response()->json(['success' => true]);
+    }
 }

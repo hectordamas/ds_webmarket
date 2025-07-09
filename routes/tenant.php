@@ -123,6 +123,7 @@ Route::middleware([
             Route::get('orders', 'index');
             Route::get('orders/ver-detalles/{id}', 'show');
             Route::post('orden-detalle', 'detalle');
+            Route::post('orders/update-status', [OrderController::class, 'updateStatus']);
         });
 
         Route::controller(PaymentsController::class)->group(function(){

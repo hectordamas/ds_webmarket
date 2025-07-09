@@ -8,7 +8,7 @@
             loop
             autoplay
         ></dotlottie-player>   
-        <h4 class="mt-3 fw-bold text-warning">Esperando confirmación</h4>
+
     </div>
 
     
@@ -26,10 +26,28 @@
     </div>
 
     
-    <div class="mb-3">
-        <h6 class="fw-bold">Datos del Cliente</h6>
-        <p class="mb-1"><span class="fw-semibold">Nombre:</span> <?php echo e($order->nombre); ?></p>
-        <p class="mb-1"><span class="fw-semibold">Teléfono:</span> <?php echo e($order->telefono); ?></p>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <h6 class="fw-bold">Datos del Cliente</h6>
+            <p class="mb-1"><span class="fw-semibold">Nombre:</span> <?php echo e($order->nombre); ?></p>
+            <p class="mb-1"><span class="fw-semibold">Teléfono:</span> <?php echo e($order->telefono); ?></p>        
+
+        </div>
+        <div class="col-md-6 text-end">
+            <?php
+                $statusColors = [
+                    'Pendiente'   => 'secondary',
+                    'Confirmado'  => 'info',
+                    'Enviado'     => 'primary',
+                    'Entregado'   => 'success',
+                    'Cancelado'   => 'danger',
+                ];
+                $color = $statusColors[$order->status] ?? 'dark';
+            ?>
+            <h6 class="mt-3 fw-bold">
+                Estatus: <span class="badge bg-<?php echo e($color); ?>"><?php echo e($order->status); ?></span>
+            </h6>
+        </div>
     </div>
 
     

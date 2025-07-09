@@ -14,6 +14,17 @@
             <ul>
                 <li><strong>Tipo de Pedido:</strong> <?php echo e($order->tipo_pedido); ?></li>
                 <li><strong>Método de Pago:</strong> <?php echo e($order->metodo_pago); ?></li>
+                <?php
+                    $statusColors = [
+                        'Pendiente'   => 'secondary',
+                        'Confirmado'  => 'info',
+                        'Enviado'     => 'primary',
+                        'Entregado'   => 'success',
+                        'Cancelado'   => 'danger',
+                    ];
+                    $color = $statusColors[$order->status] ?? 'dark';
+                ?>
+                <li><strong>Status:</strong> <span class="badge bg-<?php echo e($color); ?>"><?php echo e($order->status); ?></span></li>
                 <li><strong>Total:</strong> $<?php echo e(number_format($order->total, 2, '.', ',')); ?></li>
             </ul>
         </div>

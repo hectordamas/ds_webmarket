@@ -8,7 +8,7 @@
             loop
             autoplay
         ></dotlottie-player>   
-        <h4 class="mt-3 fw-bold text-warning">Esperando confirmación</h4>
+
     </div>
 
     {{-- Cabecera --}}
@@ -25,10 +25,28 @@
     </div>
 
     {{-- Cliente --}}
-    <div class="mb-3">
-        <h6 class="fw-bold">Datos del Cliente</h6>
-        <p class="mb-1"><span class="fw-semibold">Nombre:</span> {{ $order->nombre }}</p>
-        <p class="mb-1"><span class="fw-semibold">Teléfono:</span> {{ $order->telefono }}</p>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <h6 class="fw-bold">Datos del Cliente</h6>
+            <p class="mb-1"><span class="fw-semibold">Nombre:</span> {{ $order->nombre }}</p>
+            <p class="mb-1"><span class="fw-semibold">Teléfono:</span> {{ $order->telefono }}</p>        
+
+        </div>
+        <div class="col-md-6 text-end">
+            @php
+                $statusColors = [
+                    'Pendiente'   => 'secondary',
+                    'Confirmado'  => 'info',
+                    'Enviado'     => 'primary',
+                    'Entregado'   => 'success',
+                    'Cancelado'   => 'danger',
+                ];
+                $color = $statusColors[$order->status] ?? 'dark';
+            @endphp
+            <h6 class="mt-3 fw-bold">
+                Estatus: <span class="badge bg-{{ $color }}">{{ $order->status }}</span>
+            </h6>
+        </div>
     </div>
 
     {{-- Productos --}}

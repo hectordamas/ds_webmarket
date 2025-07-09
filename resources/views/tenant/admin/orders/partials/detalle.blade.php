@@ -14,6 +14,17 @@
             <ul>
                 <li><strong>Tipo de Pedido:</strong> {{ $order->tipo_pedido }}</li>
                 <li><strong>Método de Pago:</strong> {{ $order->metodo_pago }}</li>
+                @php
+                    $statusColors = [
+                        'Pendiente'   => 'secondary',
+                        'Confirmado'  => 'info',
+                        'Enviado'     => 'primary',
+                        'Entregado'   => 'success',
+                        'Cancelado'   => 'danger',
+                    ];
+                    $color = $statusColors[$order->status] ?? 'dark';
+                @endphp
+                <li><strong>Status:</strong> <span class="badge bg-{{ $color }}">{{ $order->status }}</span></li>
                 <li><strong>Total:</strong> ${{ number_format($order->total, 2, '.', ',') }}</li>
             </ul>
         </div>
