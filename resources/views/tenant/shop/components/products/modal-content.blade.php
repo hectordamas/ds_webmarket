@@ -1,5 +1,5 @@
 <div class="text-center mb-3">
-    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="img-fluid rounded" style="max-height: 200px;">
+    <img src="{{ img64($product->image) }}" alt="{{ $product->name }}" class="img-fluid rounded" style="max-height: 200px;">
 </div>
 
 <div class="d-flex justify-content-between">

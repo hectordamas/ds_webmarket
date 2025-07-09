@@ -15,3 +15,10 @@ if (!function_exists('isMenuActive')) {
         return '';
     }
 }
+
+if (!function_exists('img64')) {
+    function img64($image)
+    {
+        return str_starts_with($image, 'data:') ? $image : asset($image);
+    }
+}

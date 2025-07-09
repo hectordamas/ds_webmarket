@@ -77,7 +77,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" 
+                                        <img src="{{ img64($product->image) }}" alt="{{ $product->name }}" 
                                             class="show-product-btn"
                                             data-product-id="{{ $product->id }}"
                                             data-bs-toggle="modal" 

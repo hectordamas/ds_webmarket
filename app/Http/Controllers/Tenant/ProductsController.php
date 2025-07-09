@@ -42,11 +42,10 @@ class ProductsController extends Controller
         }
 
         // Manejo de imagen
-        $imagePath = null;
+        $base64Image = null;
         if ($request->hasFile('image')) {
-            $filename = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(public_path('tenancy/assets/uploads'), $filename);
-            $imagePath = 'tenancy/assets/uploads/' . $filename;
+            $image = $request->file('image');
+            $base64Image = 'data:' . $image->getMimeType() . ';base64,' . base64_encode(file_get_contents($image));
         }
 
         // Crear el producto
@@ -57,7 +56,7 @@ class ProductsController extends Controller
             'price' => $request->price,
             'category_id' => $request->category_id,
             'active' => $request->active,
-            'image' => $imagePath,
+            'image' => $base64Image,
         ]);
 
         return redirect('products')->with('success', 'Producto creado correctamente.');

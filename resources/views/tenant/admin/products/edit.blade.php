@@ -56,7 +56,7 @@
                         <label for="image">Imagen (opcional)</label>
                         <input type="file" name="image" class="form-control">
                         @if ($product->image)
-                            <small class="d-block mt-1">Actual: <img src="{{ asset($product->image) }}" height="60"></small>
+                            <small class="d-block mt-1">Actual: <img src="{{ img64($product->image) }}" height="60"></small>
                         @endif
                         @error('image') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>

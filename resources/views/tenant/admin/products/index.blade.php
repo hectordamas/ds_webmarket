@@ -39,7 +39,7 @@
                                 <td>{{ $product->id }}</td>
                                 <td style="width: 80px">
                                     @if ($product->image)
-                                        <img src="{{ asset($product->image) }}" class="img-fluid rounded" style="max-height: 60px;">
+                                        <img src="{{ img64($product->image) }}" class="img-fluid rounded" style="max-height: 60px;">
                                     @else
                                         <span class="text-muted">Sin imagen</span>
                                     @endif
@@ -73,8 +73,6 @@
                     </tbody>
                 </table>
 
-                {{-- Paginación si usas paginate() --}}
-                {{-- {{ $products->links() }} --}}
             </div>
         </div>
     </div>
