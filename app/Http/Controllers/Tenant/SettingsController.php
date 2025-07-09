@@ -43,6 +43,11 @@ class SettingsController extends Controller
         // Color
         Setting::updateOrCreate(['key' => 'color_primary'], ['value' => $request->color_primary]);
 
+        //Redes
+        Setting::updateOrCreate(['key' => 'facebook'], ['value' => $request->facebook]);
+        Setting::updateOrCreate(['key' => 'instagram'], ['value' => $request->instagram]);
+
+
         return back()->with('success', 'Configuración actualizada correctamente.');
     }
 }

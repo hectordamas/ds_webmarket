@@ -37,6 +37,16 @@
                         <input type="color" name="color_primary" id="color_primary" class="form-control" value="{{ $settings['color_primary'] ?? '#00b894' }}">
                     </div>
 
+                    <div class="form-group col-md-3 mb-3">
+                        <label for="facebook">Facebook:</label>
+                        <input type="text" name="facebook" id="facebook" class="form-control" value="{{ $settings['facebook'] ?? '' }}">
+                    </div>
+
+                    <div class="form-group col-md-3 mb-3">
+                        <label for="instagram">Instagram:</label>
+                        <input type="text" name="instagram" id="instagram" class="form-control" value="{{ $settings['instagram'] ?? '' }}">
+                    </div>
+
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success">
                             <i class="fas fa-save"></i> Guardar Configuración
