@@ -47,7 +47,7 @@
                     @foreach($order->products as $product)
                     <tr>
                         <td>
-                            <img src="{{ asset($product->product->image) }}" alt="Producto" style="width: 80px; height: auto;">
+                            <img src="{{ img64($product->product->image) }}" alt="Producto" style="width: 80px; height: auto;">
                         </td>
                         <td>
                             <h6>{{ $product->product->name }}</h6>

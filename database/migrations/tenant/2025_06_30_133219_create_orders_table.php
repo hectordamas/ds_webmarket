@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            // Datos cliente
             $table->string('nombre');
             $table->string('cedula');
             $table->string('telefono');

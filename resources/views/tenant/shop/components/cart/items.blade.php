@@ -15,7 +15,7 @@
 <div id="cartItems">
     @foreach(Cart::content() as $cartItem)
     <div class="d-flex align-items-center border-bottom py-2">
-        <img src="{{ asset($cartItem->options->image ?? 'assets/img/product-default.png') }}" alt="{{ $cartItem->name }}" class="rounded me-3" style="width: 70px; height: 70px; object-fit: cover;">
+        <img src="{{ img64($cartItem->options->image) }}" alt="{{ $cartItem->name }}" class="rounded me-3" style="width: 70px; height: 70px; object-fit: cover;">
         <div class="flex-grow-1">
             <strong>{{ $cartItem->name }}</strong>
             <small class="text-muted">x{{ $cartItem->qty }}</small>

@@ -38,8 +38,7 @@
             'name' => 'Solicitudes',
             'icon' => '<i class="fas fa-envelope"></i>',
             'ruta' => 'formRequest',
-            'subitems' => [
-            ]    
+            'subitems' => []    
         ]
     ])->map(function ($item) {
         $item['subitems'] = collect($item['subitems'])->map(fn($sub) => (object) $sub)->all();

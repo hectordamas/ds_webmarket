@@ -78,7 +78,7 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <img src="<?php echo e(asset($product->image)); ?>" alt="<?php echo e($product->name); ?>" 
+                                        <img src="<?php echo e(img64($product->image)); ?>" alt="<?php echo e($product->name); ?>" 
                                             class="show-product-btn"
                                             data-product-id="<?php echo e($product->id); ?>"
                                             data-bs-toggle="modal" 

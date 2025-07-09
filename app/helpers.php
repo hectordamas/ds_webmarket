@@ -19,6 +19,6 @@ if (!function_exists('isMenuActive')) {
 if (!function_exists('img64')) {
     function img64($image)
     {
-        return str_starts_with($image, 'data:') ? $image : asset($image);
+        return str_starts_with($image, 'data:') ? $image : asset($image ?? 'assets/img/product-default.png');
     }
 }

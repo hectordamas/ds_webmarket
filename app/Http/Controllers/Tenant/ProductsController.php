@@ -72,9 +72,6 @@ class ProductsController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Buscar el producto
-        $product = Product::findOrFail($id);
-
         // Validar entrada
         $request->validate([
             'name' => 'required|string|max:255',
@@ -84,6 +81,9 @@ class ProductsController extends Controller
             'active' => 'required|boolean',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+        // Buscar el producto
+        $product = Product::findOrFail($id);
 
         // Si el nombre cambió, generar un nuevo slug único
         if ($request->name !== $product->name) {
@@ -97,10 +97,11 @@ class ProductsController extends Controller
         }
 
         // Manejar imagen nueva si fue subida
+        $base64Image = null;
         if ($request->hasFile('image')) {
-            $filename = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(public_path('tenancy/assets/uploads'), $filename);
-            $product->image = 'tenancy/assets/uploads/' . $filename;
+            $image = $request->file('image');
+            $base64Image = 'data:' . $image->getMimeType() . ';base64,' . base64_encode(file_get_contents($image));
+            $product->image = $base64Image;
         }
 
         // Actualizar los demás campos
@@ -117,13 +118,6 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-    
-        // Eliminar imagen si existe
-        if ($product->image && File::exists(public_path($product->image))) {
-            File::delete(public_path($product->image));
-        }
-    
-        // Eliminar producto
         $product->delete();
     
         return redirect(url('products'))->with('success', 'Producto eliminado correctamente.');

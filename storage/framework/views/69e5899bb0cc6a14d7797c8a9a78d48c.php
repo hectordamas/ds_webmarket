@@ -15,7 +15,7 @@
 <div id="cartItems">
     <?php $__currentLoopData = Cart::content(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cartItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <div class="d-flex align-items-center border-bottom py-2">
-        <img src="<?php echo e(asset($cartItem->options->image ?? 'assets/img/product-default.png')); ?>" alt="<?php echo e($cartItem->name); ?>" class="rounded me-3" style="width: 70px; height: 70px; object-fit: cover;">
+        <img src="<?php echo e(img64($cartItem->options->image)); ?>" alt="<?php echo e($cartItem->name); ?>" class="rounded me-3" style="width: 70px; height: 70px; object-fit: cover;">
         <div class="flex-grow-1">
             <strong><?php echo e($cartItem->name); ?></strong>
             <small class="text-muted">x<?php echo e($cartItem->qty); ?></small>
