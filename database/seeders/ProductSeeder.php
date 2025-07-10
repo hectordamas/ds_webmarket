@@ -31,6 +31,12 @@ class ProductSeeder extends Seeder
             'Ensaladas' => ['Ensalada César', 'Ensalada Mixta', 'Ensalada Griega'],
             'Jugos naturales' => ['Jugo de Mango', 'Jugo de Patilla', 'Jugo de Fresa'],
             'Café y té' => ['Café Expreso', 'Café Latte', 'Té Verde', 'Capuccino'],
+            'Entradas' => ['Tequeños', 'Tostones con queso', 'Arepitas fritas'],
+            'Hamburguesas' => ['Hamburguesa Doble Carne', 'Hamburguesa Vegana', 'Hamburguesa BBQ'],
+            'Pastas' => ['Pasta Alfredo', 'Pasta Boloñesa', 'Lasaña'],
+            'Pollo' => ['Pollo a la brasa', 'Pollo crispy', 'Alitas BBQ'],
+            'Carnes' => ['Churrasco', 'Parrilla Mixta', 'Carne en vara'],
+            'Mariscos' => ['Camarones al ajillo', 'Paella', 'Ceviche mixto'],
         ];
 
         foreach ($categorias as $categoria) {
@@ -45,7 +51,7 @@ class ProductSeeder extends Seeder
             }
 
             foreach ($productos as $nombre) {
-                Product::create([
+                $product = Product::create([
                     'name' => $nombre,
                     'slug' => Str::slug($nombre),
                     'description' => 'Delicioso ' . strtolower($nombre) . ' preparado al momento.',
@@ -53,6 +59,9 @@ class ProductSeeder extends Seeder
                     'active' => true,
                     'category_id' => $categoria->id,
                 ]);
+
+                $product->image = 'products/' . $product->id . '.jpg';
+                $product->save();
             }
         }
 

@@ -27,6 +27,40 @@
         <script src="{{ asset('central/assets/jquery.js') }}"></script>
         <script src="{{ asset('central/assets/bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+        <script src="{{ asset('central/assets/sweetalert2/sweetalert2.all.min.js') }}"></script>
+
+        @if(session()->has('success'))
+        <script>	
+            Swal.fire({
+                text: "{{ session('success') }}",
+                icon: "success",
+                confirmButtonText: "Continuar", 
+                confirmButtonColor: '#28a745'
+            });
+        </script>
+        @endif	
+
+        @if(session()->has('error'))
+        <script>	
+            Swal.fire({
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonText: "Entendido!", 
+                confirmButtonColor: '#dc3545'
+            });
+        </script>
+        @endif	
+
+        @foreach($errors->all() as $error)
+        <script>	
+            Swal.fire({
+                text: "{{ $error }}",
+                icon: "error",
+                confirmButtonText: "Entendido!", 
+                confirmButtonColor: '#dc3545'
+            });
+        </script>
+        @endforeach
 
         @yield('scripts')
 

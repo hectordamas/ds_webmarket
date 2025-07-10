@@ -21,7 +21,6 @@ class StoreFormRequest extends FormRequest
             'whatsapp'   => 'required|string|max:50',
             'actividad'  => 'required|string|max:500',
             'instagram'  => 'nullable|string|max:255',
-            'autorizo'   => 'required|in:1',
         ];
     }
 }

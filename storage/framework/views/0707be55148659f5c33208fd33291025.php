@@ -37,7 +37,7 @@
         [
             'name' => 'Solicitudes',
             'icon' => '<i class="fas fa-envelope"></i>',
-            'ruta' => 'formRequest',
+            'ruta' => 'solicitudes',
             'subitems' => []    
         ]
     ])->map(function ($item) {
@@ -348,7 +348,6 @@
     <script src="<?php echo e(asset('central/assets/sweetalert2/sweetalert2.all.min.js')); ?>"></script>
 
     <script src="<?php echo e(asset('central/files/assets/js/script.js')); ?>"></script>
-    <script src="<?php echo e(asset('central/assets/sweetalert2/sweetalert2.all.min.js')); ?>"></script>
 
     <?php echo $__env->yieldContent('scripts'); ?>
 

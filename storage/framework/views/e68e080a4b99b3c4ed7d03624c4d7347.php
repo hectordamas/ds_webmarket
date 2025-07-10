@@ -27,6 +27,40 @@
         <script src="<?php echo e(asset('central/assets/jquery.js')); ?>"></script>
         <script src="<?php echo e(asset('central/assets/bootstrap/js/bootstrap.min.js')); ?>"></script>
         <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+        <script src="<?php echo e(asset('central/assets/sweetalert2/sweetalert2.all.min.js')); ?>"></script>
+
+        <?php if(session()->has('success')): ?>
+        <script>	
+            Swal.fire({
+                text: "<?php echo e(session('success')); ?>",
+                icon: "success",
+                confirmButtonText: "Continuar", 
+                confirmButtonColor: '#28a745'
+            });
+        </script>
+        <?php endif; ?>	
+
+        <?php if(session()->has('error')): ?>
+        <script>	
+            Swal.fire({
+                text: "<?php echo e(session('error')); ?>",
+                icon: "error",
+                confirmButtonText: "Entendido!", 
+                confirmButtonColor: '#dc3545'
+            });
+        </script>
+        <?php endif; ?>	
+
+        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <script>	
+            Swal.fire({
+                text: "<?php echo e($error); ?>",
+                icon: "error",
+                confirmButtonText: "Entendido!", 
+                confirmButtonColor: '#dc3545'
+            });
+        </script>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
         <?php echo $__env->yieldContent('scripts'); ?>
 

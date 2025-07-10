@@ -37,7 +37,7 @@
         [
             'name' => 'Solicitudes',
             'icon' => '<i class="fas fa-envelope"></i>',
-            'ruta' => 'formRequest',
+            'ruta' => 'solicitudes',
             'subitems' => []    
         ]
     ])->map(function ($item) {
@@ -347,7 +347,6 @@
     <script src="{{ asset('central/assets/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
     <script src="{{ asset('central/files/assets/js/script.js') }}"></script>
-    <script src="{{ asset('central/assets/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
     @yield('scripts')
 

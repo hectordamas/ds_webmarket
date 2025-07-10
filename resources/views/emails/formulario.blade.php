@@ -8,4 +8,3 @@
 @if($instagram)
   <p><strong>Instagram:</strong> {{ $instagram }}</p>
 @endif
-<p><strong>Autorización:</strong> {{ $autorizo ? 'Sí' : 'No' }}</p>

@@ -18,7 +18,8 @@ use App\Http\Controllers\Tenant\{
     CartController,
     OrderController,
     UsersController,
-    PaymentsController
+    PaymentsController,
+    FormRequestController
 };
 
 Route::middleware([

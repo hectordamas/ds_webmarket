@@ -63,7 +63,8 @@
                     <div class="form-card">
                       <h3 class="text-center mb-3">💚✨</h3>
                       <h5 class="text-center mb-4">Envíanos tus datos y obtén <strong>3 días de prueba</strong></h5>
-                      <form method="POST" action="#" class="row">
+                      <form method="POST" action="<?php echo e(url('solicitudes/store')); ?>" class="row">
+                        <?php echo csrf_field(); ?>
                         <div class="col-md-6 mb-3">
                           <label class="mb-2">Nombre y apellido *</label>
                           <input type="text" class="form-control" name="nombre" required placeholder="Ej: Ana Pérez">
@@ -91,12 +92,7 @@
                           <label class="mb-2">Usuario de Instagram (opcional)</label>
                           <input type="text" class="form-control" name="instagram" placeholder="@mi_negocio">
                         </div>
-                        <div class="col-md-12 d-flex mb-4">
-                          <input class="form-check-input" type="checkbox" value="1" id="autorizo" required>
-                          <label class="form-check-label mx-3" for="autorizo">
-                            Autorizo a <?php echo e(env('APP_NAME')); ?> a enviarme información relevante de mi suscripción a su plataforma.
-                          </label>
-                        </div>
+
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-success w-100">¡Quiero mi prueba gratis!</button>
                         </div>
