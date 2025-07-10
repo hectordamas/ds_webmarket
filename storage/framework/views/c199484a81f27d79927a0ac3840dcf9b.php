@@ -1,5 +1,5 @@
 <div class="text-center mb-3">
-    <img src="<?php echo e(asset($product->image)); ?>" alt="<?php echo e($product->name); ?>" class="img-fluid rounded" style="max-height: 200px;">
+    <img src="<?php echo e(img64($product->image)); ?>" alt="<?php echo e($product->name); ?>" class="img-fluid rounded" style="max-height: 200px;">
 </div>
 
 <div class="d-flex justify-content-between">
