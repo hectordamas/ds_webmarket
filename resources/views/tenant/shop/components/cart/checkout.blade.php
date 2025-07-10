@@ -4,11 +4,11 @@
     <div class="mb-4">
         <label class="form-label fw-semibold">Tipo de pedido</label>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="tipo_pedido" value="delivery" checked>
+            <input class="form-check-input" type="radio" name="tipo_pedido" value="Delivery" checked>
             <label class="form-check-label">Delivery</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="tipo_pedido" value="pickup">
+            <input class="form-check-input" type="radio" name="tipo_pedido" value="Pickup">
             <label class="form-check-label">Para llevar o recoger en local</label>
         </div>
     </div>
@@ -46,10 +46,9 @@
         <label class="form-label fw-semibold">Método de pago</label>
         <select class="form-select" name="metodo_pago" required>
             <option value="" selected disabled>Selecciona un método</option>
-            <option value="efectivo">Efectivo</option>
-            <option value="transferencia">Transferencia</option>
-            <option value="pago_movil">Pago Móvil</option>
-            <option value="zelle">Zelle</option>
+            @foreach ($payments as $payment)
+                <option value="{{ $payment->id }}">{{ $payment->name }}</option>
+            @endforeach
         </select>
     </div>
 

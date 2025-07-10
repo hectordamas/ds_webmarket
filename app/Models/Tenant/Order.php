@@ -4,7 +4,7 @@ namespace App\Models\Tenant;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Tenant\{OrderProduct};
+use App\Models\Tenant\{OrderProduct, Payment};
 
 class Order extends Model
 {
@@ -16,4 +16,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderProduct::class);
     }
+
+    public function payment(){
+        return $this->belongsTo(Payment::class);
+    }
+
 }

@@ -36,11 +36,7 @@
                             <tr>
                                 <td><?php echo e($product->id); ?></td>
                                 <td style="width: 80px">
-                                    <?php if($product->image): ?>
-                                        <img src="<?php echo e(asset($product->image)); ?>" class="img-fluid rounded" style="max-height: 60px;">
-                                    <?php else: ?>
-                                        <span class="text-muted">Sin imagen</span>
-                                    <?php endif; ?>
+                                    <img src="<?php echo e(img64($product->image)); ?>" class="img-fluid rounded" style="max-height: 60px;">
                                 </td>
                                 <td><?php echo e($product->name); ?></td>
                                 <td><?php echo e($product->category->name ?? 'Sin categoría'); ?></td>
@@ -72,8 +68,6 @@
                     </tbody>
                 </table>
 
-                
-                
             </div>
         </div>
     </div>

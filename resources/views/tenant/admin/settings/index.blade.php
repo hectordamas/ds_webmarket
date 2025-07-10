@@ -38,12 +38,12 @@
                     </div>
 
                     <div class="form-group col-md-3 mb-3">
-                        <label for="facebook">Facebook:</label>
+                        <label for="facebook">Enlace Facebook:</label>
                         <input type="text" name="facebook" id="facebook" class="form-control" value="{{ $settings['facebook'] ?? '' }}">
                     </div>
 
                     <div class="form-group col-md-3 mb-3">
-                        <label for="instagram">Instagram:</label>
+                        <label for="instagram">Enlace Instagram:</label>
                         <input type="text" name="instagram" id="instagram" class="form-control" value="{{ $settings['instagram'] ?? '' }}">
                     </div>
 

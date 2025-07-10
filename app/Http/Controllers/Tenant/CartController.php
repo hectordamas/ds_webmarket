@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Tenant\{Product};
+use App\Models\Tenant\{Product, Setting, Payment};
 use Cart;
 
 class CartController extends Controller
@@ -199,12 +199,14 @@ class CartController extends Controller
         $mensaje .= "*Total:* " . number_format($total, 2, '.', ',') . " US$\n";
         $mensaje .= "=====================\n";
 
-        $mensaje .= "*Método de pago:* {$data['metodo_pago']}\n";
+        $payment = Payment::find($data['metodo_pago']);
+        $mensaje .= "*Método de pago:* {$payment->name}\n";
         $mensaje .= "*Tipo de pedido:* {$data['tipo_pedido']}\n";
 
         // Redirigir al número de WhatsApp
-        $numeroWhatsApp = '584241930033';
-        $url = "https://wa.me/{$numeroWhatsApp}?text=" . urlencode($mensaje);
+        $settings = Setting::pluck('value', 'key');
+        $numeroWhatsApp = $settings = Setting::pluck('value', 'key');
+        $url = "{$settings['whatsapp_url']}?text=" . urlencode($mensaje);
 
         return response()->json(['url' => $url]);
     }

@@ -38,11 +38,7 @@
                             <tr>
                                 <td>{{ $product->id }}</td>
                                 <td style="width: 80px">
-                                    @if ($product->image)
-                                        <img src="{{ img64($product->image) }}" class="img-fluid rounded" style="max-height: 60px;">
-                                    @else
-                                        <span class="text-muted">Sin imagen</span>
-                                    @endif
+                                    <img src="{{ img64($product->image) }}" class="img-fluid rounded" style="max-height: 60px;">
                                 </td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->category->name ?? 'Sin categoría' }}</td>

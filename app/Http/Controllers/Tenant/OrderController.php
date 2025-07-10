@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Tenant\{Order, OrderProduct, OrderProductOption};
+use App\Models\Tenant\{Order, OrderProduct, OrderProductOption, Payment};
 use Cart;
 
 class OrderController extends Controller
@@ -29,12 +29,15 @@ class OrderController extends Controller
         ]);
 
         // Crear la orden (adaptar según modelo)
+        $payment = Payment::find($data['metodo_pago']);
+
         $order = new Order();
         $order->nombre = $data['nombre'];
         $order->cedula = $data['cedula'];
         $order->telefono = $data['telefono'];
         $order->direccion = $data['direccion'] ?? null;
-        $order->metodo_pago = $data['metodo_pago'];
+        $order->payment_id = $data['metodo_pago'];
+        $order->metodo_pago = $payment->name;
         $order->tipo_pedido = $data['tipo_pedido'];
         $order->total = Cart::subtotal();
         $order->items = json_encode(Cart::content()); // O guardar en tabla relacionada

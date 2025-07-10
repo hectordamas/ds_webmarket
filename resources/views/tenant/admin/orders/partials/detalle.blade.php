@@ -13,7 +13,7 @@
         <div class="col-md-6 mb-3">
             <ul>
                 <li><strong>Tipo de Pedido:</strong> {{ $order->tipo_pedido }}</li>
-                <li><strong>Método de Pago:</strong> {{ $order->metodo_pago }}</li>
+                <li><strong>Método de Pago:</strong> {{ $order->payment->name }}</li>
                 @php
                     $statusColors = [
                         'Pendiente'   => 'secondary',

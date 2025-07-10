@@ -83,7 +83,7 @@
 
     {{-- Método de pago --}}
     <div class="mb-3">
-        <p class="mb-1"><strong>Método de pago:</strong> {{ $order->metodo_pago }}</p>
+        <p class="mb-1"><strong>Método de pago:</strong> {{ $order->payment->name }}</p>
         <p class="mb-0"><strong>Nota:</strong> {{ $order->nota ?? '—' }}</p>
     </div>
 

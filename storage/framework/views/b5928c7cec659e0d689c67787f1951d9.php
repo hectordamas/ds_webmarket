@@ -107,9 +107,17 @@
             <footer class="bg-dark text-light py-4 mt-5">
                 <div class="container text-center">
                     <div class="mb-2">
-                        <a href="#" class="text-light mx-2"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-light mx-2"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-light mx-2"><i class="fab fa-whatsapp"></i></a>
+                        <?php if(isset($settings['facebook'])): ?>
+                            <a href="<?php echo e($settings['facebook']); ?>" class="text-light mx-2"><i class="fab fa-facebook-f"></i></a>
+                        <?php endif; ?>
+
+                        <?php if(isset($settings['instagram'])): ?>
+                            <a href="<?php echo e($settings['instagram']); ?>" class="text-light mx-2"><i class="fab fa-instagram"></i></a>
+                        <?php endif; ?>
+
+                        <?php if(isset($settings['whatsapp_url'])): ?>
+                            <a href="<?php echo e($settings['whatsapp_url']); ?>" class="text-light mx-2"><i class="fab fa-whatsapp"></i></a>
+                        <?php endif; ?>
                     </div>
                     <p class="mb-0" style="font-size: 14px;">
                         &copy; <?php echo e(date('Y')); ?> <?php echo e(env('APP_NAME')); ?>. Todos los derechos reservados.
@@ -384,7 +392,7 @@
     $(document).ready(function () {
         function toggleDireccionFields() {
             const tipo = $('input[name="tipo_pedido"]:checked').val();
-            if (tipo === 'pickup') {
+            if (tipo === 'Pickup') {
                 $('#direccionFields').slideUp();
                 $('#direccionFields').find('textarea, input').prop('required', false);
             } else {
@@ -420,7 +428,7 @@
             if (!cedula) errores.push("La cédula es obligatoria.");
             if (!telefono) errores.push("El teléfono es obligatorio.");
             if (!metodo_pago) errores.push("El Método de Pago es obligatorio.");
-            if (tipoPedido === 'delivery' && !direccion) errores.push("La dirección es obligatoria para Delivery.");
+            if (tipoPedido === 'Delivery' && !direccion) errores.push("La dirección es obligatoria para Delivery.");
 
             if (errores.length > 0) {
                 Swal.fire({
@@ -441,7 +449,7 @@
             $('#summaryCedula').text($('[name="cedula"]').val());
             $('#summaryMetodoDePago').text($('[name="metodo_pago"]').val())
             $('#summaryTipoDePedido').text($('input[name="tipo_pedido"]:checked').val())
-            if (tipoPedido === 'delivery' && direccion) {
+            if (tipoPedido === 'Delivery' && direccion) {
                 $('.direccion').show()
                 $('#summaryDireccion').text($('[name="direccion"]').val());
             } else{

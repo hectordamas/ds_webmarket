@@ -13,7 +13,7 @@
         <div class="col-md-6 mb-3">
             <ul>
                 <li><strong>Tipo de Pedido:</strong> <?php echo e($order->tipo_pedido); ?></li>
-                <li><strong>Método de Pago:</strong> <?php echo e($order->metodo_pago); ?></li>
+                <li><strong>Método de Pago:</strong> <?php echo e($order->payment->name); ?></li>
                 <?php
                     $statusColors = [
                         'Pendiente'   => 'secondary',
@@ -47,7 +47,7 @@
                     <?php $__currentLoopData = $order->products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
                         <td>
-                            <img src="<?php echo e(asset($product->product->image)); ?>" alt="Producto" style="width: 80px; height: auto;">
+                            <img src="<?php echo e(img64($product->product->image)); ?>" alt="Producto" style="width: 80px; height: auto;">
                         </td>
                         <td>
                             <h6><?php echo e($product->product->name); ?></h6>
