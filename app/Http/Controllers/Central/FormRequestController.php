@@ -27,7 +27,7 @@ class FormRequestController extends Controller
 
         // Enviar correo directamente
         Mail::send('emails.formulario', $form->toArray(), function ($message) {
-            $message->to('hectorgabrieldm@hotmail.com')->subject('Nuevo formulario de prueba gratis');
+            $message->to(env('MAIL_FROM_ADDRESS'))->subject('Nuevo formulario de prueba gratis');
         });
 
         return redirect()->back()->with('success', '¡Gracias! Te contactaremos pronto.');
