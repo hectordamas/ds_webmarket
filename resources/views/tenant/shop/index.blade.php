@@ -11,7 +11,7 @@
 
             <div class="row">
                 <div class="col-md-12 text-center py-5 mt-2">
-                    <img src="{{ asset($settings['logo'] ?? 'assets/img/logo-color.png') }}" alt="" class="logo-main">
+                    <img src="{{ img64($settings['logo'] ?? 'assets/img/logo-color.png') }}" alt="" class="logo-main">
                 </div>
                 <div class="col-md-12 pb-3">
                     <div class="card border-0 bar-container">

@@ -17,7 +17,7 @@
 
                     <div class="form-group col-md-3 mb-3">
                         <label>Logo actual:</label><br>
-                        <img src="<?php echo e(asset($settings['logo'] ?? 'assets/img/logo-color.png')); ?>" height="60" alt="Logo actual">
+                        <img src="<?php echo e(img64($settings['logo'] ?? 'assets/img/logo-color.png')); ?>" height="60" alt="Logo actual">
                     </div>
 
                     <div class="form-group col-md-3 mb-3">
