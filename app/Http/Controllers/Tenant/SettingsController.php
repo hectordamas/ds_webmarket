@@ -24,11 +24,14 @@ class SettingsController extends Controller
             'logo' => 'nullable|image|max:2048',
         ]);
 
-        // Guardar logo
+        // Guardar logo en base64
         if ($request->hasFile('logo')) {
-            $filename = 'logo_' . time() . '.' . $request->file('logo')->getClientOriginalExtension();
-            $request->file('logo')->move(public_path('tenancy/assets/uploads'), $filename);
-            Setting::updateOrCreate(['key' => 'logo'], ['value' => 'tenancy/assets/uploads/' . $filename]);
+            $file = $request->file('logo');
+            $base64 = base64_encode(file_get_contents($file));
+            $mime = $file->getMimeType();
+            $data = 'data:' . $mime . ';base64,' . $base64;
+        
+            Setting::updateOrCreate(['key' => 'logo'], ['value' => $data]);
         }
 
         // Guardar número humano

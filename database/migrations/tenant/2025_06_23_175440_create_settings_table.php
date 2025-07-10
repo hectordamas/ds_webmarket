@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('key')->unique();
-            $table->text('value')->nullable();
+            $table->longText('value')->nullable();
         });
 
         DB::table('settings')->insert([
