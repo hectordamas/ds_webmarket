@@ -60,7 +60,7 @@ class ProductSeeder extends Seeder
                     'category_id' => $categoria->id,
                 ]);
 
-                $product->image = 'products/' . $product->id . '.jpg';
+                $product->image = 'assets/products/' . $product->id . '.jpg';
                 $product->save();
             }
         }
