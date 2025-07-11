@@ -46,9 +46,11 @@
         <label class="form-label fw-semibold">Método de pago</label>
         <select class="form-select" name="metodo_pago" required>
             <option value="" selected disabled>Selecciona un método</option>
+            @isset($payments)
             @foreach ($payments as $payment)
                 <option value="{{ $payment->id }}">{{ $payment->name }}</option>
             @endforeach
+            @endisset
         </select>
     </div>
 
