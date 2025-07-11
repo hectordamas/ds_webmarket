@@ -103,6 +103,12 @@
             </div>
 
         </div>
+
+        <div class="col-md-12 text-center">
+            <div class="my-4">
+                <img src="<?php echo e(asset('central/assets/img/saint-light.png')); ?>" style="max-width:80px;" alt="">
+            </div>
+        </div>
     </div>
 </div>
 <?php $__env->stopSection(); ?>
