@@ -106,9 +106,6 @@
         <div class="col-md-12 px-0">
             <footer class="bg-dark text-light py-4 mt-5">
                 <div class="container text-center">
-                    <div class="mb-4">
-                        <img src="<?php echo e(asset('assets/img/saint-light.png')); ?>" style="max-width: 120px;" alt="">
-                    </div>
                     <div class="mb-2">
                         <?php if(isset($settings['facebook'])): ?>
                             <a href="<?php echo e($settings['facebook']); ?>" class="text-light mx-2"><i class="fab fa-facebook-f"></i></a>
@@ -125,7 +122,12 @@
                     <p class="mb-0" style="font-size: 14px;">
                         &copy; <?php echo e(date('Y')); ?> <?php echo e(env('APP_NAME')); ?>. Todos los derechos reservados.
                     </p>
+                    <div class="my-4">
+                        <img src="<?php echo e(asset('assets/img/saint-light.png')); ?>" style="max-width: 100px;" alt="">
+                        <img src="<?php echo e(asset('assets/img/dsapps.png')); ?>" style="max-width: 100px;" alt="">
+                    </div>
                 </div>
+
             </footer>
         </div>
     </div>

@@ -68,13 +68,13 @@
                         <hr>
 
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-10">
                                 <p class="text-inverse text-start m-b-0">Gracias por usar DS WebMarket.</p>
                                 <p class="text-inverse text-start">
                                     <a href="{{ url('/') }}"><b class="f-w-600">Volver al sitio</b></a>
                                 </p>
                             </div>
-                            <div class="col-md-2 text-end">
+                            <div class="col-2 text-end">
                                 <img src="{{ asset('assets/img/favicon.png') }}" class="w-100" alt="Logo pequeño">
                             </div>
                         </div>

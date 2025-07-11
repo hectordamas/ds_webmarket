@@ -106,7 +106,8 @@
 
         <div class="col-md-12 text-center">
             <div class="my-4">
-                <img src="<?php echo e(asset('central/assets/img/saint-light.png')); ?>" style="max-width:80px;" alt="">
+                <img src="<?php echo e(asset('central/assets/img/saint-light.png')); ?>" style="max-width: 100px;" alt="">
+                <img src="<?php echo e(asset('central/assets/img/dsapps.png')); ?>" style="max-width: 100px;" alt="">
             </div>
         </div>
     </div>
