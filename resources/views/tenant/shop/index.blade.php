@@ -105,6 +105,9 @@
         <div class="col-md-12 px-0">
             <footer class="bg-dark text-light py-4 mt-5">
                 <div class="container text-center">
+                    <div class="mb-4">
+                        <img src="{{ asset('assets/img/saint-light.png') }}" style="max-width: 120px;" alt="">
+                    </div>
                     <div class="mb-2">
                         @isset($settings['facebook'])
                             <a href="{{ $settings['facebook'] }}" class="text-light mx-2"><i class="fab fa-facebook-f"></i></a>

@@ -81,7 +81,7 @@
                           <label class="mb-2">Whatsapp de su empresa *</label>
                           <div class="input-group">
                             <span class="input-group-text text-light" style="background: transparent;">+58</span>
-                            <input type="text" class="form-control" name="whatsapp" required placeholder="Ej: 0412-1234567">
+                            <input type="text" class="form-control" name="whatsapp" required placeholder="Ej: 412-1234567">
                           </div>
                         </div>
                         <div class="col-md-6 mb-3">

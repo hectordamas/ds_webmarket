@@ -46,9 +46,11 @@
         <label class="form-label fw-semibold">Método de pago</label>
         <select class="form-select" name="metodo_pago" required>
             <option value="" selected disabled>Selecciona un método</option>
+            <?php if(isset($payments)): ?>
             <?php $__currentLoopData = $payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <option value="<?php echo e($payment->id); ?>"><?php echo e($payment->name); ?></option>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
         </select>
     </div>
 
