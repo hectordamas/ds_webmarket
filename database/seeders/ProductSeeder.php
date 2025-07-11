@@ -12,7 +12,7 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        tenant('foo'); // Activar el contexto del tenant
+        tenant('foorest'); // Activar el contexto del tenant
 
         $categorias = Category::all();
 
