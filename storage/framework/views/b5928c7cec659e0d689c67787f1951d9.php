@@ -104,7 +104,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 px-0">
-            <footer class="bg-dark text-light py-4 mt-5">
+            <footer class="bg-dark text-light py-5 mt-5">
                 <div class="container text-center">
                     <div class="mb-2">
                         <?php if(isset($settings['facebook'])): ?>
@@ -125,6 +125,13 @@
                     <div class="my-4">
                         <img src="<?php echo e(asset('assets/img/saint-light.png')); ?>" style="max-width: 100px;" alt="">
                         <img src="<?php echo e(asset('assets/img/dsapps.png')); ?>" style="max-width: 100px;" alt="">
+                    </div>
+
+                                        <div class="my-5">
+
+                    </div>
+                    <div class="my-5">
+
                     </div>
                 </div>
 
