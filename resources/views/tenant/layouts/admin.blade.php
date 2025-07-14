@@ -3,7 +3,7 @@
         [
             'name' => 'Dashboard',
             'icon' => '<i class="fas fa-chart-pie"></i>',
-            'ruta' => 'dashboard',
+            'ruta' => 'home',
             'subitems' => []
         ],
         [
@@ -185,7 +185,7 @@
                         <a class="mobile-menu" id="mobile-collapse" href="#!">
                             <i class="feather icon-menu"></i>
                         </a>
-                        <a href="{{ url('dashboard') }}">
+                        <a href="{{ url('home') }}">
                             <img class="img-fluid w-100" style="max-width:160px;" src="{{ asset('assets/img/logo-light.png') }}" alt="{{ env('APP_NAME') }} Logo" />
                         </a>
                         <a class="mobile-options">

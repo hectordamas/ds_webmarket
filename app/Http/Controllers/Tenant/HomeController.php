@@ -49,9 +49,9 @@ class HomeController extends Controller
                 $from = $today->copy()->startOfDay();
                 $to = $today->copy()->endOfDay();
                 $format = '%H';
-                $labels = collect(range(0, 23))
-                    ->map(fn($h) => str_pad($h, 2, '0', STR_PAD_LEFT) . 'h')
-                    ->toArray();
+                $labels = collect(range(0, 23))->map(function ($h) {
+                    return Carbon::createFromTime($h)->format('g A'); // ej: 1 AM, 2 PM
+                })->toArray();
                 break;
         }
 
@@ -118,6 +118,53 @@ class HomeController extends Controller
         
         $datosVentas = $this->obtenerDatosVentas($from, $to, $format, $range, $labels);
 
+        $productosMasVendidos = DB::table('order_products')
+        ->select('product_id', DB::raw('SUM(quantity) as total_vendidos'))
+        ->whereBetween('created_at', [$from, $to])
+        ->groupBy('product_id')
+        ->orderByDesc('total_vendidos')
+        ->limit(10)
+        ->get()
+        ->map(function ($item) {
+            $producto = Product::find($item->product_id);
+            return [
+                'nombre' => $producto?->name ?? 'Producto eliminado',
+                'cantidad' => $item->total_vendidos,
+            ];
+        });
+
+        $ingresos = Order::whereBetween('created_at', [$from, $to])
+        ->sum('total');
+        $ticketPromedio = Order::whereBetween('created_at', [$from, $to])->avg('total');
+        $clientesEnRango = Order::whereBetween('created_at', [$from, $to])
+            ->whereNotNull('cedula')
+            ->where('cedula', '!=', '')
+            ->distinct()
+            ->pluck('cedula');
+
+        $clientesPorTipo = Order::select('cedula', DB::raw('MIN(created_at) as primera_compra'))
+            ->whereNotNull('cedula')
+            ->where('cedula', '!=', '')
+            ->groupBy('cedula')
+            ->get();
+
+        $clientesNuevos = 0;
+        $clientesRecurrentes = 0;
+
+        foreach ($clientesPorTipo as $cliente) {
+            $tieneCompraEnRango = Order::where('cedula', $cliente->cedula)
+                ->whereBetween('created_at', [$from, $to])
+                ->exists();
+        
+            if ($tieneCompraEnRango) {
+                if ($cliente->primera_compra >= $from) {
+                    $clientesNuevos++;
+                } else {
+                    $clientesRecurrentes++;
+                }
+            }
+        }
+
         return compact(
             'visitas',
             'clientes',
@@ -125,7 +172,12 @@ class HomeController extends Controller
             'orders',
             'labels',
             'datosVentas',
-            'pedidosPorEstado'
+            'pedidosPorEstado',
+            'productosMasVendidos',
+            'ingresos',
+            'ticketPromedio',
+            'clientesNuevos',
+            'clientesRecurrentes',
         );
     }
 

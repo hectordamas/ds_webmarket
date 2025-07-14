@@ -116,6 +116,93 @@
     </div>
 
 
+    <div class="col-md-4">
+        <div class="card shadow mb-3">
+            <div class="card-block">
+                <div class="row align-items-center m-l-0">
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign f-30 text-c-green"></i>
+                    </div>
+                    <div class="col-auto">
+                        <h6 class="text-muted m-b-10">Ingresos Totales</h6>
+                        <h4 class="m-b-0">${{ number_format($ingresos, 2, ',', '.') }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-3">
+            <div class="card-block">
+                <div class="row align-items-center m-l-0">
+                    <div class="col-auto">
+                        <i class="fas fa-receipt f-30 text-primary"></i>
+                    </div>
+                    <div class="col-auto">
+                        <h6 class="text-muted m-b-10">Ticket Promedio</h6>
+                        <h4 class="m-b-0">${{ number_format($ticketPromedio, 2, ',', '.') }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-3">
+            <div class="card-block">
+                <div class="row align-items-center m-l-0">
+                    <div class="col-auto">
+                        <i class="fas fa-user-plus f-30 text-success"></i>
+                    </div>
+                    <div class="col-auto">
+                        <h6 class="text-muted m-b-10">Clientes Nuevos</h6>
+                        <h4 class="m-b-0">{{ $clientesNuevos ?? 0 }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-3">
+            <div class="card-block">
+                <div class="row align-items-center m-l-0">
+                    <div class="col-auto">
+                        <i class="feather icon-users f-30 text-c-pink"></i>
+                    </div>
+                    <div class="col-auto">
+                        <h6 class="text-muted m-b-10">Clientes Recurrentes</h6>
+                        <h4 class="m-b-0">{{ $clientesRecurrentes ?? 0 }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-8">
+        <div class="card shadow h-100 border-0">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">📦 Productos más vendidos</h5>
+                <small class="text-muted">Unidades</small>
+            </div>
+            <div class="card-block p-0">
+                @forelse($productosMasVendidos as $producto)
+                    <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style="width:32px; height:32px;">
+                                <i class="fas fa-trophy text-warning"></i>
+                            </div>
+                            <span class="fw-semibold">{{ $producto['nombre'] }}</span>
+                        </div>
+                        <span class="badge bg-primary">{{ $producto['cantidad'] }} </span>
+                    </div>
+                @empty
+                    <div class="p-3 text-center text-muted">
+                        No hay productos vendidos en este período.
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+
+
 </div>
 @endsection
 
