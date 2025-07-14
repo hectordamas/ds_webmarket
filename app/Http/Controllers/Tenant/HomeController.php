@@ -72,8 +72,7 @@ class HomeController extends Controller
         );
     }
 
-    public function dashboard(){
-        return view('tenant.dashboard', $this->getData());
-
+    public function home(){
+        return view('tenant.home', $this->getData());
     }
 }

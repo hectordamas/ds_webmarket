@@ -64,7 +64,7 @@ Route::middleware([
     Route::middleware('tenant.auth')->group(function () {
 
         // Dashboard
-        Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+        Route::get('home', [HomeController::class, 'home']);
 
         // Categorías
         Route::controller(CategoriesController::class)->group(function () {
