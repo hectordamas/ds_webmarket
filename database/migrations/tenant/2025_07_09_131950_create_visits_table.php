@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
+
             $table->string('ip')->nullable();                // IP del visitante
             $table->string('user_agent')->nullable();        // Navegador o dispositivo
             $table->string('url')->nullable();               // URL visitada
             $table->string('referrer')->nullable();          // Desde dónde llegó
             $table->string('tenant')->nullable();            // Si estás en un sistema multitenant
-            $table->timestamps();
         });
     }
 

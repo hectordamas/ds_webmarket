@@ -126,7 +126,7 @@
                         <img src="{{ asset('assets/img/dsapps.png') }}" style="max-width: 100px;" alt="">
                     </div>
 
-                                        <div class="my-5">
+                    <div class="my-5">
 
                     </div>
                     <div class="my-5">
