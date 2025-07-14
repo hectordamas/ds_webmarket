@@ -46,7 +46,7 @@
                 <h6 class="fw-bold mb-3">Datos del Cliente</h6>
                 <p class="mb-1"><strong>Nombre:</strong> {{ $order->nombre }}</p>
                 <p class="mb-1"><strong>Cédula:</strong> {{ $order->cedula }}</p>
-                <p class="mb-1"><strong>Teléfono:</strong> {{ $order->telefono }}</p>
+                <p class="mb-1"><strong>Teléfono:</strong> +58 {{ $order->telefono }}</p>
                 @if($order->direccion)
                     <p class="mb-0"><strong>Dirección:</strong> {{ $order->direccion }}</p>
                 @endif
@@ -69,12 +69,12 @@
 
 {{-- Productos --}}
 <div class="card shadow-sm mb-3">
-    <div class="card-header bg-light">
-        <h6>Productos</h6>
-    </div>
+
     <div class="card-body">
+        <h6>Productos</h6>
+        <hr>
         @foreach ($order->products as $item)
-            <div class="mb-3 border-bottom pb-2">
+            <div class="pb-2 {{ !$loop->last ? 'mb-3 border-bottom' : '' }}">
                 <div class="fw-semibold">
                     {{ $item->product->name }}  x {{ $item->quantity }}
                 </div>

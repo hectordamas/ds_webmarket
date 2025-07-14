@@ -4,6 +4,20 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="row">
+    <div class="col-md-12">
+        <form method="GET" class="mb-3">
+            <div class="d-flex align-items-center gap-2">
+                <label class="fw-bold">Filtrar por Rango:</label>
+                <select name="range" class="form-select w-auto" onchange="this.form.submit()">
+                    <option value="today" <?php echo e(request('range') == 'today' ? 'selected' : ''); ?>>Hoy</option>
+                    <option value="week" <?php echo e(request('range') == 'week' ? 'selected' : ''); ?>>Esta semana</option>
+                    <option value="month" <?php echo e(request('range') == 'month' ? 'selected' : ''); ?>>Este mes</option>
+                    <option value="year" <?php echo e(request('range') == 'year' ? 'selected' : ''); ?>>Este año</option>
+                </select>
+            </div>
+        </form>
+    </div>
+
 
     <!-- Visitantes -->
     <div class="col-xl-3 col-md-6">
@@ -11,8 +25,8 @@
             <div class="card-block">
                 <div class="row align-items-center">
                     <div class="col">
-                        <p class="m-b-5">Visitantes</p>
-                        <h4 class="m-b-0"><?php echo e($clientes); ?></h4>
+                        <p class="m-b-5">Nuevos Visitantes</p>
+                        <h4 class="m-b-0"><?php echo e($visitas); ?></h4>
                     </div>
                     <div class="col col-auto text-end">
                         <i class="feather icon-activity f-50 text-c-yellow"></i>
@@ -48,7 +62,7 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <p class="m-b-5">Productos</p>
-                        <h4 class="m-b-0"><?php echo e(0); ?></h4>
+                        <h4 class="m-b-0"><?php echo e($products); ?></h4>
                     </div>
                     <div class="col col-auto text-end">
                         <i class="feather icon-box f-50 text-c-pink"></i>
@@ -65,7 +79,7 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <p class="m-b-5">Total Pedidos</p>
-                        <h4 class="m-b-0"><?php echo e($pedidos); ?></h4>
+                        <h4 class="m-b-0"><?php echo e($orders); ?></h4>
                     </div>
                     <div class="col col-auto text-end">
                         <i class="feather icon-shopping-cart f-50 text-c-blue"></i>
@@ -98,45 +112,7 @@
         </div>
     </div>
 
-    <!-- Últimos Pedidos -->
-    <div class="col-12 col-xl-4 mb-3">
-        <div class="card border-0 shadow h-100">
-            <div class="card-header">
 
-                <h5 class="mb-0">Últimos Pedidos</h5>
-            </div>
-            <div class="card-block">
-                <ul class="list-group list-group-flush">
-                    <?php $__currentLoopData = $ultimosPedidos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pedido): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li class="list-group-item">
-                            <strong>#<?php echo e($pedido->id); ?></strong> - <?php echo e($pedido->cliente->nombre); ?><br>
-                            <small class="text-muted"><?php echo e($pedido->created_at->format('d/m/Y')); ?></small>
-                        </li>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-        <!-- Categorías con mayor trafico -->
-    <div class="col-12 col-xl-4 mb-3">
-        <div class="card border-0 shadow h-100">
-            <div class="card-header">
-
-                <h5 class="mb-0">Categorias de mayor interés</h5>
-            </div>
-            <div class="card-block">
-                <ul class="list-group list-group-flush">
-                    <?php $__currentLoopData = $ultimosPedidos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pedido): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li class="list-group-item">
-                            <strong>#<?php echo e($pedido->id); ?></strong> - <?php echo e($pedido->cliente->nombre); ?><br>
-                            <small class="text-muted"><?php echo e($pedido->created_at->format('d/m/Y')); ?></small>
-                        </li>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </ul>
-            </div>
-        </div>
-    </div>
 </div>
 <?php $__env->stopSection(); ?>
 
@@ -164,10 +140,10 @@
     const ventasLineChart = new Chart(ctxVentas, {
         type: 'line',
         data: {
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+            labels: <?php echo json_encode($labels, 15, 512) ?>,
             datasets: [{
                 label: 'Ventas (USD)',
-                data: [1200, 1900, 3000, 2500, 3200, 4000],
+                data: <?php echo json_encode($datosVentas, 15, 512) ?>,
                 fill: true,
                 tension: 0.3,
                 borderColor: '#0050D9',

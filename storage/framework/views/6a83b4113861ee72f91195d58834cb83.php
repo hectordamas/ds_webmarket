@@ -48,7 +48,7 @@
                 <h6 class="fw-bold mb-3">Datos del Cliente</h6>
                 <p class="mb-1"><strong>Nombre:</strong> <?php echo e($order->nombre); ?></p>
                 <p class="mb-1"><strong>Cédula:</strong> <?php echo e($order->cedula); ?></p>
-                <p class="mb-1"><strong>Teléfono:</strong> <?php echo e($order->telefono); ?></p>
+                <p class="mb-1"><strong>Teléfono:</strong> +58 <?php echo e($order->telefono); ?></p>
                 <?php if($order->direccion): ?>
                     <p class="mb-0"><strong>Dirección:</strong> <?php echo e($order->direccion); ?></p>
                 <?php endif; ?>
@@ -71,12 +71,12 @@
 
 
 <div class="card shadow-sm mb-3">
-    <div class="card-header bg-light">
-        <h6>Productos</h6>
-    </div>
+
     <div class="card-body">
+        <h6>Productos</h6>
+        <hr>
         <?php $__currentLoopData = $order->products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="mb-3 border-bottom pb-2">
+            <div class="pb-2 <?php echo e(!$loop->last ? 'mb-3 border-bottom' : ''); ?>">
                 <div class="fw-semibold">
                     <?php echo e($item->product->name); ?>  x <?php echo e($item->quantity); ?>
 
