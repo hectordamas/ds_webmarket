@@ -374,6 +374,26 @@
         // contador global que se actualiza con cada polling
         let contadorActual = {{ $notificacionesNoLeidas ?? 0 }};
         let originalTitle = document.title;
+        let sonidoHabilitado = false;
+        let sonido = new Audio("{{ asset('assets/notificacion.mp3') }}");
+            
+        function habilitarSonido() {
+            if (!sonidoHabilitado) {
+                sonido.play().then(() => {
+                    sonido.pause();
+                    sonido.currentTime = 0;
+                    sonidoHabilitado = true;
+                    console.log('🔊 Sonido activado por interacción');
+                }).catch(err => {
+                    console.warn('No se pudo activar el sonido:', err);
+                });
+            }
+        }
+        
+        // Escucha la primera interacción real
+        window.addEventListener('click', habilitarSonido, { once: true });
+        window.addEventListener('touchstart', habilitarSonido, { once: true });
+        window.addEventListener('keydown', habilitarSonido, { once: true });
 
         function fetchNotificaciones() {
             $.ajax({
@@ -398,7 +418,6 @@
                     
                     // Reproducir sonido solo si el nuevo contador es mayor
                     if (data.contador > contadorActual) {
-                        const sonido = new Audio("{{ asset('assets/notificacion.mp3') }}");
                         sonido.play().catch((e) => {
                             console.warn("Error al reproducir sonido:", e);
                         });

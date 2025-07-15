@@ -4,7 +4,7 @@
     <?php if(!$order->is_read): ?>
       <span class="badge bg-danger">Nuevo</span>
     <?php else: ?>
-      <span class="badge bg-secondary">Leído</span>
+      <span class="badge bg-success">Leído</span>
     <?php endif; ?>
   </td>
   <td><?php echo e($order->nombre); ?></td>

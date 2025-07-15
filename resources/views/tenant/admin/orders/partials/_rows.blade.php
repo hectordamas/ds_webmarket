@@ -4,7 +4,7 @@
     @if(!$order->is_read)
       <span class="badge bg-danger">Nuevo</span>
     @else
-      <span class="badge bg-secondary">Leído</span>
+      <span class="badge bg-success">Leído</span>
     @endif
   </td>
   <td>{{ $order->nombre }}</td>

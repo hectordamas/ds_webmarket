@@ -196,7 +196,27 @@
 
 <script>
     function updateOrdersPolling() {
-        let lastId = $('#lastOrderId').val(); // Leer el valor actual
+      let lastId = $('#lastOrderId').val(); // Leer el valor actual
+      let sonidoHabilitado = false;
+      let sonido = new Audio("<?php echo e(asset('assets/notificacion.mp3')); ?>");
+          
+      function habilitarSonido() {
+          if (!sonidoHabilitado) {
+              sonido.play().then(() => {
+                  sonido.pause();
+                  sonido.currentTime = 0;
+                  sonidoHabilitado = true;
+                  console.log('🔊 Sonido activado por interacción');
+              }).catch(err => {
+                  console.warn('No se pudo activar el sonido:', err);
+              });
+          }
+      }
+      
+      // Escucha la primera interacción real
+      window.addEventListener('click', habilitarSonido, { once: true });
+      window.addEventListener('touchstart', habilitarSonido, { once: true });
+      window.addEventListener('keydown', habilitarSonido, { once: true });
 
       $.ajax({
         url: "<?php echo e(url('orders/polling')); ?>", // Endpoint que devuelve solo filas nuevas o actualizadas
@@ -231,6 +251,9 @@
             // Actualizar el input oculto si llega un ID mayor
             if (order.id > lastId) {
                 $('#lastOrderId').val(order.id);
+                        sonido.play().catch((e) => {
+                            console.warn("Error al reproducir sonido:", e);
+                        });
             }
           });
         }
