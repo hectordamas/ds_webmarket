@@ -86,6 +86,8 @@ class OrderController extends Controller
 
     public function show($id){
         $order = Order::find($id);
+        $order->is_read = true;
+        $order->save();
 
         return view('tenant.admin.orders.show', [
             'order' => $order
@@ -96,7 +98,9 @@ class OrderController extends Controller
     {
         $orderId = $request->input('id');
         $order = Order::findOrFail($orderId);
-
+        $order->is_read = true;
+        $order->save();
+        
         // Retornamos un view parcial con los datos
         return view('tenant.admin.orders.partials.detalle', compact('order'))->render();
     }

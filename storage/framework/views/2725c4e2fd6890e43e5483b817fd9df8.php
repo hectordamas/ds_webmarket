@@ -219,59 +219,23 @@
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <i class="feather icon-bell"></i>
-                                        <span class="badge bg-c-pink">5</span>
+                                        <?php if($notificacionesNoLeidas > 0): ?>
+                                            <span class="badge bg-c-pink"><?php echo e($notificacionesNoLeidas); ?></span>
+                                        <?php endif; ?>
                                     </div>
                                     <ul class="show-notification notification-view dropdown-menu"
                                         data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                         <li>
-                                            <h6>Notifications</h6>
-                                            <label class="form-label label label-danger">New</label>
+                                            <h6>Notificaciones</h6>
+                                            <?php if($notificacionesNoLeidas > 0): ?>
+                                                <label class="form-label label label-danger">Nuevo</label>
+                                            <?php endif; ?>
                                         </li>
-                                        <li>
-                                            <div class="d-flex">
-                                                <div class="flex-shrink-0">
-                                                <img class="d-flex align-self-center img-radius"
-                                                    src="../files/assets/images/avatar-4.jpg"
-                                                    alt="Generic placeholder image">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h5 class="notification-user">John Doe</h5>
-                                                    <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                        elit.</p>
-                                                    <span class="notification-time">30 minutes ago</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex">
-                                                <div class="flex-shrink-0">
-                                                    <img class="d-flex align-self-center img-radius"
-                                                        src="../files/assets/images/avatar-3.jpg"
-                                                        alt="Generic placeholder image">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h5 class="notification-user">Joseph William</h5>
-                                                    <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                        elit.</p>
-                                                    <span class="notification-time">30 minutes ago</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex">
-                                                <div class="flex-shrink-0">
-                                                    <img class="d-flex align-self-center img-radius"
-                                                        src="../files/assets/images/avatar-4.jpg"
-                                                        alt="Generic placeholder image">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h5 class="notification-user">Sara Soudein</h5>
-                                                    <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
-                                                        elit.</p>
-                                                    <span class="notification-time">30 minutes ago</span>
-                                                </div>
-                                            </div>
-                                        </li>
+
+                                        <div class="notifications-list">
+                                            <?php echo $__env->make('tenant.admin.orders.partials.notifications', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </div>
+
                                     </ul>
                                 </div>
                             </li>
@@ -370,7 +334,7 @@
     <script src="<?php echo e(asset('files/assets/js/pcoded.min.js')); ?>"></script>
     <script src="<?php echo e(asset('files/assets/js/vartical-layout.min.js')); ?>"></script>
     <script src="<?php echo e(asset('files/assets/js/jquery.mCustomScrollbar.concat.min.js')); ?>"></script>
-    <script src="<?php echo e(asset('files/assets/pages/dashboard/crm-dashboard.min.js')); ?>"></script>
+    <!--<script src="<?php echo e(asset('files/assets/pages/dashboard/crm-dashboard.min.js')); ?>"></script>-->
 
     <script src="<?php echo e(asset('files/bower_components/datatables.net/js/jquery.dataTables.min.js')); ?>"></script>
     <script src="<?php echo e(asset('files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js')); ?>"></script>

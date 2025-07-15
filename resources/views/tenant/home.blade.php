@@ -99,7 +99,13 @@
                 <h5 class="mb-0">Pedidos por Estado</h5>
             </div>
             <div class="card-block" style="height: 300px;">
-                <canvas id="pedidosChart"></canvas>
+                @if (empty($pedidosPorEstado))
+                    <div class="text-center text-muted h-100 d-flex align-items-center justify-content-center">
+                        No hay pedidos en este rango de fechas.
+                    </div>
+                @else
+                    <canvas id="pedidosChart"></canvas>
+                @endif
             </div>
         </div>
     </div>
@@ -110,68 +116,53 @@
                 <h5 class="mb-0">Ingresos por Ventas</h5>
             </div>
             <div class="card-block" style="height: 300px;">
-                <canvas id="ventasLineChart"></canvas>
+                @if (collect($datosVentas)->sum() > 0)
+                    <canvas id="ventasLineChart"></canvas>
+                @else
+                    <div class="text-center text-muted h-100 d-flex align-items-center justify-content-center">
+                        No hay ventas en este rango de fechas.
+                    </div>
+                @endif
             </div>
         </div>
     </div>
 
 
     <div class="col-md-4">
-        <div class="card shadow mb-3">
-            <div class="card-block">
-                <div class="row align-items-center m-l-0">
-                    <div class="col-auto">
-                        <i class="fas fa-dollar-sign f-30 text-c-green"></i>
-                    </div>
-                    <div class="col-auto">
-                        <h6 class="text-muted m-b-10">Ingresos Totales</h6>
-                        <h4 class="m-b-0">${{ number_format($ingresos, 2, ',', '.') }}</h4>
-                    </div>
-                </div>
+
+        <div class="card widget-card-1 shadow">
+            <div class="card-block-small">
+                <i class="fas fa-dollar-sign bg-c-green card1-icon"></i>
+                <span class="text-c-green f-w-600">Ingresos Totales</span>
+                <h4>${{ number_format($ingresos, 2, ',', '.') }}</h4>
             </div>
         </div>
 
-        <div class="card shadow mb-3">
-            <div class="card-block">
-                <div class="row align-items-center m-l-0">
-                    <div class="col-auto">
-                        <i class="fas fa-receipt f-30 text-primary"></i>
-                    </div>
-                    <div class="col-auto">
-                        <h6 class="text-muted m-b-10">Ticket Promedio</h6>
-                        <h4 class="m-b-0">${{ number_format($ticketPromedio, 2, ',', '.') }}</h4>
-                    </div>
-                </div>
+        <div class="card widget-card-1 shadow">
+            <div class="card-block-small">
+                <i class="fas fa-receipt bg-c-blue card1-icon"></i>
+                <span class="text-c-blue f-w-600">Ticket Promedio</span>
+                <h4>${{ number_format($ticketPromedio, 2, ',', '.') }}</h4>
             </div>
         </div>
 
-        <div class="card shadow mb-3">
-            <div class="card-block">
-                <div class="row align-items-center m-l-0">
-                    <div class="col-auto">
-                        <i class="fas fa-user-plus f-30 text-success"></i>
-                    </div>
-                    <div class="col-auto">
-                        <h6 class="text-muted m-b-10">Clientes Nuevos</h6>
-                        <h4 class="m-b-0">{{ $clientesNuevos ?? 0 }}</h4>
-                    </div>
-                </div>
+        <div class="card widget-card-1 shadow">
+            <div class="card-block-small">
+                <i class="fas fa-user-plus bg-c-yellow card1-icon"></i>
+                <span class="text-c-yellow f-w-600">Clientes Nuevos</span>
+                <h4>{{ $clientesNuevos ?? 0 }}</h4>
             </div>
         </div>
 
-        <div class="card shadow mb-3">
-            <div class="card-block">
-                <div class="row align-items-center m-l-0">
-                    <div class="col-auto">
-                        <i class="feather icon-users f-30 text-c-pink"></i>
-                    </div>
-                    <div class="col-auto">
-                        <h6 class="text-muted m-b-10">Clientes Recurrentes</h6>
-                        <h4 class="m-b-0">{{ $clientesRecurrentes ?? 0 }}</h4>
-                    </div>
-                </div>
+        
+        <div class="card widget-card-1 shadow">
+            <div class="card-block-small">
+                <i class="fas fa-users bg-c-pink card1-icon"></i>
+                <span class="text-c-pink f-w-600">Clientes Recurrentes</span>
+                <h4>{{ $clientesRecurrentes ?? 0 }}</h4>
             </div>
         </div>
+
 
     </div>
 
@@ -194,7 +185,7 @@
                         <span class="badge bg-primary">{{ $producto['cantidad'] }} </span>
                     </div>
                 @empty
-                    <div class="p-3 text-center text-muted">
+                    <div class="text-center text-muted d-flex align-items-center justify-content-center" style="height: 200px">
                         No hay productos vendidos en este período.
                     </div>
                 @endforelse
@@ -208,70 +199,76 @@
 
 @section('scripts')
 <script>
-    const ctx = document.getElementById('pedidosChart').getContext('2d');
-    const pedidosChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: {!! json_encode(array_keys($pedidosPorEstado)) !!},
-            datasets: [{
-                label: 'Cantidad',
-                data: {!! json_encode(array_values($pedidosPorEstado)) !!},
-                backgroundColor: ['#F0BC74', '#2361ce', '#292959', '#0EA271'],
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-            responsive: true
-        }
-    });
+    if($('#pedidosChart').length){
+        const ctx = document.getElementById('pedidosChart').getContext('2d');
 
+        const pedidosChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: {!! json_encode(array_keys($pedidosPorEstado)) !!},
+                datasets: [{
+                    label: 'Cantidad',
+                    data: {!! json_encode(array_values($pedidosPorEstado)) !!},
+                    backgroundColor: ['#F0BC74', '#2361ce', '#292959', '#0EA271'],
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true
+            }
+        });
+    }
 
-    const ctxVentas = document.getElementById('ventasLineChart').getContext('2d');
-    const ventasLineChart = new Chart(ctxVentas, {
-        type: 'line',
-        data: {
-            labels: @json($labels),
-            datasets: [{
-                label: 'Ventas (USD)',
-                data: @json($datosVentas),
-                fill: true,
-                tension: 0.3,
-                borderColor: '#0050D9',
-                backgroundColor: 'rgba(0, 80, 217, 0.1)',
-                pointBackgroundColor: '#0050D9',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: '#0050D9'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: true,
+    if($('#ventasLineChart').length){
+        const ctxVentas = document.getElementById('ventasLineChart').getContext('2d');
+
+        const ventasLineChart = new Chart(ctxVentas, {
+            type: 'line',
+            data: {
+                labels: @json($labels),
+                datasets: [{
+                    label: 'Ventas (USD)',
+                    data: @json($datosVentas),
+                    fill: true,
+                    tension: 0.3,
+                    borderColor: '#0050D9',
+                    backgroundColor: 'rgba(0, 80, 217, 0.1)',
+                    pointBackgroundColor: '#0050D9',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#0050D9'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    }
                 },
-                tooltip: {
-                    mode: 'index',
-                    intersect: false,
-                }
-            },
-            interaction: {
-                mode: 'nearest',
-                axis: 'x',
-                intersect: false
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function(value) {
-                            return '$' + value;
+                interaction: {
+                    mode: 'nearest',
+                    axis: 'x',
+                    intersect: false
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value;
+                            }
                         }
                     }
                 }
             }
-        }
-    });
+        });
+    }
+
 </script>
 @endsection
