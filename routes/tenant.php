@@ -19,7 +19,8 @@ use App\Http\Controllers\Tenant\{
     OrderController,
     UsersController,
     PaymentsController,
-    FormRequestController
+    FormRequestController,
+    NotificationController
 };
 
 Route::middleware([
@@ -124,8 +125,13 @@ Route::middleware([
             Route::get('orders', 'index');
             Route::get('orders/ver-detalles/{id}', 'show');
             Route::post('orden-detalle', 'detalle');
-            Route::post('orders/update-status', [OrderController::class, 'updateStatus']);
+            Route::post('orders/update-status', 'updateStatus');
+            Route::get('orders/polling', 'polling');
+
         });
+
+        Route::get('notificaciones/polling', [NotificationController::class, 'polling']);
+
 
         Route::controller(PaymentsController::class)->group(function(){
             Route::get('payments', 'index');

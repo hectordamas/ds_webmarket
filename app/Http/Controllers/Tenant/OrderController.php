@@ -138,4 +138,26 @@ class OrderController extends Controller
     
         return response()->json(['success' => true]);
     }
+
+    public function polling(Request $request)
+    {
+        // Recibir último ID que tiene el cliente (puedes enviarlo desde JS)
+        $lastId = $request->input('last_id', 0);
+
+        // Obtener solo órdenes más nuevas que lastId
+        $newOrders = Order::where('id', '>', $lastId)->orderBy('id', 'desc')->get();
+
+        // Renderizar filas blade parciales por cada orden (o construir HTML aquí)
+        $orders = $newOrders->map(function($order) {
+            $html = view('tenant.admin.orders.partials._rows', compact('order'))->render();
+            return [
+                'id' => $order->id,
+                'html' => $html,
+            ];
+        });
+
+        return response()->json([
+            'orders' => $orders,
+        ]);
+    }
 }

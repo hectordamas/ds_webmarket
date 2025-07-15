@@ -219,9 +219,14 @@
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <i class="feather icon-bell"></i>
-                                        <?php if($notificacionesNoLeidas > 0): ?>
-                                            <span class="badge bg-c-pink"><?php echo e($notificacionesNoLeidas); ?></span>
-                                        <?php endif; ?>
+                                        
+                                        <span id="badge-container" class="<?php echo e($notificacionesNoLeidas > 0 ? '' : 'd-none'); ?>">
+                                            <span id="notificaciones-badge" class="badge bg-c-pink">
+                                                <?php echo e($notificacionesNoLeidas); ?>
+
+                                            </span>
+                                        </span>
+
                                     </div>
                                     <ul class="show-notification notification-view dropdown-menu"
                                         data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
@@ -334,7 +339,6 @@
     <script src="<?php echo e(asset('files/assets/js/pcoded.min.js')); ?>"></script>
     <script src="<?php echo e(asset('files/assets/js/vartical-layout.min.js')); ?>"></script>
     <script src="<?php echo e(asset('files/assets/js/jquery.mCustomScrollbar.concat.min.js')); ?>"></script>
-    <!--<script src="<?php echo e(asset('files/assets/pages/dashboard/crm-dashboard.min.js')); ?>"></script>-->
 
     <script src="<?php echo e(asset('files/bower_components/datatables.net/js/jquery.dataTables.min.js')); ?>"></script>
     <script src="<?php echo e(asset('files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js')); ?>"></script>
@@ -367,6 +371,50 @@
     <?php echo $__env->yieldContent('scripts'); ?>
 
     <script src="<?php echo e(asset('files/admin/script.js')); ?>"></script>
+
+    <script>
+        // contador global que se actualiza con cada polling
+        let contadorActual = <?php echo e($notificacionesNoLeidas ?? 0); ?>;
+        let originalTitle = document.title;
+
+        function fetchNotificaciones() {
+            $.ajax({
+                url: "<?php echo e(url('notificaciones/polling')); ?>",
+                method: "GET",
+                success: function (data) {
+                    $('.notifications-list').html(data.html);
+
+                    // Actualizar badge
+                    const badgeContainer = $('#badge-container');
+                    const badge =  $('#notificaciones-badge');
+                    if (data.contador > 0) {
+                        badge.text(data.contador)
+                        badgeContainer.removeClass('d-none');
+
+                        document.title = `(${data.contador}) ${originalTitle.replace(/^\(\d+\)\s*/, '')}`;
+                    } else {
+                        badgeContainer.addClass('d-none');
+
+                        document.title = originalTitle.replace(/^\(\d+\)\s*/, '');
+                    }
+                    
+                    // Reproducir sonido solo si el nuevo contador es mayor
+                    if (data.contador > contadorActual) {
+                        const sonido = new Audio("<?php echo e(asset('assets/notificacion.mp3')); ?>");
+                        sonido.play().catch((e) => {
+                            console.warn("Error al reproducir sonido:", e);
+                        });
+                    }
+
+                    // Actualizar el contador global con el más reciente
+                    contadorActual = data.contador;
+                }
+            });
+        }
+
+        // Iniciar polling cada 15 segundos
+        setInterval(fetchNotificaciones, 15000);
+    </script>
 
     <?php if(session()->has('success')): ?>
     <script>	

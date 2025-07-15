@@ -219,9 +219,13 @@
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
                                         <i class="feather icon-bell"></i>
-                                        @if($notificacionesNoLeidas > 0)
-                                            <span class="badge bg-c-pink">{{ $notificacionesNoLeidas }}</span>
-                                        @endif
+                                        
+                                        <span id="badge-container" class="{{ $notificacionesNoLeidas > 0 ? '' : 'd-none' }}">
+                                            <span id="notificaciones-badge" class="badge bg-c-pink">
+                                                {{ $notificacionesNoLeidas }}
+                                            </span>
+                                        </span>
+
                                     </div>
                                     <ul class="show-notification notification-view dropdown-menu"
                                         data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
@@ -333,7 +337,6 @@
     <script src="{{ asset('files/assets/js/pcoded.min.js') }}"></script>
     <script src="{{ asset('files/assets/js/vartical-layout.min.js') }}"></script>
     <script src="{{ asset('files/assets/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-    <!--<script src="{{ asset('files/assets/pages/dashboard/crm-dashboard.min.js') }}"></script>-->
 
     <script src="{{ asset('files/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
@@ -366,6 +369,50 @@
     @yield('scripts')
 
     <script src="{{ asset('files/admin/script.js') }}"></script>
+
+    <script>
+        // contador global que se actualiza con cada polling
+        let contadorActual = {{ $notificacionesNoLeidas ?? 0 }};
+        let originalTitle = document.title;
+
+        function fetchNotificaciones() {
+            $.ajax({
+                url: "{{ url('notificaciones/polling') }}",
+                method: "GET",
+                success: function (data) {
+                    $('.notifications-list').html(data.html);
+
+                    // Actualizar badge
+                    const badgeContainer = $('#badge-container');
+                    const badge =  $('#notificaciones-badge');
+                    if (data.contador > 0) {
+                        badge.text(data.contador)
+                        badgeContainer.removeClass('d-none');
+
+                        document.title = `(${data.contador}) ${originalTitle.replace(/^\(\d+\)\s*/, '')}`;
+                    } else {
+                        badgeContainer.addClass('d-none');
+
+                        document.title = originalTitle.replace(/^\(\d+\)\s*/, '');
+                    }
+                    
+                    // Reproducir sonido solo si el nuevo contador es mayor
+                    if (data.contador > contadorActual) {
+                        const sonido = new Audio("{{ asset('assets/notificacion.mp3') }}");
+                        sonido.play().catch((e) => {
+                            console.warn("Error al reproducir sonido:", e);
+                        });
+                    }
+
+                    // Actualizar el contador global con el más reciente
+                    contadorActual = data.contador;
+                }
+            });
+        }
+
+        // Iniciar polling cada 15 segundos
+        setInterval(fetchNotificaciones, 15000);
+    </script>
 
     @if(session()->has('success'))
     <script>	

@@ -18,10 +18,13 @@
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
 
+                <input type="hidden" id="lastOrderId" value="{{ $orders->first()?->id ?? 0 }}">
+
                 <table class="table table-bordered table-hover table-striped" id="datatable-buttons-table">
                     <thead class="table-dark">
                         <tr>
                             <th>#</th>
+                            <th></th>
                             <th>Cliente</th>
                             <th>Cedula</th>
                             <th>Método de Pago</th>
@@ -31,40 +34,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($orders as $order)
-                            <tr>
-                                <td>{{ $order->id }}</td>
-                                <td>{{ $order->nombre }}</td>
-                                <td>{{ $order->cedula }}</td>
-                                <td>{{ $order->metodo_pago }}</td>
-                                <td class="text-success fw-bold">${{ number_format($order->total, 2, '.', ',') }}</td>
-                                <td>
-                                    @php
-                                        $statusColors = [
-                                            'Pendiente'   => 'secondary',
-                                            'Confirmado'  => 'info',
-                                            'Enviado'     => 'primary',
-                                            'Entregado'   => 'success',
-                                            'Cancelado'   => 'danger',
-                                        ];
-                                        $color = $statusColors[$order->status] ?? 'dark';
-                                    @endphp
-                                    <span class="badge bg-{{ $color }}">{{ $order->status }}</span>
-                                </td>                                
-                                <td>
-                                    <a href="javascript:void(0)" data-id="{{ $order->id }}" class="btn btn-dark btn-sm viewDetailsButton">
-                                        <i class="fas fa-list"></i> Ver Detalles
-                                    </a>
-                                    <a href="javascript:void(0)" 
-                                       class="btn btn-success btn-sm updateStatusBtn" 
-                                       data-id="{{ $order->id }}"
-                                       data-current-status="{{ $order->status }}"
-                                       data-bs-toggle="modal" 
-                                       data-bs-target="#updateStatusModal">
-                                        <i class="far fa-edit"></i> Actualizar Estatus
-                                    </a>
-                                </td>
-                            </tr>
+                        @foreach($orders as $order)
+                            @include('tenant.admin.orders.partials._rows')
                         @endforeach
                     </tbody>
                 </table>
@@ -221,4 +192,53 @@
         });
     });
 </script>
+
+
+<script>
+    function updateOrdersPolling() {
+        let lastId = $('#lastOrderId').val(); // Leer el valor actual
+
+      $.ajax({
+        url: "{{ url('orders/polling') }}", // Endpoint que devuelve solo filas nuevas o actualizadas
+        method: 'GET',
+        data: { last_id: lastId }, // Enviamos el last_id como parámetro
+        success: function(response) {
+          // response puede ser JSON con array de filas en HTML o datos
+          // Ejemplo: response.orders = [{id:1, html: "<tr>...</tr>"}, ...]
+
+          response.orders.forEach(order => {
+            let existingRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+
+            if (existingRow.length) {
+              // Si ya existe fila, la reemplazamos para actualizar datos
+              existingRow.replaceWith(order.html);
+            
+              // Animación de highlight (fade in/out)
+              let newRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+              newRow.addClass('table-warning');
+              setTimeout(() => newRow.removeClass('table-warning'), 2000);
+
+            } else {
+              // Si no existe, la agregamos al inicio
+              $('#datatable-buttons-table tbody').prepend(order.html);
+
+              // Animación de highlight para fila nueva
+              let newRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+              newRow.addClass('table-success');
+              setTimeout(() => newRow.removeClass('table-success'), 2000);
+            }
+
+            // Actualizar el input oculto si llega un ID mayor
+            if (order.id > lastId) {
+                $('#lastOrderId').val(order.id);
+            }
+          });
+        }
+      });
+    }
+
+    // Ejecutar polling cada 10 segundos
+    setInterval(updateOrdersPolling, 10000);
+</script>
+
 @endsection
