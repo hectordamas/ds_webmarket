@@ -240,6 +240,11 @@
                                             @include('tenant.admin.orders.partials.notifications')
                                         </div>
 
+
+                                        <li class="d-block text-decoration-none text-primary small ms-3" onclick="window.location.href = '{{ url('orders') }}'">
+                                            Ver todas las órdenes
+                                            <i class="fas fa-chevron-right ms-1"></i>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>

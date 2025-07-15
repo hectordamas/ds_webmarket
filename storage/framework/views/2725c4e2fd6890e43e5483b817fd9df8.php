@@ -241,6 +241,11 @@
                                             <?php echo $__env->make('tenant.admin.orders.partials.notifications', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                         </div>
 
+
+                                        <li class="d-block text-decoration-none text-primary small ms-3" onclick="window.location.href = '<?php echo e(url('orders')); ?>'">
+                                            Ver todas las órdenes
+                                            <i class="fas fa-chevron-right ms-1"></i>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
