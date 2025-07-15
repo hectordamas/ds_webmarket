@@ -376,7 +376,7 @@
         let originalTitle = document.title;
         let sonidoHabilitado = false;
         let sonido = new Audio("{{ asset('assets/notificacion.mp3') }}");
-        let lastId = $('#lastOrderId').length ? $('#lastOrderId').val() : null;
+        let lastId = $('#lastOrderId').val();
     
         function habilitarSonido() {
             if (!sonidoHabilitado) {
@@ -395,6 +395,21 @@
         window.addEventListener('click', habilitarSonido, { once: true });
         window.addEventListener('touchstart', habilitarSonido, { once: true });
         window.addEventListener('keydown', habilitarSonido, { once: true });
+
+        function notificarConSonido(titulo, mensaje) {
+            if (Notification.permission === 'granted') {
+                new Notification(titulo, {
+                    body: mensaje,
+                    icon: '{{ asset("assets/img/favicon.png") }}', // cambia si tienes uno
+                });
+            }
+        
+            if (sonidoHabilitado) {
+                sonido.play().catch((e) => {
+                    console.warn("Error al reproducir sonido:", e);
+                });
+            }
+        }
 
         function fetchNotificaciones() {
             $.ajax({
@@ -429,39 +444,43 @@
                     contadorActual = data.contador;
 
                     if($('.ordersTable').length){
+                        let huboNuevaOrden = false;
+
                         data.orders.forEach(order => {
-                          let existingRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+                            let existingRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
                         
-                          if (existingRow.length) {
-                            // Si ya existe fila, la reemplazamos para actualizar datos
-                            existingRow.replaceWith(order.html);
-
-                            // Animación de highlight (fade in/out)
-                            let newRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
-                            newRow.addClass('table-warning');
-                            setTimeout(() => newRow.removeClass('table-warning'), 2000);
-
-                          } else {
-                            // Si no existe, la agregamos al inicio
-                            $('#datatable-buttons-table tbody').prepend(order.html);
-
-                            // Animación de highlight para fila nueva
-                            let newRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
-                            newRow.addClass('table-success');
-                            setTimeout(() => newRow.removeClass('table-success'), 2000);
-                          }
-                      
-                          // Actualizar el input oculto si llega un ID mayor
-                          if (order.id > lastId) {
+                            if (existingRow.length) {
+                                existingRow.replaceWith(order.html);
+                                let newRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+                                newRow.addClass('table-warning');
+                                setTimeout(() => newRow.removeClass('table-warning'), 2000);
+                            } else {
+                                $('#datatable-buttons-table tbody').prepend(order.html);
+                                let newRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+                                newRow.addClass('table-success');
+                                setTimeout(() => newRow.removeClass('table-success'), 2000);
+                            }
+                        
+                            // Marcar si hay una nueva orden más reciente
+                            if (order.id > lastId) {
+                                lastId = order.id;
                                 $('#lastOrderId').val(order.id);
-
-                                sonido.play().catch((e) => {
-                                    console.warn("Error al reproducir sonido:", e);
-                                });
-                          }
+                                huboNuevaOrden = true;
+                            }
                         });
+
+                        // Reproducir sonido UNA sola vez si hubo al menos una nueva orden
+                        if (huboNuevaOrden) {
+                            notificarConSonido('🛒 Nueva Orden', 'Tienes una nueva orden pendiente.');
+                        }
                     }
                 }
+            });
+        }
+
+        if (Notification.permission === 'default') {
+            Notification.requestPermission().then(permission => {
+                console.log("Permiso de notificación:", permission);
             });
         }
 
