@@ -1,4 +1,4 @@
-@extends('central.layouts.auth')
+{{--@extends('central.layouts.auth')
 
 @section('metadata')
     <title>{{ env('APP_NAME') }} - Regístrate</title>
