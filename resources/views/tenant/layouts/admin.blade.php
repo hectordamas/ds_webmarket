@@ -376,7 +376,8 @@
         let originalTitle = document.title;
         let sonidoHabilitado = false;
         let sonido = new Audio("{{ asset('assets/notificacion.mp3') }}");
-            
+        let lastId = $('#lastOrderId').length ? $('#lastOrderId').val() : null;
+    
         function habilitarSonido() {
             if (!sonidoHabilitado) {
                 sonido.play().then(() => {
@@ -389,7 +390,7 @@
                 });
             }
         }
-        
+
         // Escucha la primera interacción real
         window.addEventListener('click', habilitarSonido, { once: true });
         window.addEventListener('touchstart', habilitarSonido, { once: true });
@@ -399,6 +400,7 @@
             $.ajax({
                 url: "{{ url('notificaciones/polling') }}",
                 method: "GET",
+                data: { last_id: lastId }, // Enviamos el last_id como parámetro
                 success: function (data) {
                     $('.notifications-list').html(data.html);
 
@@ -425,6 +427,40 @@
 
                     // Actualizar el contador global con el más reciente
                     contadorActual = data.contador;
+
+                    if($('.ordersTable').length){
+                        data.orders.forEach(order => {
+                          let existingRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+                        
+                          if (existingRow.length) {
+                            // Si ya existe fila, la reemplazamos para actualizar datos
+                            existingRow.replaceWith(order.html);
+
+                            // Animación de highlight (fade in/out)
+                            let newRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+                            newRow.addClass('table-warning');
+                            setTimeout(() => newRow.removeClass('table-warning'), 2000);
+
+                          } else {
+                            // Si no existe, la agregamos al inicio
+                            $('#datatable-buttons-table tbody').prepend(order.html);
+
+                            // Animación de highlight para fila nueva
+                            let newRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+                            newRow.addClass('table-success');
+                            setTimeout(() => newRow.removeClass('table-success'), 2000);
+                          }
+                      
+                          // Actualizar el input oculto si llega un ID mayor
+                          if (order.id > lastId) {
+                                $('#lastOrderId').val(order.id);
+
+                                sonido.play().catch((e) => {
+                                    console.warn("Error al reproducir sonido:", e);
+                                });
+                          }
+                        });
+                    }
                 }
             });
         }

@@ -20,7 +20,7 @@
 
                 <input type="hidden" id="lastOrderId" value="<?php echo e($orders->first()?->id ?? 0); ?>">
 
-                <table class="table table-bordered table-hover table-striped" id="datatable-buttons-table">
+                <table class="table table-bordered table-hover table-striped ordersTable" id="datatable-buttons-table">
                     <thead class="table-dark">
                         <tr>
                             <th>#</th>
@@ -191,77 +191,6 @@
             }
         });
     });
-</script>
-
-
-<script>
-    function updateOrdersPolling() {
-      let lastId = $('#lastOrderId').val(); // Leer el valor actual
-      let sonidoHabilitado = false;
-      let sonido = new Audio("<?php echo e(asset('assets/notificacion.mp3')); ?>");
-          
-      function habilitarSonido() {
-          if (!sonidoHabilitado) {
-              sonido.play().then(() => {
-                  sonido.pause();
-                  sonido.currentTime = 0;
-                  sonidoHabilitado = true;
-                  console.log('🔊 Sonido activado por interacción');
-              }).catch(err => {
-                  console.warn('No se pudo activar el sonido:', err);
-              });
-          }
-      }
-      
-      // Escucha la primera interacción real
-      window.addEventListener('click', habilitarSonido, { once: true });
-      window.addEventListener('touchstart', habilitarSonido, { once: true });
-      window.addEventListener('keydown', habilitarSonido, { once: true });
-
-      $.ajax({
-        url: "<?php echo e(url('orders/polling')); ?>", // Endpoint que devuelve solo filas nuevas o actualizadas
-        method: 'GET',
-        data: { last_id: lastId }, // Enviamos el last_id como parámetro
-        success: function(response) {
-          // response puede ser JSON con array de filas en HTML o datos
-          // Ejemplo: response.orders = [{id:1, html: "<tr>...</tr>"}, ...]
-
-          response.orders.forEach(order => {
-            let existingRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
-
-            if (existingRow.length) {
-              // Si ya existe fila, la reemplazamos para actualizar datos
-              existingRow.replaceWith(order.html);
-            
-              // Animación de highlight (fade in/out)
-              let newRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
-              newRow.addClass('table-warning');
-              setTimeout(() => newRow.removeClass('table-warning'), 2000);
-
-            } else {
-              // Si no existe, la agregamos al inicio
-              $('#datatable-buttons-table tbody').prepend(order.html);
-
-              // Animación de highlight para fila nueva
-              let newRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
-              newRow.addClass('table-success');
-              setTimeout(() => newRow.removeClass('table-success'), 2000);
-            }
-
-            // Actualizar el input oculto si llega un ID mayor
-            if (order.id > lastId) {
-                $('#lastOrderId').val(order.id);
-                        sonido.play().catch((e) => {
-                            console.warn("Error al reproducir sonido:", e);
-                        });
-            }
-          });
-        }
-      });
-    }
-
-    // Ejecutar polling cada 10 segundos
-    setInterval(updateOrdersPolling, 10000);
 </script>
 
 <?php $__env->stopSection(); ?>
