@@ -110,12 +110,20 @@ class HomeController extends Controller
 
         $orders = Order::whereBetween('created_at', [$from, $to])->count();
 
+        $ordenDeseado = ['Pendiente', 'Confirmado', 'Enviado', 'Entregado', 'Cancelado'];
+
         $pedidosPorEstado = Order::select('status', DB::raw('count(*) as total'))
             ->whereBetween('created_at', [$from, $to])
             ->groupBy('status')
             ->pluck('total', 'status')
             ->toArray();
-        
+        $pedidosOrdenados = [];
+        foreach ($ordenDeseado as $estado) {
+            if (isset($pedidosPorEstado[$estado]) && $pedidosPorEstado[$estado] > 0) {
+                $pedidosOrdenados[$estado] = $pedidosPorEstado[$estado];
+            }
+        }
+
         $datosVentas = $this->obtenerDatosVentas($from, $to, $format, $range, $labels);
 
         $productosMasVendidos = DB::table('order_products')
@@ -172,7 +180,7 @@ class HomeController extends Controller
             'orders',
             'labels',
             'datosVentas',
-            'pedidosPorEstado',
+            'pedidosOrdenados',
             'productosMasVendidos',
             'ingresos',
             'ticketPromedio',

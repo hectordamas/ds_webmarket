@@ -96,7 +96,7 @@
                 <h5 class="mb-0">Pedidos por Estado</h5>
             </div>
             <div class="card-block" style="height: 300px;">
-                <?php if(empty($pedidosPorEstado)): ?>
+                <?php if(empty($pedidosOrdenados)): ?>
                     <div class="text-center text-muted h-100 d-flex align-items-center justify-content-center">
                         No hay pedidos en este rango de fechas.
                     </div>
@@ -202,10 +202,10 @@
         const pedidosChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: <?php echo json_encode(array_keys($pedidosPorEstado)); ?>,
+                labels: <?php echo json_encode(array_keys($pedidosOrdenados)); ?>,
                 datasets: [{
                     label: 'Cantidad',
-                    data: <?php echo json_encode(array_values($pedidosPorEstado)); ?>,
+                    data: <?php echo json_encode(array_values($pedidosOrdenados)); ?>,
                     backgroundColor: ['#F0BC74', '#2361ce', '#292959', '#0EA271'],
                 }]
             },
