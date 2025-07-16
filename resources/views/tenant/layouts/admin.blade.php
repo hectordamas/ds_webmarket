@@ -402,12 +402,17 @@
         window.addEventListener('touchstart', habilitarSonido, { once: true });
         window.addEventListener('keydown', habilitarSonido, { once: true });
 
-        function notificarConSonido(titulo, mensaje) {
+        function notificarConSonido(titulo, mensaje, url) {
             if (Notification.permission === 'granted') {
-                new Notification(titulo, {
+                let noti = new Notification(titulo, {
                     body: mensaje,
-                    icon: '{{ asset("assets/img/favicon.png") }}', // cambia si tienes uno
+                    icon: '{{ asset("assets/img/favicon.png") }}',
                 });
+            
+                noti.onclick = function (event) {
+                    event.preventDefault(); // Evita comportamiento por defecto
+                    window.open(url, '_blank');
+                };
             }
         
             if (sonidoHabilitado) {
@@ -436,15 +441,13 @@
                         document.title = originalTitle.replace(/^\(\d+\)\s*/, '');
                     }
                 
-                    let huboNuevaOrden = false;
-                    let debeReproducirSonido = false;
-                
+                    let nuevasOrdenes = [];
                     // Procesar las nuevas órdenes (si se está en la vista)
                     data.orders?.forEach(order => {
                         if (order.id > lastId) {
                             lastId = order.id;
                             $('#lastOrderId').val(order.id);
-                            huboNuevaOrden = true;
+                            nuevasOrdenes.push(order); // <-- Guardamos orden nueva para notificación
                         }
                     
                         if ($('.ordersTable').length) {
@@ -463,12 +466,15 @@
                             }
                         }
                     });
-                
-                    // Condición global para reproducir sonido y mostrar notificación
-                    if (data.contador > contadorActual || huboNuevaOrden) {
-                        notificarConSonido('🛒 Nueva actividad', 'Tienes novedades en tus pedidos.');
-                    }
-                
+
+                    nuevasOrdenes.forEach(order => {
+                        notificarConSonido(
+                            `🛒 Nueva orden de ${order.nombre}`, 
+                            `El cliente ${order.nombre} ha hecho una nueva orden.`,
+                            `{{ url('orders/ver-detalles') }}/${order.id}`
+                        );
+                    });
+         
                     contadorActual = data.contador;
                 }
             });
