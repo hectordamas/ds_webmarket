@@ -423,36 +423,31 @@
                 data: { last_id: lastId }, // Enviamos el last_id como parámetro
                 success: function (data) {
                     $('.notifications-list').html(data.html);
-
-                    // Actualizar badge
+                
                     const badgeContainer = $('#badge-container');
-                    const badge =  $('#notificaciones-badge');
+                    const badge = $('#notificaciones-badge');
                     if (data.contador > 0) {
                         badge.text(data.contador)
                         badgeContainer.removeClass('d-none');
-
                         document.title = `(${data.contador}) ${originalTitle.replace(/^\(\d+\)\s*/, '')}`;
                     } else {
                         badgeContainer.addClass('d-none');
-
                         document.title = originalTitle.replace(/^\(\d+\)\s*/, '');
                     }
+                
+                    let huboNuevaOrden = false;
+                    let debeReproducirSonido = false;
+                
+                    // Procesar las nuevas órdenes (si se está en la vista)
+                    data.orders?.forEach(order => {
+                        if (order.id > lastId) {
+                            lastId = order.id;
+                            $('#lastOrderId').val(order.id);
+                            huboNuevaOrden = true;
+                        }
                     
-                    // Reproducir sonido solo si el nuevo contador es mayor
-                    if (data.contador > contadorActual) {
-                        sonido.play().catch((e) => {
-                            console.warn("Error al reproducir sonido:", e);
-                        });
-                    }
-
-                    // Actualizar el contador global con el más reciente
-                    contadorActual = data.contador;
-
-                    if($('.ordersTable').length){
-                        let huboNuevaOrden = false;
-
-                        data.orders.forEach(order => {
-                            let existingRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+                        if ($('.ordersTable').length) {
+                            const existingRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
                         
                             if (existingRow.length) {
                                 existingRow.replaceWith(order.html);
@@ -465,20 +460,15 @@
                                 newRow.addClass('table-success');
                                 setTimeout(() => newRow.removeClass('table-success'), 2000);
                             }
-                        
-                            // Marcar si hay una nueva orden más reciente
-                            if (order.id > lastId) {
-                                lastId = order.id;
-                                $('#lastOrderId').val(order.id);
-                                huboNuevaOrden = true;
-                            }
-                        });
-
-                        // Reproducir sonido UNA sola vez si hubo al menos una nueva orden
-                        if (huboNuevaOrden) {
-                            notificarConSonido('🛒 Nueva Orden', 'Tienes una nueva orden pendiente.');
                         }
+                    });
+                
+                    // Condición global para reproducir sonido y mostrar notificación
+                    if (data.contador > contadorActual || huboNuevaOrden) {
+                        notificarConSonido('🛒 Nueva actividad', 'Tienes novedades en tus pedidos.');
                     }
+                
+                    contadorActual = data.contador;
                 }
             });
         }
