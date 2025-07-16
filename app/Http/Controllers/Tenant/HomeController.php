@@ -117,11 +117,10 @@ class HomeController extends Controller
             ->groupBy('status')
             ->pluck('total', 'status')
             ->toArray();
+
         $pedidosOrdenados = [];
         foreach ($ordenDeseado as $estado) {
-            if (isset($pedidosPorEstado[$estado]) && $pedidosPorEstado[$estado] > 0) {
-                $pedidosOrdenados[$estado] = $pedidosPorEstado[$estado];
-            }
+            $pedidosOrdenados[$estado] = $pedidosPorEstado[$estado] ?? 0;
         }
 
         $datosVentas = $this->obtenerDatosVentas($from, $to, $format, $range, $labels);

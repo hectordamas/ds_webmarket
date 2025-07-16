@@ -18,8 +18,6 @@
                     <div class="alert alert-success"><?php echo e(session('success')); ?></div>
                 <?php endif; ?>
 
-                <input type="hidden" id="lastOrderId" value="<?php echo e($orders->first()?->id ?? 0); ?>">
-
                 <table class="table table-bordered table-hover table-striped ordersTable" id="datatable-buttons-table">
                     <thead class="table-dark">
                         <tr>
