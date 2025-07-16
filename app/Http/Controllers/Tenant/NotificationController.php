@@ -18,6 +18,7 @@ class NotificationController extends Controller
             $html = view('tenant.admin.orders.partials._rows', compact('order'))->render();
             return [
                 'id' => $order->id,
+                'nombre' => $order->nombre,
                 'html' => $html,
             ];
         });
