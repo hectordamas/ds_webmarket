@@ -1,13 +1,14 @@
-
 @extends('tenant.layouts.auth')
+
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Inicia Sesión</title>
+<title>{{ env('APP_NAME') }} - Restablecer Contraseña</title>
 @endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center align-items-center vh-100">
         <div class="col-sm-12">
-            <form class="md-float-material form-material" method="POST" action="{{ url('login') }}">
+            <form class="md-float-material form-material" method="POST" action="{{ url('password/reset-code') }}">
                 @csrf
                 <div class="text-center mb-3">
                     <img src="{{ asset('assets/img/logo-light.png') }}" alt="Logo {{ env('APP_NAME') }}" width="180">
@@ -16,13 +17,18 @@
                     <div class="card-block">
                         <div class="row m-b-20">
                             <div class="col-md-12">
-                                <h3 class="text-center">Inicia Sesión</h3>
+                                <h3 class="text-center">Restablecer Contraseña</h3>
+                                <p class="text-center text-muted">Ingresa el código recibido por correo y una nueva contraseña</p>
                             </div>
                         </div>
 
+                        @if (session('error'))
+                            <div class="alert alert-danger text-center">{{ session('error') }}</div>
+                        @endif
+
                         <div class="mb-3 form-primary">
                             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                   value="{{ old('email') }}" required autofocus placeholder="Correo Electrónico">
+                                   value="{{ old('email') }}" required placeholder="Correo Electrónico">
                             <span class="form-bar"></span>
                             @error('email')
                                 <div class="text-danger mt-1">{{ $message }}</div>
@@ -30,37 +36,41 @@
                         </div>
 
                         <div class="mb-3 form-primary">
+                            <input type="text" name="code" class="form-control @error('code') is-invalid @enderror"
+                                   placeholder="Código recibido" required>
+                            <span class="form-bar"></span>
+                            @error('code')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3 form-primary">
                             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                                   required placeholder="Contraseña">
+                                   placeholder="Nueva contraseña" required>
                             <span class="form-bar"></span>
                             @error('password')
                                 <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="row m-t-25 text-start">
-                            <div class="col-12 d-flex justify-content-between align-items-center">
-                                <div class="checkbox-fade fade-in-primary">
-                                    <label class="form-label">
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                                        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                        <span class="text-inverse">Recuérdame</span>
-                                    </label>
-                                </div>
-                                <div class="forgot-phone text-end f-right">
-                                    <a href="{{ url('password/forgot') }}" class="f-w-600">¿Olvidaste tu contraseña?</a>
-                                </div>
-                            </div>
+                        <div class="mb-3 form-primary">
+                            <input type="password" name="password_confirmation" class="form-control"
+                                   placeholder="Confirmar contraseña" required>
+                            <span class="form-bar"></span>
                         </div>
 
                         <div class="row m-t-30">
                             <div class="col-md-12">
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-success btn-md waves-effect waves-light text-center m-b-20">
-                                        Entrar
+                                        Restablecer contraseña
                                     </button>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="text-center">
+                            <a href="{{ url('login') }}" class="f-w-600">← Volver al inicio de sesión</a>
                         </div>
 
                         <hr>

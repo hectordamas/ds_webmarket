@@ -20,7 +20,8 @@ use App\Http\Controllers\Tenant\{
     UsersController,
     PaymentsController,
     FormRequestController,
-    NotificationController
+    NotificationController,
+    ForgotPasswordController
 };
 
 Route::middleware([
@@ -45,6 +46,13 @@ Route::middleware([
         Route::post('login', 'login')->name('tenant.login');
         Route::post('logout', 'logout')->name('logout');
     });
+
+    // ForgotPasswordController
+    Route::get('password/forgot', [ForgotPasswordController::class, 'showRequestForm']);
+    Route::post('password/send-code', [ForgotPasswordController::class, 'sendCode']);
+    
+    Route::get('password/reset-code', [ForgotPasswordController::class, 'showResetForm']);
+    Route::post('password/reset-code', [ForgotPasswordController::class, 'verifyCode']);
 
     //CartController
     Route::controller(CartController::class)->group(function(){
@@ -140,8 +148,6 @@ Route::middleware([
             Route::post('payments/destroy/{id}', 'destroy');
 
         });
-
-
     });
 });
 
