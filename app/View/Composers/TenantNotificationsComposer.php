@@ -11,10 +11,12 @@ class TenantNotificationsComposer
     {
         $notificaciones = Order::latest()->take(5)->get(); // Puedes filtrar por status si quieres
         $noLeidas = Order::where('is_read', false)->count();
+        $lastOrderId = Order::orderBy('id', 'desc')->first();
 
         $view->with([
             'notificacionesTenant' => $notificaciones,
-            'notificacionesNoLeidas' => $noLeidas
+            'notificacionesNoLeidas' => $noLeidas,
+            'lastOrderId' => $lastOrderId
         ]);    
     }
 }

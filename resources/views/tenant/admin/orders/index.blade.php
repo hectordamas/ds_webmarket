@@ -17,7 +17,6 @@
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
-                <input type="hidden" id="lastOrderId" value="{{ $orders->first()?->id ?? 0 }}">
 
                 <table class="table table-bordered table-hover table-striped ordersTable" id="datatable-buttons-table">
                     <thead class="table-dark">

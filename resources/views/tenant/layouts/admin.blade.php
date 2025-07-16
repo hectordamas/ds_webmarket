@@ -128,6 +128,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('files/assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('files/assets/css/jquery.mCustomScrollbar.css') }}">
 
+    <input type="hidden" id="lastOrderId" value="{{ $lastOrderId }}">
 
 
     <!-- Style.css -->
