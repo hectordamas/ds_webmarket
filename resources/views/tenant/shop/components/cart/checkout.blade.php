@@ -19,7 +19,17 @@
     </div>
     <div class="mb-3">
         <label class="form-label fw-semibold">Cédula de identidad</label>
-        <input type="text" class="form-control" name="cedula" placeholder="Ej: 12345678" required>
+        <div class="input-group">
+            <select name="tipo_documento" class="form-select" style="max-width: 80px;" required>
+                <option value="V">V</option>
+                <option value="E">E</option>
+                <option value="P">P</option>
+                <option value="R">R</option>
+                <option value="J">J</option>
+                <option value="G">G</option>
+            </select>
+            <input type="text" class="form-control" name="cedula" placeholder="Ej: 12345678" required>
+        </div>
     </div>
     <div class="mb-3">
         <label class="form-label fw-semibold">Teléfono</label>

@@ -428,6 +428,7 @@
         $('#btnToConfirmar').on('click', function () {
             const nombre = $('[name="nombre"]').val().trim();
             const cedula = $('[name="cedula"]').val().trim();
+            const tipo_documento = $('[name="tipo_documento"]').val().trim();
             const telefono = $('[name="telefono"]').val().trim();
             const metodo_pago = $('[name="metodo_pago"]').val();
             const tipoPedido = $('input[name="tipo_pedido"]:checked').val();
@@ -476,6 +477,7 @@
     const data = {
       _token: '{{ csrf_token() }}',
       nombre: $('input[name="nombre"]').val(),
+      tipo_documento: $('input[name="tipo_documento"]').val(),
       cedula: $('input[name="cedula"]').val(),
       telefono: $('input[name="telefono"]').val(),
       direccion: $('textarea[name="direccion"]').val(),
@@ -511,6 +513,7 @@ $(document).on('click', '#enviarWhatsapp', function(e) {
     const data = {
         _token: '{{ csrf_token() }}',
         nombre: $('input[name="nombre"]').val(),
+        tipo_documento: $('input[name="tipo_documento"]').val(),
         cedula: $('input[name="cedula"]').val(),
         telefono: $('input[name="telefono"]').val(),
         direccion: $('textarea[name="direccion"]').val(),

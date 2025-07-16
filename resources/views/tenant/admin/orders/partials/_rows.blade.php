@@ -2,7 +2,7 @@
   <td>{{ $order->id }}</td>
   <td>
     @if(!$order->is_read)
-      <span class="badge bg-danger">Nuevo</span>
+      <span class="badge bg-warning">Nuevo</span>
     @else
       <span class="badge bg-success">Leído</span>
     @endif
@@ -14,7 +14,7 @@
   <td>
     @php
       $statusColors = [
-        'Pendiente'   => 'secondary',
+        'Pendiente'   => 'warning',
         'Confirmado'  => 'info',
         'Enviado'     => 'primary',
         'Entregado'   => 'success',

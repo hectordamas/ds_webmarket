@@ -209,7 +209,13 @@
                 datasets: [{
                     label: 'Cantidad',
                     data: {!! json_encode(array_values($pedidosOrdenados)) !!},
-                    backgroundColor: ['#F0BC74', '#2361ce', '#292959', '#0EA271'],
+                    backgroundColor: [
+                        '#FFB74D', // Pendiente - naranja pastel
+                        '#4FC3F7', // Confirmado - azul cielo
+                        '#42A5F5', // Enviado - azul fuerte
+                        '#66BB6A', // Entregado - verde pastel
+                        '#EF5350', // Cancelado - rojo suave
+                    ],
                 }]
             },
             options: {

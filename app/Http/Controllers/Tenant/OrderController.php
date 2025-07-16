@@ -33,6 +33,7 @@ class OrderController extends Controller
 
         $order = new Order();
         $order->nombre = $data['nombre'];
+        $order->tipo_documento = $data['tipo_documento'];
         $order->cedula = $data['cedula'];
         $order->telefono = $data['telefono'];
         $order->direccion = $data['direccion'] ?? null;

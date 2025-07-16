@@ -487,7 +487,7 @@
         }
 
         // Iniciar polling cada 15 segundos
-        setInterval(fetchNotificaciones, 15000);
+        setInterval(fetchNotificaciones, 10000);
     </script>
 
     @if(session()->has('success'))

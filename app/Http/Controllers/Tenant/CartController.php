@@ -151,7 +151,7 @@ class CartController extends Controller
         $mensaje .= "============================\n";
         $mensaje .= "*DATOS DEL CLIENTE*\n";
         $mensaje .= "----------------------------------\n";
-        $mensaje .= "*Cédula / RIF:* {$data['cedula']}\n";
+        $mensaje .= "*Cédula / RIF:* {$data['tipo_documento']} {$data['cedula']}\n";
         $mensaje .= "*Nombre:* {$data['nombre']}\n";
         $mensaje .= "*Teléfono:* {$telefono}\n";
 

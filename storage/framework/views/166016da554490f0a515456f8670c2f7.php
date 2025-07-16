@@ -2,7 +2,7 @@
   <td><?php echo e($order->id); ?></td>
   <td>
     <?php if(!$order->is_read): ?>
-      <span class="badge bg-danger">Nuevo</span>
+      <span class="badge bg-warning">Nuevo</span>
     <?php else: ?>
       <span class="badge bg-success">Leído</span>
     <?php endif; ?>
@@ -14,7 +14,7 @@
   <td>
     <?php
       $statusColors = [
-        'Pendiente'   => 'secondary',
+        'Pendiente'   => 'warning',
         'Confirmado'  => 'info',
         'Enviado'     => 'primary',
         'Entregado'   => 'success',
