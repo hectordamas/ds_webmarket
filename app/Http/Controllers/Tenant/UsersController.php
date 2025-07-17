@@ -24,7 +24,7 @@ class UsersController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6',
         ]);
 
         $data['password'] = bcrypt($data['password']);
@@ -36,7 +36,7 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        return view('tenant.users.admin.edit', compact('user'));
+        return view('tenant.admin.users.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
@@ -44,7 +44,7 @@ class UsersController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => "required|email|unique:users,email,{$user->id}",
-            'password' => 'nullable|min:6|confirmed',
+            'password' => 'nullable|min:6',
         ]);
 
         if ($request->filled('password')) {
@@ -55,12 +55,12 @@ class UsersController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado');
+        return redirect('usuarios')->with('success', 'Usuario actualizado');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado');
+        return redirect('usuarios')->with('success', 'Usuario eliminado');
     }
 }

@@ -10,7 +10,14 @@ class ShopController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = Category::with('products')->where('active', true)->orderBy('order')->get();
+        $categories = Category::with(['products' => function ($query) {
+            $query->where('active', true)->where('visible', true);
+        }])
+        ->where('active', true)
+        ->where('visible', true)
+        ->orderBy('order')
+        ->get();        
+        
         $settings = Setting::pluck('value', 'key');
         $payments = Payment::all();
     

@@ -69,6 +69,20 @@ class CategoriesController extends Controller
         return redirect('categories')->with('success', 'Categoría actualizada correctamente.');
     }
 
+    public function toggleStatus(Request $request)
+    {
+        $category = Category::findOrFail($request->id);
+    
+        if ($request->has('field') && in_array($request->field, ['active', 'visible'])) {
+            $category->{$request->field} = $request->checked;
+            $category->save();
+        
+            return response()->json(['success' => true]);
+        }
+    
+        return response()->json(['success' => false, 'message' => 'Campo no válido'], 400);
+    }
+
     public function sort(Request $request)
     {
         foreach ($request->order as $item) {

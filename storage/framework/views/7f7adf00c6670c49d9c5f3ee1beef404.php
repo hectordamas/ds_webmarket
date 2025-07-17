@@ -11,7 +11,7 @@
             <h5 class="mb-0">Crear Usuario</h5>
         </div>
         <div class="card-body">
-            <form action="<?php echo e(url('users/store')); ?>" method="POST" class="row">
+            <form action="<?php echo e(url('usuarios/store')); ?>" method="POST" class="row">
                 <?php echo csrf_field(); ?>
 
                 <div class="mb-3 col-md-4">

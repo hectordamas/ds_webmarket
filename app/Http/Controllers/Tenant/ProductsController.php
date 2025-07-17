@@ -115,6 +115,20 @@ class ProductsController extends Controller
         return redirect('products')->with('success', 'Producto actualizado correctamente.');
     }
 
+    public function toggleStatus(Request $request)
+    {
+        $product = Product::findOrFail($request->id);
+    
+        if ($request->has('field') && in_array($request->field, ['active', 'visible'])) {
+            $product->{$request->field} = $request->checked;
+            $product->save();
+        
+            return response()->json(['success' => true]);
+        }
+    
+        return response()->json(['success' => false, 'message' => 'Campo no válido'], 400);
+    }
+
     public function destroy($id)
     {
         $product = Product::findOrFail($id);

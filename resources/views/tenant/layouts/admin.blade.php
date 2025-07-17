@@ -10,47 +10,19 @@
             'name' => 'Productos',
             'icon' => '<i class="fas fa-hamburger"></i>',
             'ruta' => 'products',
-            'subitems' => [
-                [
-                    'name' => 'Lista de Productos',
-                    'icon' => '<i class="fas fa-list"></i>',
-                    'ruta' => 'products'
-                ],
-                [
-                    'name' => 'Crear Producto',
-                    'icon' => '<i class="far fa-plus-square"></i>',
-                    'ruta' => 'products/create'
-                ]
-            ]
+            'subitems' => []
         ],
         [
             'name' => 'Categorías',
             'icon' => '<i class="fas fa-layer-group"></i>',
             'ruta' => 'categories',
-            'subitems' => [
-                [
-                    'name' => 'Lista de Categorías',
-                    'icon' => '<i class="fas fa-list"></i>',
-                    'ruta' => 'categories'
-                ],
-                [
-                    'name' => 'Crear Categoría',
-                    'icon' => '<i class="far fa-plus-square"></i>',
-                    'ruta' => 'categories/create'
-                ]
-            ]
+            'subitems' => []
         ],
         [
             'name' => 'Órdenes',
             'icon' => '<i class="fas fa-receipt"></i>',
             'ruta' => 'orders',
-            'subitems' => [
-                [
-                    'name' => 'Lista de Órdenes',
-                    'icon' => '<i class="fas fa-list"></i>',
-                    'ruta' => 'orders'
-                ],
-            ]
+            'subitems' => []
         ],
         [
             'name' => 'Usuarios',
@@ -89,7 +61,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     @yield('metadata')
     <meta charset="utf-8">
@@ -127,6 +98,7 @@
     <!-- Main Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('files/assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('files/assets/css/jquery.mCustomScrollbar.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('files/admin/style.css') }}">
 
     <input type="hidden" id="lastOrderId" value="{{ $lastOrderId }}">
 
@@ -252,7 +224,7 @@
                             <li class="user-profile header-notification">
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
-                                        <img src="{{ asset('assets/img/user_default.jpg') }}" class="rounded-circle"
+                                        <img src="{{ asset('assets/img/user_default.jpg') }}" class="img-radius"
                                             alt="{{ Auth::user()->name }} foto de perfil">
                                         <span>{{ Auth::user()->name }}</span>
                                         <i class="feather icon-chevron-down"></i>

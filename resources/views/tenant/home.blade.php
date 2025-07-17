@@ -203,7 +203,7 @@
         const ctx = document.getElementById('pedidosChart').getContext('2d');
 
         const pedidosChart = new Chart(ctx, {
-            type: 'doughnut',
+            type: 'pie',
             data: {
                 labels: {!! json_encode(array_keys($pedidosOrdenados)) !!},
                 datasets: [{

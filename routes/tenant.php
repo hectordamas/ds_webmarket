@@ -84,6 +84,7 @@ Route::middleware([
             Route::post('categories/{id}/update', 'update')->name('categories.update');
             Route::post('categories/sort', 'sort')->name('categories.sort');
             Route::post('categories/{id}/destroy', 'destroy')->name('categories.destroy');
+            Route::post('categories/toggle', 'toggleStatus');
         });
 
         //Productos
@@ -94,6 +95,8 @@ Route::middleware([
             Route::get('products/{id}/edit', 'edit');
             Route::post('products/{id}/update', 'update');
             Route::post('products/{id}/destroy', 'destroy');
+            Route::post('products/toggle', 'toggleStatus');
+
         });
 
         // Grupos de opciones

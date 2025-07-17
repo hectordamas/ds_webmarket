@@ -54,16 +54,20 @@
                         <div class="tab-pane fade" id="info" role="tabpanel">
                             <div class="bg-light p-4 rounded shadow-sm">
                                 <div class="row">
+                                    <div class="form group col-md-4 mb-3">
+                                        <label for="nombre_empresa"  class="form-label">Nombre de la Empresa</label>
+                                        <input type="text" name="nombre_empresa" id="nombre_empresa" class="form-control" value="<?php echo e(tenant('nombre_empresa')); ?>">
+                                    </div>
                                     <div class="form-group col-md-4 mb-4">
-                                        <label for="whatsapp_human" class="fw-semibold">Número de WhatsApp:</label>
+                                        <label for="whatsapp_human" class="form-label">Número de WhatsApp:</label>
                                         <input type="text" name="whatsapp_human" id="whatsapp_human" class="form-control" value="<?php echo e($settings['whatsapp_human'] ?? ''); ?>" placeholder="+58 424-1234567">
                                     </div>
                                     <div class="form-group col-md-4 mb-4">
-                                        <label for="facebook" class="fw-semibold">Enlace Facebook:</label>
+                                        <label for="facebook" class="form-label">Enlace Facebook:</label>
                                         <input type="text" name="facebook" id="facebook" class="form-control" value="<?php echo e($settings['facebook'] ?? ''); ?>">
                                     </div>
                                     <div class="form-group col-md-4 mb-4">
-                                        <label for="instagram" class="fw-semibold">Enlace Instagram:</label>
+                                        <label for="instagram" class="form-label">Enlace Instagram:</label>
                                         <input type="text" name="instagram" id="instagram" class="form-control" value="<?php echo e($settings['instagram'] ?? ''); ?>">
                                     </div>
                                 </div>

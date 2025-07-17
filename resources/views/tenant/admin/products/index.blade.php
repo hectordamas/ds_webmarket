@@ -43,10 +43,18 @@
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->category->name ?? 'Sin categoría' }}</td>
                                 <td>${{ number_format($product->price, 2, ',', '.') }}</td>
-                                <td>
-                                    <span class="badge bg-{{ $product->active ? 'success' : 'secondary' }}">
-                                        {{ $product->active ? 'Activo' : 'Inactivo' }}
-                                    </span>
+                                <td class="text-center align-middle">
+                                    <div class="d-flex align-items-center justify-content-center gap-3">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="active" class="form-check-input product-active" data-id="{{ $product->id }}" {{ $product->active ? 'checked' : '' }}>
+                                            Activo
+                                        </label>
+                                    
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="visible" class="form-check-input product-visible" data-id="{{ $product->id }}" {{ $product->visible ? 'checked' : '' }}>
+                                            Visible
+                                        </label>
+                                    </div>
                                 </td>
                                 <td>
                                     <a href="{{ url('products/' . $product->id . '/edit') }}" class="btn btn-sm btn-warning">
@@ -74,4 +82,39 @@
     </div>
 </div>
 
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function () {
+    // Manejador para ambos checkboxes
+    $('.product-active, .product-visible').on('change', function () {
+        const checkbox = $(this);
+        const productId = checkbox.data('id');
+        const isChecked = checkbox.is(':checked') ? 1 : 0;
+        const field = checkbox.hasClass('product-active') ? 'active' : 'visible';
+
+        $.ajax({
+            url: "{{ url('products/toggle') }}",
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: productId,
+                field: field,
+                checked: isChecked
+            },
+            success: function (response) {
+                if (!response.success) {
+                    alert('Ocurrió un error al actualizar el estado.');
+                    checkbox.prop('checked', !isChecked); // revertir el cambio si falla
+                }
+            },
+            error: function () {
+                alert('No se pudo actualizar el estado del producto.');
+                checkbox.prop('checked', !isChecked); // revertir el cambio si falla
+            }
+        });
+    });
+});
+</script>
 @endsection

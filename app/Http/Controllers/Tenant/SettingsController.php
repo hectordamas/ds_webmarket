@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tenant\Setting;
+use App\Models\{Tenant};
 use Illuminate\Support\Facades\File;
 
 class SettingsController extends Controller
@@ -19,6 +20,7 @@ class SettingsController extends Controller
     public function update(Request $request)
     {
         $request->validate([
+            'nombre_empresa' => 'required|string',
             'whatsapp_human' => 'required|string',
             'color_primary' => 'required|string',
             'logo' => 'nullable|image|max:2048',
@@ -50,6 +52,9 @@ class SettingsController extends Controller
         Setting::updateOrCreate(['key' => 'facebook'], ['value' => $request->facebook]);
         Setting::updateOrCreate(['key' => 'instagram'], ['value' => $request->instagram]);
 
+        $tenant = Tenant::find(tenant('id'));
+        $tenant->nombre_empresa = $request->nombre_empresa;
+        $tenant->save();
 
         return back()->with('success', 'Configuración actualizada correctamente.');
     }
