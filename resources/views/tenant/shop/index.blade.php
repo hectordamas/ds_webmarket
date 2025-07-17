@@ -459,7 +459,7 @@
             $('#summaryNombre').text($('[name="nombre"]').val());
             $('#summaryTelefono').text('+58 ' + $('[name="telefono"]').val());
             $('#summaryCedula').text($('[name="cedula"]').val());
-            $('#summaryMetodoDePago').text($('[name="metodo_pago"]').val())
+            $('#summaryMetodoDePago').text($('[name="metodo_pago"] option:selected').text());
             $('#summaryTipoDePedido').text($('input[name="tipo_pedido"]:checked').val())
             if (tipoPedido === 'Delivery' && direccion) {
                 $('.direccion').show()
@@ -473,78 +473,87 @@
 </script>
 
 <script>
-  $('#btnConfirmar').on('click', function() {
-    const data = {
-      _token: '{{ csrf_token() }}',
-      nombre: $('input[name="nombre"]').val(),
-      tipo_documento: $('input[name="tipo_documento"]').val(),
-      cedula: $('input[name="cedula"]').val(),
-      telefono: $('input[name="telefono"]').val(),
-      direccion: $('textarea[name="direccion"]').val(),
-      metodo_pago: $('select[name="metodo_pago"]').val(),
-      tipo_pedido: $('input[name="tipo_pedido"]:checked').val(),
-    };
+    function enviarPedidoPorWhatsapp() {
+        const data = {
+            _token: '{{ csrf_token() }}',
+            nombre: $('input[name="nombre"]').val(),
+            tipo_documento: $('select[name="tipo_documento"]').val(),
+            cedula: $('input[name="cedula"]').val(),
+            telefono: $('input[name="telefono"]').val(),
+            direccion: $('textarea[name="direccion"]').val(),
+            detalle_direccion: $('input[name="detalle_direccion"]').val(),
+            metodo_pago: $('select[name="metodo_pago"]').val(),
+            tipo_pedido: $('input[name="tipo_pedido"]:checked').val(),
+        };
 
-    $.ajax({
-      url: "{{ url('orders/store') }}",
-      method: 'POST',
-      data: data,
-      beforeSend: function() {
-          $('#btnConfirmar').text('Enviando...');
-      },
-      success: function(response) {
-        if(response.success) {
-            $('#confirmar').html(response.html);
-        } else {
-          alert('Error al guardar la orden');
-        }
-      },
-      error: function(xhr) {
-          alert('Error al enviar el pedido.');
-      },
-    });
-  });
-</script>
-
-<script>
-$(document).on('click', '#enviarWhatsapp', function(e) {
-    e.preventDefault();
-
-    const data = {
-        _token: '{{ csrf_token() }}',
-        nombre: $('input[name="nombre"]').val(),
-        tipo_documento: $('input[name="tipo_documento"]').val(),
-        cedula: $('input[name="cedula"]').val(),
-        telefono: $('input[name="telefono"]').val(),
-        direccion: $('textarea[name="direccion"]').val(),
-        detalle_direccion: $('input[name="detalle_direccion"]').val(),
-        metodo_pago: $('select[name="metodo_pago"]').val(),
-        tipo_pedido: $('input[name="tipo_pedido"]:checked').val(),
-    };
-
-    $.ajax({
-        url: "{{ url('enviar-pedido') }}",
-        method: "POST",
-        data: data,
-        beforeSend: function() {
-            $('#enviarWhatsapp').text('Enviando...');
-        },
-        success: function(response) {
-            if (response.url) {
-                console.log(response.url)
-                window.open(response.url, '_blank');
-            } else {
-                alert('No se pudo generar el mensaje.');
+        $.ajax({
+            url: "{{ url('enviar-pedido') }}",
+            method: "POST",
+            data: data,
+            beforeSend: function() {
+                $('#enviarWhatsapp').text('Enviando...');
+            },
+            success: function(response) {
+                if (response.url) {
+                    console.log(response.url);
+                    window.open(response.url, '_blank');
+                } else {
+                    alert('No se pudo generar el mensaje.');
+                }
+            },
+            error: function(xhr) {
+                alert('Error al enviar el pedido.');
+            },
+            complete: function() {
+                $('#enviarWhatsapp').html('<i class="fas fa-shopping-bag me-2"></i> <i class="fab fa-whatsapp me-2"></i> PULSE PARA ENVIAR SU PEDIDO');
             }
-        },
-        error: function(xhr) {
-            alert('Error al enviar el pedido.');
-        },
-        complete: function() {
-            $('#enviarWhatsapp').html('<i class="fas fa-shopping-bag me-2"></i> <i class="fab fa-whatsapp me-2"></i> PULSE PARA ENVIAR SU PEDIDO');
-        }
+        });
+    }
+
+    $('#btnConfirmar').on('click', function() {
+        const data = {
+          _token: '{{ csrf_token() }}',
+          nombre: $('input[name="nombre"]').val(),
+          tipo_documento: $('select[name="tipo_documento"]').val(),
+          cedula: $('input[name="cedula"]').val(),
+          telefono: $('input[name="telefono"]').val(),
+          direccion: $('textarea[name="direccion"]').val(),
+          metodo_pago: $('select[name="metodo_pago"]').val(),
+          tipo_pedido: $('input[name="tipo_pedido"]:checked').val(),
+        };
+    
+        $.ajax({
+          url: "{{ url('orders/store') }}",
+          method: 'POST',
+          data: data,
+          beforeSend: function() {
+              $('#btnConfirmar').text('Enviando...');
+          },
+          success: function(response) {
+            if(response.success) {
+                $('#confirmar').html(response.html);
+            
+                // Esperar 5 segundos y luego enviar por WhatsApp
+                setTimeout(function() {
+                    enviarPedidoPorWhatsapp();
+                }, 5000);
+            } else {
+              alert('Error al guardar la orden');
+            }
+          },
+          error: function(xhr) {
+              alert('Error al enviar el pedido.');
+          },
+          complete: function() {
+              $('#btnConfirmar').text('Confirmar pedido');
+          }
+        });
     });
-});
+
+    $(document).on('click', '#enviarWhatsapp', function(e) {
+        e.preventDefault();
+        enviarPedidoPorWhatsapp();
+    });
 
 </script>
 @endsection

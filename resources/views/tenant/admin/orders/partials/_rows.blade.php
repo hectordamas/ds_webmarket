@@ -8,7 +8,7 @@
     @endif
   </td>
   <td>{{ $order->nombre }}</td>
-  <td>{{ $order->cedula }}</td>
+  <td>{{ $order->tipo_documento }}{{ $order->cedula }}</td>
   <td>{{ $order->metodo_pago }}</td>
   <td class="text-success fw-bold">${{ number_format($order->total, 2, '.', ',') }}</td>
   <td>

@@ -136,6 +136,7 @@ class CartController extends Controller
             'detalle_direccion' => 'nullable|string',
             'metodo_pago' => 'required|string',
             'tipo_pedido' => 'required|string',
+            'tipo_documento' => 'required|string',
         ]);
 
         $pedidoId = rand(1000, 9999);
@@ -151,7 +152,7 @@ class CartController extends Controller
         $mensaje .= "============================\n";
         $mensaje .= "*DATOS DEL CLIENTE*\n";
         $mensaje .= "----------------------------------\n";
-        $mensaje .= "*Cédula / RIF:* {$data['tipo_documento']} {$data['cedula']}\n";
+        $mensaje .= "*Cédula / RIF:* {$data['tipo_documento']}{$data['cedula']}\n";
         $mensaje .= "*Nombre:* {$data['nombre']}\n";
         $mensaje .= "*Teléfono:* {$telefono}\n";
 
@@ -207,6 +208,8 @@ class CartController extends Controller
         $settings = Setting::pluck('value', 'key');
         $numeroWhatsApp = $settings = Setting::pluck('value', 'key');
         $url = "{$settings['whatsapp_url']}?text=" . urlencode($mensaje);
+
+        Cart::destroy();
 
         return response()->json(['url' => $url]);
     }

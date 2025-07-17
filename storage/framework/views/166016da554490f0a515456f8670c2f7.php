@@ -8,7 +8,7 @@
     <?php endif; ?>
   </td>
   <td><?php echo e($order->nombre); ?></td>
-  <td><?php echo e($order->cedula); ?></td>
+  <td><?php echo e($order->tipo_documento); ?><?php echo e($order->cedula); ?></td>
   <td><?php echo e($order->metodo_pago); ?></td>
   <td class="text-success fw-bold">$<?php echo e(number_format($order->total, 2, '.', ',')); ?></td>
   <td>

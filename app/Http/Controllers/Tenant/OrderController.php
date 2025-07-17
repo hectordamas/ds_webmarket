@@ -26,6 +26,7 @@ class OrderController extends Controller
             'direccion' => 'nullable|string',
             'metodo_pago' => 'required|string',
             'tipo_pedido' => 'required|string',
+            'tipo_documento' => 'required|string',
         ]);
 
         // Crear la orden (adaptar según modelo)

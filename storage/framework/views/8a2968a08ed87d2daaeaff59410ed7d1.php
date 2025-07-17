@@ -4,7 +4,7 @@
         <div class="col-md-6 mb-3">
             <ul>
                 <li><strong>Nombre:</strong> <?php echo e($order->nombre); ?></li>
-                <li><strong>Cédula:</strong> <?php echo e($order->cedula); ?></li>
+                <li><strong>Cédula:</strong> <?php echo e($order->tipo_documento); ?><?php echo e($order->cedula); ?></li>
                 <li><strong>Teléfono:</strong> +58 <?php echo e($order->telefono); ?></li>
                 <li><strong>Dirección:</strong> <?php echo e($order->direccion); ?></li>
                 <li><?php echo e($order->detalle_direccion); ?></li>

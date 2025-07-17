@@ -253,7 +253,7 @@
                             <li class="user-profile header-notification">
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
-                                        <img src="<?php echo e(asset('files/assets/images/avatar-4.jpg')); ?>" class="img-radius"
+                                        <img src="<?php echo e(asset('assets/img/user_default.jpg')); ?>" class="rounded-circle"
                                             alt="<?php echo e(Auth::user()->name); ?> foto de perfil">
                                         <span><?php echo e(Auth::user()->name); ?></span>
                                         <i class="feather icon-chevron-down"></i>
@@ -489,7 +489,7 @@
         }
 
         // Iniciar polling cada 15 segundos
-        setInterval(fetchNotificaciones, 15000);
+        setInterval(fetchNotificaciones, 10000);
     </script>
 
     <?php if(session()->has('success')): ?>

@@ -4,7 +4,7 @@
         <div class="col-md-6 mb-3">
             <ul>
                 <li><strong>Nombre:</strong> {{ $order->nombre }}</li>
-                <li><strong>Cédula:</strong> {{ $order->cedula }}</li>
+                <li><strong>Cédula:</strong> {{ $order->tipo_documento }}{{ $order->cedula }}</li>
                 <li><strong>Teléfono:</strong> +58 {{ $order->telefono }}</li>
                 <li><strong>Dirección:</strong> {{ $order->direccion }}</li>
                 <li>{{ $order->detalle_direccion }}</li>

@@ -65,6 +65,7 @@ class HomeController extends Controller
         $ventas = DB::table('orders')
             ->select(DB::raw("DATE_FORMAT(created_at, '$format') as periodo"), DB::raw('SUM(total) as total'))
             ->whereBetween('created_at', [$from, $to])
+            ->where('status', 'Entregado')
             ->groupBy('periodo')
             ->pluck('total', 'periodo')
             ->toArray();
@@ -141,8 +142,13 @@ class HomeController extends Controller
         });
 
         $ingresos = Order::whereBetween('created_at', [$from, $to])
+        ->where('status', 'Entregado')
         ->sum('total');
-        $ticketPromedio = Order::whereBetween('created_at', [$from, $to])->avg('total');
+
+        $ticketPromedio = Order::whereBetween('created_at', [$from, $to])
+        ->where('status', 'Entregado')
+        ->avg('total');
+
         $clientesEnRango = Order::whereBetween('created_at', [$from, $to])
             ->whereNotNull('cedula')
             ->where('cedula', '!=', '')

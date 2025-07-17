@@ -21,14 +21,14 @@
         <label class="form-label fw-semibold">Cédula de identidad</label>
         <div class="input-group">
             <select name="tipo_documento" class="form-select" style="max-width: 80px;" required>
-                <option value="V">V</option>
+                <option value="V" selected>V</option>
                 <option value="E">E</option>
                 <option value="P">P</option>
                 <option value="R">R</option>
                 <option value="J">J</option>
                 <option value="G">G</option>
             </select>
-            <input type="text" class="form-control" name="cedula" placeholder="Ej: 12345678" required>
+            <input type="tel" class="form-control" name="cedula" placeholder="Ej: 12345678" required>
         </div>
     </div>
     <div class="mb-3">
@@ -57,9 +57,9 @@
         <select class="form-select" name="metodo_pago" required>
             <option value="" selected disabled>Selecciona un método</option>
             <?php if(isset($payments)): ?>
-            <?php $__currentLoopData = $payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <option value="<?php echo e($payment->id); ?>"><?php echo e($payment->name); ?></option>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php $__currentLoopData = $payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($payment->id); ?>"><?php echo e($payment->name); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             <?php endif; ?>
         </select>
     </div>
