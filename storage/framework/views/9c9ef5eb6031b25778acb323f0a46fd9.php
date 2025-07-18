@@ -21,7 +21,7 @@
                             <th>Nombre</th>
                             <th>Slug</th>
                             <th>Estado</th>
-                            <th>Acciones</th>
+                            
                         </tr>
                     </thead>
                     <tbody id="sortable-categories">
@@ -42,19 +42,7 @@
                                         </label>
                                     </div>
                                 </td>
-                                <td>
-                                    <a href="<?php echo e(url('categories/' . $category->id . '/edit')); ?>" class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i> Editar
-                                    </a>
                                 
-                                    <form action="<?php echo e(url('categories/' . $category->id . '/destroy')); ?>" method="POST" class="d-inline-block" onsubmit="return confirm('¿Seguro que deseas eliminar esta categoría?')">
-                                        <?php echo csrf_field(); ?>
-                                        <?php echo method_field('POST'); ?>
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="fas fa-trash-alt"></i> Eliminar
-                                        </button>
-                                    </form>
-                                </td>
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                             <tr>

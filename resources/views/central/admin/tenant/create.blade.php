@@ -44,13 +44,12 @@
 
                     <div class="form-group col-md-3 mb-3">
                         <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
-                        <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control" value="{{ old('fecha_vencimiento') }}" required>
+                        <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control" value="{{ \Carbon\Carbon::now()->addYear()->format('Y-m-d') }}" required>
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        <label class="form-label d-block">Activo</label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" name="activo" id="activo" {{ old('activo', true) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="activo">Habilitado</label>
+                            <label class="form-check-label" for="activo">Activo</label>
                         </div>
                     </div>
 

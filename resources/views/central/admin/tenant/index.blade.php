@@ -19,6 +19,8 @@
                             <th>Dominio</th>
                             <th>Empresa</th>
                             <th>Base de Datos</th>
+                            <th>Activo</th>
+                            <th>Fecha de Expiracion</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -32,14 +34,23 @@
                                 <td>{{ $tenant->nombre_empresa }}</td>
                                 <td>{{ $tenant->tenancy_db_name }}</td>
                                 <td>
+                                    <div class="form-check form-switch d-flex justify-content-center">
+                                        <input class="form-check-input" type="checkbox" name="activo" id="activo"
+                                            {{ $tenant->activo ? 'checked' : '' }}>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{  $tenant->fecha_vencimiento ? \Carbon\Carbon::parse($tenant->fecha_vencimiento)->format('d-m-Y') : '' }}
+                                </td>
+                                <td>
                                     <div class="d-flex gap-1">
                                         <a href="{{ route('tenants.edit', $tenant) }}" class="btn btn-sm btn-warning">Editar</a>
                                     
-                                        <form action="{{ route('tenants.destroy', $tenant) }}" method="POST" onsubmit="return confirm('¿Seguro?')">
+                                        {{--<form action="{{ route('tenants.destroy', $tenant) }}" method="POST" onsubmit="return confirm('¿Seguro?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                                        </form>
+                                        </form>--}}
                                     </div>
                                 </td>
                             </tr>

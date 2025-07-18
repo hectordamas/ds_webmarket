@@ -32,7 +32,7 @@
 
         @yield('content')
 
-        @if(request()->is('/'))
+        @if(request()->is('/') && tenant('activo'))
             @include('tenant.shop.components.cart.index')
             @include('tenant.shop.components.products.show')
         @endif

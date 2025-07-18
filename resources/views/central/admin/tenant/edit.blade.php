@@ -53,11 +53,10 @@
                             value="{{  $tenant->fecha_vencimiento ? \Carbon\Carbon::parse($tenant->fecha_vencimiento)->format('Y-m-d') : '' }}" required>
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        <label class="form-label d-block">Activo</label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" name="activo" id="activo"
                                 {{ $tenant->activo ? 'checked' : '' }}>
-                            <label class="form-check-label" for="activo">Habilitado</label>
+                            <label class="form-check-label" for="activo">Activo</label>
                         </div>
                     </div>
 

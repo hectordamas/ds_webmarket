@@ -18,6 +18,8 @@
                             <th>Dominio</th>
                             <th>Empresa</th>
                             <th>Base de Datos</th>
+                            <th>Activo</th>
+                            <th>Fecha de Expiracion</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -31,6 +33,16 @@
                                 </td>
                                 <td><?php echo e($tenant->nombre_empresa); ?></td>
                                 <td><?php echo e($tenant->tenancy_db_name); ?></td>
+                                <td>
+                                    <div class="form-check form-switch d-flex justify-content-center">
+                                        <input class="form-check-input" type="checkbox" name="activo" id="activo"
+                                            <?php echo e($tenant->activo ? 'checked' : ''); ?>>
+                                    </div>
+                                </td>
+                                <td>
+                                    <?php echo e($tenant->fecha_vencimiento ? \Carbon\Carbon::parse($tenant->fecha_vencimiento)->format('d-m-Y') : ''); ?>
+
+                                </td>
                                 <td>
                                     <div class="d-flex gap-1">
                                         <a href="<?php echo e(route('tenants.edit', $tenant)); ?>" class="btn btn-sm btn-warning">Editar</a>

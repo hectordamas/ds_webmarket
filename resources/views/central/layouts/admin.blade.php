@@ -93,6 +93,13 @@
     <!-- Custom Scrollbar -->
     <link rel="stylesheet" type="text/css" href="{{ asset('central/files/assets/css/jquery.mCustomScrollbar.css') }}">
 
+    <style>
+        thead th, thead td, tbody td {
+            text-align: center;
+            vertical-align: middle; /* ← CORRECTO */
+        }
+    </style>
+
 </head>
 <!-- Menu sidebar static layout -->
 
@@ -180,7 +187,7 @@
                             <li class="user-profile header-notification">
                                 <div class="dropdown-primary dropdown">
                                     <div class="dropdown-toggle" data-bs-toggle="dropdown">
-                                        <img src="{{ asset('central/files/assets/images/avatar-4.jpg') }}" class="img-radius"
+                                        <img src="{{ asset('central/assets/img/user_default.jpg') }}" class="img-radius"
                                             alt="{{ Auth::user()->name }} foto de perfil">
                                         <span>{{ Auth::user()->name }}</span>
                                         <i class="feather icon-chevron-down"></i>

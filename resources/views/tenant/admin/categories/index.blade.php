@@ -23,7 +23,7 @@
                             <th>Nombre</th>
                             <th>Slug</th>
                             <th>Estado</th>
-                            <th>Acciones</th>
+                            {{--<th>Acciones</th>--}}
                         </tr>
                     </thead>
                     <tbody id="sortable-categories">
@@ -44,7 +44,7 @@
                                         </label>
                                     </div>
                                 </td>
-                                <td>
+                                {{--<td>
                                     <a href="{{ url('categories/' . $category->id . '/edit') }}" class="btn btn-sm btn-warning">
                                         <i class="fas fa-edit"></i> Editar
                                     </a>
@@ -56,7 +56,7 @@
                                             <i class="fas fa-trash-alt"></i> Eliminar
                                         </button>
                                     </form>
-                                </td>
+                                </td>--}}
                             </tr>
                         @empty
                             <tr>

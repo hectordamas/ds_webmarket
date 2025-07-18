@@ -61,12 +61,12 @@
                                         <i class="fas fa-edit"></i> Editar
                                     </a>
 
-                                    <form action="{{ url('products/' . $product->id . '/destroy') }}" method="POST" class="d-inline-block" onsubmit="return confirm('¿Seguro que deseas eliminar este producto?')">
+                                    {{--<form action="{{ url('products/' . $product->id . '/destroy') }}" method="POST" class="d-inline-block" onsubmit="return confirm('¿Seguro que deseas eliminar este producto?')">
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-danger">
                                             <i class="fas fa-trash-alt"></i> Eliminar
                                         </button>
-                                    </form>
+                                    </form>--}}
                                 </td>
                             </tr>
                         @empty

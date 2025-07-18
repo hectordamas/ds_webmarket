@@ -32,7 +32,7 @@
 
         <?php echo $__env->yieldContent('content'); ?>
 
-        <?php if(request()->is('/')): ?>
+        <?php if(request()->is('/') && tenant('activo')): ?>
             <?php echo $__env->make('tenant.shop.components.cart.index', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             <?php echo $__env->make('tenant.shop.components.products.show', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <?php endif; ?>
