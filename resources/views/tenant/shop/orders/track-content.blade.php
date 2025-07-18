@@ -109,5 +109,5 @@
 {{-- Footer --}}
 <div class="text-center small text-muted mt-5">
     <img src="{{ asset($settings['logo'] ?? 'assets/img/logo-color.png') }}" alt="{{ tenant('nombre_empresa') }} logo" style="width: 140px;">
-    <p class="mt-2 mb-0">Soportado por <a href="http://{{ env('CENTRAL_DOMAIN') }}" target="_blank">{{ env('APP_NAME') }}</a></p>
+    <p class="mt-2 mb-0">Soportado por <a href="http://{{ env('CENTRAL_DOMAIN') }}" target="_blank">{{ config('app.name') }}</a></p>
 </div>

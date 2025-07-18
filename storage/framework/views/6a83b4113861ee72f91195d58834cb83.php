@@ -113,6 +113,6 @@
 
 <div class="text-center small text-muted mt-5">
     <img src="<?php echo e(asset($settings['logo'] ?? 'assets/img/logo-color.png')); ?>" alt="<?php echo e(tenant('nombre_empresa')); ?> logo" style="width: 140px;">
-    <p class="mt-2 mb-0">Soportado por <a href="http://<?php echo e(env('CENTRAL_DOMAIN')); ?>" target="_blank"><?php echo e(env('APP_NAME')); ?></a></p>
+    <p class="mt-2 mb-0">Soportado por <a href="http://<?php echo e(env('CENTRAL_DOMAIN')); ?>" target="_blank"><?php echo e(config('app.name')); ?></a></p>
 </div>
 <?php /**PATH C:\laragon\www\dswebmarket\resources\views/tenant/shop/orders/track-content.blade.php ENDPATH**/ ?>

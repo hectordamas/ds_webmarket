@@ -1,5 +1,5 @@
 <?php $__env->startSection('metadata'); ?>
-<title><?php echo e(env('APP_NAME')); ?> - Crear Producto</title>
+<title><?php echo e(config('app.name')); ?> - Crear Producto</title>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>

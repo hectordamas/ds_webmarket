@@ -1,7 +1,7 @@
 @extends('tenant.layouts.admin')
 
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Lista de Productos</title>
+<title>{{ config('app.name') }} - Lista de Productos</title>
 @endsection
 
 @section('content')

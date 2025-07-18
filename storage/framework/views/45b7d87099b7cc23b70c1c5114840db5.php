@@ -1,7 +1,7 @@
 
 
 <?php $__env->startSection('metadata'); ?>
-<title><?php echo e(env('APP_NAME')); ?> - Recuperar Contraseña</title>
+<title><?php echo e(config('app.name')); ?> - Recuperar Contraseña</title>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -11,7 +11,7 @@
             <form class="md-float-material form-material" method="POST" action="<?php echo e(url('password/send-code')); ?>">
                 <?php echo csrf_field(); ?>
                 <div class="text-center mb-3">
-                    <img src="<?php echo e(asset('assets/img/logo-light.png')); ?>" alt="Logo <?php echo e(env('APP_NAME')); ?>" width="180">
+                    <img src="<?php echo e(asset('assets/img/logo-light.png')); ?>" alt="Logo <?php echo e(config('app.name')); ?>" width="180">
                 </div>
                 <div class="auth-box card">
                     <div class="card-block">

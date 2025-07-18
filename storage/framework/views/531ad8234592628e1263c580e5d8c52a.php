@@ -1,7 +1,7 @@
 
 
 <?php $__env->startSection('metadata'); ?>
-<title><?php echo e(env('APP_NAME')); ?> - Orden <?php echo e($order->id); ?></title>
+<title><?php echo e(config('app.name')); ?> - Orden <?php echo e($order->id); ?></title>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>

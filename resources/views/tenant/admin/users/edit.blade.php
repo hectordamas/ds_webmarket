@@ -1,7 +1,7 @@
 @extends('tenant.layouts.admin')
 
 @section('metadata')
-    <title>Nuevo Usuario - {{ env('APP_NAME') }}</title>
+    <title>Nuevo Usuario - {{ config('app.name') }}</title>
 @endsection
 
 @section('content')

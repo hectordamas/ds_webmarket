@@ -1,5 +1,5 @@
 <?php $__env->startSection('metadata'); ?>
-    <title><?php echo e(tenant('nombre_empresa')); ?> - <?php echo e(env('APP_NAME')); ?></title>
+    <title><?php echo e(tenant('nombre_empresa')); ?> - <?php echo e(config('app.name')); ?></title>
     <?php echo $__env->make('tenant.shop.styles', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 
@@ -112,7 +112,7 @@
                         <a href="#" class="text-light mx-2"><i class="fab fa-whatsapp"></i></a>
                     </div>
                     <p class="mb-0" style="font-size: 14px;">
-                        &copy; <?php echo e(date('Y')); ?> <?php echo e(env('APP_NAME')); ?>. Todos los derechos reservados.
+                        &copy; <?php echo e(date('Y')); ?> <?php echo e(config('app.name')); ?>. Todos los derechos reservados.
                     </p>
                 </div>
             </footer>

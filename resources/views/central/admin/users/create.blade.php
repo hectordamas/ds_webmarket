@@ -1,7 +1,7 @@
 @extends('central.layouts.admin')
 
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Registrar Usuario</title>
+<title>{{ config('app.name') }} - Registrar Usuario</title>
 @endsection
 
 @section('content')

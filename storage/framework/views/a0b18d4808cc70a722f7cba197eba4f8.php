@@ -1,7 +1,7 @@
 
 
 <?php $__env->startSection('metadata'); ?>
-<title><?php echo e(env('APP_NAME')); ?> - Registrar Usuario</title>
+<title><?php echo e(config('app.name')); ?> - Registrar Usuario</title>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>

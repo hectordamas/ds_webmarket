@@ -1,7 +1,7 @@
 
 
 <?php $__env->startSection('metadata'); ?>
-    <title>Usuarios - <?php echo e(env('APP_NAME')); ?></title>
+    <title>Usuarios - <?php echo e(config('app.name')); ?></title>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>

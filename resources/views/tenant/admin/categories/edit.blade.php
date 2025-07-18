@@ -1,7 +1,7 @@
 @extends('tenant.layouts.admin')
 
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Editar Categoría</title>
+<title>{{ config('app.name') }} - Editar Categoría</title>
 @endsection
 
 @section('content')

@@ -31,7 +31,7 @@
                     </tr>
                     <tr>
                         <td style="background-color: #f8f8f8; padding: 20px; text-align: center; font-size: 12px; color: #aaa;">
-                            © {{ now()->year }} {{ env('APP_NAME') }}. Todos los derechos reservados.
+                            © {{ now()->year }} {{ config('app.name') }}. Todos los derechos reservados.
                         </td>
                     </tr>
                 </table>

@@ -1,7 +1,7 @@
 
 
 <?php $__env->startSection('metadata'); ?>
-<title><?php echo e(env('APP_NAME')); ?> - Métodos de Pago</title>
+<title><?php echo e(config('app.name')); ?> - Métodos de Pago</title>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>

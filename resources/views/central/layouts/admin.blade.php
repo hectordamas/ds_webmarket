@@ -147,7 +147,7 @@
                             <i class="feather icon-menu"></i>
                         </a>
                         <a href="{{ url('home') }}">
-                            <img class="img-fluid w-100" style="max-width:160px;" src="{{ asset('central/assets/img/logo-light.png') }}" alt="{{ env('APP_NAME') }} Logo" />
+                            <img class="img-fluid w-100" style="max-width:160px;" src="{{ asset('central/assets/img/logo-light.png') }}" alt="{{ config('app.name') }} Logo" />
                         </a>
                         <a class="mobile-options">
                             <i class="feather icon-more-horizontal"></i>

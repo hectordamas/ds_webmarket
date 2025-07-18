@@ -1,5 +1,5 @@
 <?php $__env->startSection('metadata'); ?>
-<title>Editar Tenant - <?php echo e(env('APP_NAME')); ?> </title>
+<title>Editar Tenant - <?php echo e(config('app.name')); ?> </title>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
 <div class="row">

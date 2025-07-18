@@ -38,6 +38,6 @@
 
     
     <div class="text-center small text-muted">
-        <a href="http://<?php echo e(env('CENTRAL_DOMAIN')); ?>" target="_blank" class="text-decoration-none">Desarrollado por <?php echo e(env('APP_NAME')); ?></a>
+        <a href="http://<?php echo e(env('CENTRAL_DOMAIN')); ?>" target="_blank" class="text-decoration-none">Desarrollado por <?php echo e(config('app.name')); ?></a>
     </div>
 </div><?php /**PATH C:\laragon\www\ds_webmarket\resources\views/tenant/shop/components/cart/completed.blade.php ENDPATH**/ ?>

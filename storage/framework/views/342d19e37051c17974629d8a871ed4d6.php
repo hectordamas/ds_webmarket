@@ -1,5 +1,5 @@
 <?php $__env->startSection('metadata'); ?>
-<title><?php echo e(env('APP_NAME')); ?> - Lista de Categorías</title>
+<title><?php echo e(config('app.name')); ?> - Lista de Categorías</title>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>

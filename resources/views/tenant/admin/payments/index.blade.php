@@ -1,7 +1,7 @@
 @extends('tenant.layouts.admin')
 
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Métodos de Pago</title>
+<title>{{ config('app.name') }} - Métodos de Pago</title>
 @endsection
 
 @section('content')

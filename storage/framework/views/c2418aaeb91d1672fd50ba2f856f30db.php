@@ -1,5 +1,5 @@
 <?php $__env->startSection('metadata'); ?>
-<title><?php echo e(env('APP_NAME')); ?> - Crea tu catálogo en línea integrado con Saint</title>
+<title><?php echo e(config('app.name')); ?> - Crea tu catálogo en línea integrado con Saint</title>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('styles'); ?>

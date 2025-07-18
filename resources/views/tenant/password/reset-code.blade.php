@@ -1,7 +1,7 @@
 @extends('tenant.layouts.auth')
 
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Restablecer Contraseña</title>
+<title>{{ config('app.name') }} - Restablecer Contraseña</title>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
             <form class="md-float-material form-material" method="POST" action="{{ url('password/reset-code') }}">
                 @csrf
                 <div class="text-center mb-3">
-                    <img src="{{ asset('assets/img/logo-light.png') }}" alt="Logo {{ env('APP_NAME') }}" width="180">
+                    <img src="{{ asset('assets/img/logo-light.png') }}" alt="Logo {{ config('app.name') }}" width="180">
                 </div>
                 <div class="auth-box card">
                     <div class="card-block">

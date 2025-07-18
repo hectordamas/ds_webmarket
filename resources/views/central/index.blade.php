@@ -1,6 +1,6 @@
 @extends('central.layouts.main')
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Crea tu catálogo en línea integrado con Saint</title>
+<title>{{ config('app.name') }} - Crea tu catálogo en línea integrado con Saint</title>
 @endsection
 
 @section('styles')

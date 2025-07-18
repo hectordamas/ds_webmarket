@@ -1,7 +1,7 @@
 @extends('tenant.layouts.admin')
 
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Crear Producto</title>
+<title>{{ config('app.name') }} - Crear Producto</title>
 @endsection
 
 @section('content')

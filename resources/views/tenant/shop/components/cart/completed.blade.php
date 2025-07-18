@@ -38,6 +38,6 @@
 
     {{-- Footer --}}
     <div class="text-center small text-muted">
-        <a href="http://{{ env('CENTRAL_DOMAIN') }}" target="_blank" class="text-decoration-none">Desarrollado por {{ env('APP_NAME') }}</a>
+        <a href="http://{{ env('CENTRAL_DOMAIN') }}" target="_blank" class="text-decoration-none">Desarrollado por {{ config('app.name') }}</a>
     </div>
 </div>

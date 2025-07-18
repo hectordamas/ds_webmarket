@@ -2,7 +2,7 @@
 @extends('tenant.layouts.admin')
 
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Dashboard</title>
+<title>{{ config('app.name') }} - Dashboard</title>
 @endsection
 
 @section('content')

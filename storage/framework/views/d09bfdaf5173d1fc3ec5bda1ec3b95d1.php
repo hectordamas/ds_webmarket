@@ -1,5 +1,5 @@
 <?php $__env->startSection('metadata'); ?>
-<title><?php echo e(env('APP_NAME')); ?> - Crea tu catálogo en línea integrado con Saint</title>
+<title><?php echo e(config('app.name')); ?> - Crea tu catálogo en línea integrado con Saint</title>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('styles'); ?>
@@ -94,7 +94,7 @@
                         <div class="col-md-12 d-flex mb-4">
                           <input class="form-check-input" type="checkbox" value="1" id="autorizo" required>
                           <label class="form-check-label mx-3" for="autorizo">
-                            Autorizo a <?php echo e(env('APP_NAME')); ?> a enviarme información relevante de mi suscripción a su plataforma.
+                            Autorizo a <?php echo e(config('app.name')); ?> a enviarme información relevante de mi suscripción a su plataforma.
                           </label>
                         </div>
                         <div class="col-md-12">

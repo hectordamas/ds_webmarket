@@ -1,6 +1,6 @@
 @extends('central.layouts.admin')
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Lista de Tenants</title>
+<title>{{ config('app.name') }} - Lista de Tenants</title>
 @endsection
 @section('content')
 <div class="row">

@@ -1,7 +1,7 @@
 @extends('tenant.layouts.app')
 @section('metadata')
-    <title>{{ tenant('nombre_empresa') }} - {{ env('APP_NAME') }}</title>
-    
+    <title>{{ tenant('nombre_empresa') }} - {{ config('app.name') }}</title>
+
     @include('tenant.shop.styles')
 @endsection
 
@@ -120,7 +120,7 @@
                         @endisset
                     </div>
                     <p class="mb-0" style="font-size: 14px;">
-                        &copy; {{ date('Y') }} {{ env('APP_NAME') }}. Todos los derechos reservados.
+                        &copy; {{ date('Y') }} {{ config('app.name') }}. Todos los derechos reservados.
                     </p>
                     <div class="my-4">
                         <img src="{{ asset('assets/img/saint-light.png') }}" style="max-width: 100px;" alt="">

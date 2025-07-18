@@ -1,7 +1,7 @@
 
 @extends('tenant.layouts.auth')
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Inicia Sesión</title>
+<title>{{ config('app.name') }} - Inicia Sesión</title>
 @endsection
 @section('content')
 <div class="container">
@@ -10,7 +10,7 @@
             <form class="md-float-material form-material" method="POST" action="{{ url('login') }}">
                 @csrf
                 <div class="text-center mb-3">
-                    <img src="{{ asset('assets/img/logo-light.png') }}" alt="Logo {{ env('APP_NAME') }}" width="180">
+                    <img src="{{ asset('assets/img/logo-light.png') }}" alt="Logo {{ config('app.name') }}" width="180">
                 </div>
                 <div class="auth-box card">
                     <div class="card-block">

@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Olvidé mi Contraseña</title>
+<title>{{ config('app.name') }} - Olvidé mi Contraseña</title>
 @endsection
 @section('content')
 <div class="authincation h-100">
@@ -12,7 +12,7 @@
                         <div class="col-xl-12">
                             <div class="auth-form">
                                 <div class="d-flex justify-content-center">
-                                    <img src="{{ asset('assets/img/logo-color.png') }}" alt="Logo {{ env('APP_NAME') }}" width="180" style="margin-bottom: 25px;">
+                                    <img src="{{ asset('assets/img/logo-color.png') }}" alt="Logo {{ config('app.name') }}" width="180" style="margin-bottom: 25px;">
                                 </div>
                                 <p>¿Olvidaste tu contraseña? Ingresa tu correo para recibir el enlace de recuperación.</p>
 

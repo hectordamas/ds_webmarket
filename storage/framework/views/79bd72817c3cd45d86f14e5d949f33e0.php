@@ -1,7 +1,7 @@
 
 
 <?php $__env->startSection('metadata'); ?>
-<title><?php echo e(env('APP_NAME')); ?> - Solicitudes</title>
+<title><?php echo e(config('app.name')); ?> - Solicitudes</title>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>

@@ -1,7 +1,7 @@
 @extends('central.layouts.admin')
 
 @section('metadata')
-<title>{{ env('APP_NAME') }} - Solicitudes</title>
+<title>{{ config('app.name') }} - Solicitudes</title>
 @endsection
 
 @section('content')
