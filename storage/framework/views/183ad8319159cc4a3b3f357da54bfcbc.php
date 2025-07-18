@@ -5,15 +5,55 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+<!-- Modal -->
+<div class="modal fade" id="modalCrearUsuario" tabindex="-1" aria-labelledby="modalCrearUsuarioLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content shadow">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCrearUsuarioLabel">Crear Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo e(url('usuarios/store')); ?>" method="POST" id="formCrearUsuario">
+                    <?php echo csrf_field(); ?>
+
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label">Correo Electrónico</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Usuario</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Lista de Usuarios</h5>
-                    <a href="<?php echo e(url('usuarios/create')); ?>" class="btn btn-success">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCrearUsuario">
                         <i class="fas fa-user-plus me-1"></i> Nuevo Usuario
-                    </a>
+                    </button>
                 </div>
                 <div class="card-block">
 
