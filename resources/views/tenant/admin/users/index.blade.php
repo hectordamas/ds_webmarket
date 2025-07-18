@@ -16,9 +16,7 @@
                     </a>
                 </div>
                 <div class="card-block">
-                    @if (session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
+
 
                     @if ($users->count())
                         <div class="table-responsive">
@@ -28,7 +26,6 @@
                                         <th>#</th>
                                         <th>Nombre</th>
                                         <th>Email</th>
-                                        <th>Rol</th>
                                         <th>Registrado</th>
                                         <th class="text-end">Acciones</th>
                                     </tr>
@@ -39,7 +36,6 @@
                                             <td>{{ $user->id}}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ ucfirst($user->role ?? 'N/A') }}</td>
                                             <td>{{ $user->created_at->format('d/m/Y') }}</td>
                                             <td class="text-end">
                                                 <a href="{{ url("usuarios/{$user->id}/edit") }}" class="btn btn-sm btn-primary">

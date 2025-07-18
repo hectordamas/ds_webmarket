@@ -34,11 +34,11 @@
                         <div class="tab-pane fade show active" id="appearance" role="tabpanel">
                             <div class="bg-light p-4 rounded shadow-sm">
                                 <div class="row align-items-center">
-                                    <div class="form-group col-md-4 mb-4 text-center">
+                                    <div class="form-group col-md-3 mb-4 text-center">
                                         <label class="fw-semibold d-block mb-2">Logo actual:</label>
                                         <img src="<?php echo e(img64($settings['logo'] ?? 'assets/img/logo-color.png')); ?>" height="60" alt="Logo actual" class="img-thumbnail">
                                     </div>
-                                    <div class="form-group col-md-4 mb-4">
+                                    <div class="form-group col-md-5 mb-4">
                                         <label for="logo" class="fw-semibold">Subir nuevo logo:</label>
                                         <input type="file" name="logo" id="logo" class="form-control">
                                     </div>

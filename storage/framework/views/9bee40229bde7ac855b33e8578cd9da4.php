@@ -44,7 +44,7 @@
                                 <td class="text-center align-middle">
                                     <div class="d-flex align-items-center justify-content-center gap-3">
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="active" class="form-check-input product-active" data-id="<?php echo e($product->id); ?>" <?php echo e($product->active ? 'checked' : ''); ?>>
+                                            <input type="checkbox" name="active" class="form-check-input product-active" data-id="<?php echo e($product->id); ?>" <?php echo e($product->active ? 'checked' : ''); ?> disabled>
                                             Activo
                                         </label>
                                     

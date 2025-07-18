@@ -1,5 +1,6 @@
 <?php $__env->startSection('metadata'); ?>
     <title><?php echo e(tenant('nombre_empresa')); ?> - <?php echo e(env('APP_NAME')); ?></title>
+    
     <?php echo $__env->make('tenant.shop.styles', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 

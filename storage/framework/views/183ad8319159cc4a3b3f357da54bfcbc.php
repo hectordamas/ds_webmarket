@@ -16,9 +16,7 @@
                     </a>
                 </div>
                 <div class="card-block">
-                    <?php if(session('success')): ?>
-                        <div class="alert alert-success"><?php echo e(session('success')); ?></div>
-                    <?php endif; ?>
+
 
                     <?php if($users->count()): ?>
                         <div class="table-responsive">
@@ -28,7 +26,6 @@
                                         <th>#</th>
                                         <th>Nombre</th>
                                         <th>Email</th>
-                                        <th>Rol</th>
                                         <th>Registrado</th>
                                         <th class="text-end">Acciones</th>
                                     </tr>
@@ -39,7 +36,6 @@
                                             <td><?php echo e($user->id); ?></td>
                                             <td><?php echo e($user->name); ?></td>
                                             <td><?php echo e($user->email); ?></td>
-                                            <td><?php echo e(ucfirst($user->role ?? 'N/A')); ?></td>
                                             <td><?php echo e($user->created_at->format('d/m/Y')); ?></td>
                                             <td class="text-end">
                                                 <a href="<?php echo e(url("usuarios/{$user->id}/edit")); ?>" class="btn btn-sm btn-primary">

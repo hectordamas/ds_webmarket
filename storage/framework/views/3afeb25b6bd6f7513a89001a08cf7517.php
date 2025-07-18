@@ -10,7 +10,7 @@
                 <?php endif; ?>
             </div>
             <div class="flex-grow-1 ms-3">
-                <h5 class="notification-user mb-1"><?php echo e($order->nombre); ?></h5>
+                <h5 class="notification-user mb-1 <?php echo e($order->is_read ? 'text-dark' : ''); ?>"><?php echo e($order->nombre); ?></h5>
                 <p class="notification-msg text-muted mb-1 small">
                     Tienes una nueva orden del cliente: <?php echo e($order->nombre); ?>
 

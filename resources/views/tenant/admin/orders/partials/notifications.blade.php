@@ -11,7 +11,7 @@
                 @endif
             </div>
             <div class="flex-grow-1 ms-3">
-                <h5 class="notification-user mb-1">{{ $order->nombre }}</h5>
+                <h5 class="notification-user mb-1 {{ $order->is_read ? 'text-dark' : '' }}">{{ $order->nombre }}</h5>
                 <p class="notification-msg text-muted mb-1 small">
                     Tienes una nueva orden del cliente: {{ $order->nombre }}
                 </p>
