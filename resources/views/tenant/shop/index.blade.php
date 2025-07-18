@@ -1,6 +1,7 @@
 @extends('tenant.layouts.app')
 @section('metadata')
     <title>{{ tenant('nombre_empresa') }} - {{ env('APP_NAME') }}</title>
+    
     @include('tenant.shop.styles')
 @endsection
 

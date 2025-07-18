@@ -17,7 +17,7 @@
 
             <div class="card-body table-responsive">
 
-                <table class="table table-striped table-bordered" id="datatable-buttons-table">
+                <table class="table table-striped table-bordered">
                     <thead class="table-dark">
                         <tr>
                             <th>Nombre</th>
@@ -34,7 +34,7 @@
                                 <td class="text-center align-middle">
                                     <div class="d-flex align-items-center justify-content-center gap-3">
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="active" class="form-check-input category-active" data-id="{{ $category->id }}" {{ $category->active ? 'checked' : '' }}>
+                                            <input type="checkbox" name="active" class="form-check-input category-active" data-id="{{ $category->id }}" {{ $category->active ? 'checked' : '' }} disabled>
                                             Activo
                                         </label>
                                     

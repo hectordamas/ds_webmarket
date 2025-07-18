@@ -99,7 +99,7 @@
                 <h5 class="mb-0">Pedidos por Estado</h5>
             </div>
             <div class="card-block" style="height: 300px;">
-                @if (empty($pedidosOrdenados))
+                @if (array_sum($pedidosOrdenados) === 0)
                     <div class="text-center text-muted h-100 d-flex align-items-center justify-content-center">
                         No hay pedidos en este rango de fechas.
                     </div>
