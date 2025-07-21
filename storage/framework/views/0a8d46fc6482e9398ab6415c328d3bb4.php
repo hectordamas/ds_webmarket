@@ -14,8 +14,8 @@
                     <i class="far fa-plus-square"></i> Registrar Usuario
                 </a>
             </div>
-            <div class="card-block">
-                <table class="table table-bordered table-striped">
+            <div class="card-block dt-responsive table-responsive">
+                <table class="table table-bordered table-striped" id="datatable-buttons-table"> 
                     <thead class="table-dark">
                         <tr>
                             <th>#</th>

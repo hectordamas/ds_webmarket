@@ -59,12 +59,7 @@
                                         <i class="fas fa-edit"></i> Editar
                                     </a>
 
-                                    <form action="<?php echo e(url('products/' . $product->id . '/destroy')); ?>" method="POST" class="d-inline-block" onsubmit="return confirm('¿Seguro que deseas eliminar este producto?')">
-                                        <?php echo csrf_field(); ?>
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="fas fa-trash-alt"></i> Eliminar
-                                        </button>
-                                    </form>
+                                    
                                 </td>
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>

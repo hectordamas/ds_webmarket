@@ -10,7 +10,7 @@
                 
                 <a href="<?php echo e(route('tenants.create')); ?>" class="btn btn-primary mb-3 shadow"><i class="far fa-plus-square"></i> Crear Tenant</a>
             </div>
-            <div class="card-block">
+            <div class="card-block dt-responsive table-responsive">
                 <table class="table table-striped" id="datatable-buttons-table">
                     <thead class="table-dark">
                         <tr>
@@ -35,7 +35,8 @@
                                 <td><?php echo e($tenant->tenancy_db_name); ?></td>
                                 <td>
                                     <div class="form-check form-switch d-flex justify-content-center">
-                                        <input class="form-check-input" type="checkbox" name="activo" id="activo"
+                                        <input class="form-check-input toggle-activo" type="checkbox"
+                                            data-id="<?php echo e($tenant->id); ?>"
                                             <?php echo e($tenant->activo ? 'checked' : ''); ?>>
                                     </div>
                                 </td>
@@ -47,11 +48,7 @@
                                     <div class="d-flex gap-1">
                                         <a href="<?php echo e(route('tenants.edit', $tenant)); ?>" class="btn btn-sm btn-warning">Editar</a>
                                     
-                                        <form action="<?php echo e(route('tenants.destroy', $tenant)); ?>" method="POST" onsubmit="return confirm('¿Seguro?')">
-                                            <?php echo csrf_field(); ?>
-                                            <?php echo method_field('DELETE'); ?>
-                                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                                        </form>
+                                        
                                     </div>
                                 </td>
                             </tr>
@@ -65,7 +62,33 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('scripts'); ?>
-<script></script>
+<script>
+$(document).ready(function() {
+    $('.toggle-activo').change(function() {
+        var checkbox = $(this);
+        var tenantId = checkbox.data('id');
+        var checked = checkbox.is(':checked');
+
+        $.ajax({
+            url: '/tenants/' + tenantId + '/toggle-activo',
+            method: 'POST',
+            data: {
+                _token: '<?php echo e(csrf_token()); ?>'
+            },
+            success: function(response) {
+                if (!response.success) {
+                    alert('Error al actualizar el estado.');
+                    checkbox.prop('checked', !checked); // revertir
+                }
+            },
+            error: function() {
+                alert('Error en el servidor.');
+                checkbox.prop('checked', !checked); // revertir
+            }
+        });
+    });
+});
+</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('central.layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\dswebmarket\resources\views/central/admin/tenant/index.blade.php ENDPATH**/ ?>

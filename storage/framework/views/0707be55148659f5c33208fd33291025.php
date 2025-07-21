@@ -212,53 +212,7 @@
                 </div>
             </nav>
 
-            <!-- Sidebar inner chat start-->
-            <div class="showChat_inner">
-                <div class="media chat-inner-header">
-                    <a class="back_chatBox">
-                        <i class="feather icon-chevron-left"></i> Josephin Doe
-                    </a>
-                </div>
-                <div class="d-flex chat-messages">
-                    <div class="flex-shrink-0">
-                        <a class="media-left photo-table" href="#!">
-                            <img class="media-object img-radius img-radius m-t-5" src="../files/assets/images/avatar-3.jpg"
-                                alt="Generic placeholder image">
-                        </a>
-                    </div>
-                    <div class="flex-grow-1 chat-menu-content">
-                        <div class="">
-                            <p class="chat-cont">I'm just looking around. Will you tell me something about yourself?</p>
-                            <p class="chat-time">8:20 a.m.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex chat-messages">
-                    <div class="flex-grow-1 chat-menu-reply">
-                        <div class="">
-                            <p class="chat-cont">I'm just looking around. Will you tell me something about yourself?</p>
-                            <p class="chat-time">8:20 a.m.</p>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0">
-                        <div class="media-right photo-table">
-                            <a href="#!">
-                                <img class="media-object img-radius img-radius m-t-5"
-                                    src="../files/assets/images/avatar-4.jpg" alt="Generic placeholder image">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-reply-box p-b-20">
-                    <div class="right-icon-control">
-                        <input type="text" class="form-control search-text" placeholder="Share Your Thoughts">
-                        <div class="form-icon">
-                            <i class="feather icon-navigation"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Sidebar inner chat end-->
+
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <nav class="pcoded-navbar">
@@ -324,7 +278,6 @@
     <script src="<?php echo e(asset('central/files/assets/js/pcoded.min.js')); ?>"></script>
     <script src="<?php echo e(asset('central/files/assets/js/vartical-layout.min.js')); ?>"></script>
     <script src="<?php echo e(asset('central/files/assets/js/jquery.mCustomScrollbar.concat.min.js')); ?>"></script>
-    <script src="<?php echo e(asset('central/files/assets/pages/dashboard/crm-dashboard.min.js')); ?>"></script>
 
     <script src="<?php echo e(asset('central/files/bower_components/datatables.net/js/jquery.dataTables.min.js')); ?>"></script>
     <script src="<?php echo e(asset('central/files/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js')); ?>"></script>

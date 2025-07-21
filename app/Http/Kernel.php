@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
 
         'tenant.auth' => \App\Http\Middleware\TenantAuthenticate::class,
         'tenant.activo' => \App\Http\Middleware\CheckTenantActivo::class,
+        'tenant.noExiste' => \App\Http\Middleware\InitializeTenant::class,
 
     ];
 }

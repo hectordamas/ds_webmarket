@@ -79,7 +79,7 @@
     <i class="bi bi-exclamation-triangle-fill icon-warning"></i>
     <h2>Servicio Inactivo</h2>
     <p>Este servicio está temporalmente desactivado.<br>Si crees que es un error, por favor contacta con soporte para renovar tu licencia.</p>
-    <a href="mailto:soporte@tuempresa.com" class="btn-contact" tabindex="0">Contactar Soporte</a>
+    <a href="{{ url(env('WHATSAPP_SUPPORT_URL')) }}" target="_blank" class="btn-contact" tabindex="0">Contactar Soporte</a>
   </div>
 </div>
 @endsection

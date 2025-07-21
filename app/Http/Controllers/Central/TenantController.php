@@ -111,6 +111,14 @@ class TenantController extends Controller
         return redirect()->route('tenants.index')->with('success', 'Tenant actualizado correctamente.');
     }
 
+    public function toggleActivo(Request $request, Tenant $tenant)
+    {
+        $tenant->activo = !$tenant->activo;
+        $tenant->save();
+    
+        return response()->json(['success' => true, 'activo' => $tenant->activo]);
+    }
+
     public function destroy(string $id)
     {
         // Eliminar dominios asociados

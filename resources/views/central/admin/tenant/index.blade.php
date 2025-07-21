@@ -11,7 +11,7 @@
                 
                 <a href="{{ route('tenants.create') }}" class="btn btn-primary mb-3 shadow"><i class="far fa-plus-square"></i> Crear Tenant</a>
             </div>
-            <div class="card-block">
+            <div class="card-block dt-responsive table-responsive">
                 <table class="table table-striped" id="datatable-buttons-table">
                     <thead class="table-dark">
                         <tr>
@@ -35,7 +35,8 @@
                                 <td>{{ $tenant->tenancy_db_name }}</td>
                                 <td>
                                     <div class="form-check form-switch d-flex justify-content-center">
-                                        <input class="form-check-input" type="checkbox" name="activo" id="activo"
+                                        <input class="form-check-input toggle-activo" type="checkbox"
+                                            data-id="{{ $tenant->id }}"
                                             {{ $tenant->activo ? 'checked' : '' }}>
                                     </div>
                                 </td>
@@ -64,5 +65,31 @@
 @endsection
 
 @section('scripts')
-<script></script>
+<script>
+$(document).ready(function() {
+    $('.toggle-activo').change(function() {
+        var checkbox = $(this);
+        var tenantId = checkbox.data('id');
+        var checked = checkbox.is(':checked');
+
+        $.ajax({
+            url: '/tenants/' + tenantId + '/toggle-activo',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                if (!response.success) {
+                    alert('Error al actualizar el estado.');
+                    checkbox.prop('checked', !checked); // revertir
+                }
+            },
+            error: function() {
+                alert('Error en el servidor.');
+                checkbox.prop('checked', !checked); // revertir
+            }
+        });
+    });
+});
+</script>
 @endsection

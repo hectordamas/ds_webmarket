@@ -27,6 +27,7 @@ use App\Http\Controllers\Tenant\{
 Route::middleware([
     'web', 
     'tenant.activo',
+    'tenant.noExiste',
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
