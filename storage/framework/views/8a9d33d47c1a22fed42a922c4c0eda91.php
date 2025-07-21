@@ -67,6 +67,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <div class="row">
         <div class="col-md-12">
@@ -129,7 +130,6 @@
             </div>
         </div>
     </div>
-</div>
 
 <!-- Modal de creación de usuario -->
 <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="crateUserModalLabel" aria-hidden="true">
