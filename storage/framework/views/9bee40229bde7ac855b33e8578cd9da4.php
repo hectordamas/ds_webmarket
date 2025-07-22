@@ -27,6 +27,7 @@
                             <th>Nombre</th>
                             <th>Categoría</th>
                             <th>Precio</th>
+                            <th>Disponibilidad</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
@@ -41,6 +42,13 @@
                                 <td><?php echo e($product->name); ?></td>
                                 <td><?php echo e($product->category->name ?? 'Sin categoría'); ?></td>
                                 <td>$<?php echo e(number_format($product->price, 2, ',', '.')); ?></td>
+                                <td>
+                                    <?php if($product->stock < 1): ?>
+                                        <small class="text-danger fw-bold">No Disponible</small>
+                                    <?php else: ?>
+                                        <small class="text-success fw-bold"><?php echo e($product->stock); ?> Disponible<?php echo e($product->stock > 1 ? 's' : ''); ?></small>
+                                    <?php endif; ?>
+                                </td>
                                 <td class="text-center align-middle">
                                     <div class="d-flex align-items-center justify-content-center gap-3">
                                         <label class="form-check-label">

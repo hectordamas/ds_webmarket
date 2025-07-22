@@ -18,6 +18,18 @@ class CartController extends Controller
 
         $options = $request->input('options', []);
 
+        $requestedQty = $request->input('quantity', 1);
+
+        $currentQtyInCart = Cart::content()
+            ->where('id', $product->id)
+            ->sum('qty');
+
+        if ($product->stock !== null && ($requestedQty + $currentQtyInCart) > $product->stock) {
+            return response()->json([
+                "error" => "Stock insuficiente. Quedan " . max(0, $product->stock - $currentQtyInCart) . " unidades disponibles."
+            ]);
+        }
+
         foreach ($product->optionGroups as $group) {
             $selected = $options[$group->id] ?? null;
 
@@ -156,7 +168,7 @@ class CartController extends Controller
         $mensaje .= "*Nombre:* {$data['nombre']}\n";
         $mensaje .= "*Teléfono:* {$telefono}\n";
 
-        if ($data['tipo_pedido'] === 'delivery') {
+        if ($data['tipo_pedido'] === 'Delivery') {
             $direccion = trim($data['direccion'] . ' ' . ($data['detalle_direccion'] ?? ''));
             $mensaje .= "*Dirección:* {$direccion}\n";
         } else {

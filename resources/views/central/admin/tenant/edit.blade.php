@@ -1,85 +1,100 @@
 @extends('central.layouts.admin')
+
 @section('metadata')
-<title>Editar Tenant - {{ config('app.name') }} </title>
+<title>Editar Tenant - {{ config('app.name') }}</title>
 @endsection
+
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <div class="card shadow">
-            <div class="card-header">
-               <h5>Editar Tenant</h5> 
-            </div>
-            <div class="card-block row">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul class="mb-0">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+<form action="{{ route('tenants.update', $tenant->id) }}" method="POST" class="card shadow mb-4" enctype="multipart/form-data">
+    <div class="card-header">
+        <div class="row">
 
-                <form action="{{ route('tenants.update', $tenant->id) }}" method="POST" class="row">
-                    @csrf
-                    @method('PUT')
+            <h5 class="mb-4">Editar Información de Tenant</h5>
 
-                    <div class="form-group col-md-3 mb-3">
-                        <label for="id" class="form-label">Prefijo del Subdominio</label>
-                        <input type="text" id="id" class="form-control" value="{{ $tenant->id }}" disabled>
-                    </div>
-                    <div class="form group col-md-3 mb-3">
-                        <label for="nombre_empresa"  class="form-label">Nombre de la Empresa</label>
-                        <input type="text" name="nombre_empresa" id="nombre_empresa" class="form-control" value="{{ $tenant->nombre_empresa }}">
-                    </div>
-                    <div class="form-group col-md-3 mb-3">
-                        <label for="database" class="form-label">Nombre de la Base de Datos</label>
-                        <input type="text" name="database" id="database" class="form-control"
-                            value="{{ $tenant->tenancy_db_name }}" required>
-                    </div>
-                    <div class="form-group col-md-3 mb-3">
-                        <label for="username" class="form-label">Usuario de la BD</label>
-                        <input type="text" name="username" id="username" class="form-control"
-                            value="{{ $tenant->tenancy_db_username }}" required>
-                    </div>
-                    <div class="form-group col-md-3 mb-3">
-                        <label for="password" class="form-label">Contraseña de la BD</label>
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Dejar en blanco para no cambiar">
-                    </div>
+        </div>
+        <ul class="nav nav-tabs card-header-tabs" id="tenantTab" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link fw-bold active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab">Información</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link fw-bold" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">Usuarios</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link fw-bold" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab">Configuración</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link fw-bold" id="apariencia-tab" data-bs-toggle="tab" data-bs-target="#apariencia" type="button" role="tab">Apariencia</button>
+            </li>
+        </ul>
+    </div>
 
-                    <div class="form-group col-md-3 mb-3">
-                        <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
-                        <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control"
-                            value="{{  $tenant->fecha_vencimiento ? \Carbon\Carbon::parse($tenant->fecha_vencimiento)->format('Y-m-d') : '' }}" required>
-                    </div>
-                    <div class="form-group col-md-3 mb-3">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" name="activo" id="activo"
-                                {{ $tenant->activo ? 'checked' : '' }}>
-                            <label class="form-check-label" for="activo">Activo</label>
+    <div class="card-body tab-content" id="tenantTabContent">
+        {{-- TAB 1: INFO --}}
+        <div class="tab-pane fade show active" id="info" role="tabpanel">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        @csrf
+                        @method('PUT')
+                    
+                        <div class="form-group col-md-3 mb-3">
+                            <label for="id" class="form-label">Prefijo del Subdominio</label>
+                            <input type="text" id="id" class="form-control" value="{{ $tenant->id }}" disabled>
+                        </div>
+                        <div class="form group col-md-3 mb-3">
+                            <label for="nombre_empresa"  class="form-label">Nombre de la Empresa</label>
+                            <input type="text" name="nombre_empresa" id="nombre_empresa" class="form-control" value="{{ $tenant->nombre_empresa }}">
+                        </div>
+                        <div class="form-group col-md-3 mb-3">
+                            <label for="database" class="form-label">Nombre de la Base de Datos</label>
+                            <input type="text" name="database" id="database" class="form-control"
+                                value="{{ $tenant->tenancy_db_name }}" required>
+                        </div>
+                        <div class="form-group col-md-3 mb-3">
+                            <label for="username" class="form-label">Usuario de la BD</label>
+                            <input type="text" name="username" id="username" class="form-control"
+                                value="{{ $tenant->tenancy_db_username }}" required>
+                        </div>
+                        <div class="form-group col-md-3 mb-3">
+                            <label for="password" class="form-label">Contraseña de la BD</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Dejar en blanco para no cambiar">
+                        </div>
+                    
+                        <div class="form-group col-md-3 mb-3">
+                            <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
+                            <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control"
+                                value="{{  $tenant->fecha_vencimiento ? \Carbon\Carbon::parse($tenant->fecha_vencimiento)->format('Y-m-d') : '' }}" required>
+                        </div>
+                        <div class="form-group col-md-3 mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="activo" id="activo"
+                                    {{ $tenant->activo ? 'checked' : '' }}>
+                                <label class="form-check-label" for="activo">Activo</label>
+                            </div>
+                        </div>
+                    
+                        <div class="d-flex justify-content-end mt-3">
+                            <a href="{{ route('tenants.index') }}" class="btn btn-secondary me-2">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Actualizar Tenant</button>
                         </div>
                     </div>
-
-                    <div class="d-flex justify-content-end mt-3">
-                        <a href="{{ route('tenants.index') }}" class="btn btn-secondary me-2">Cancelar</a>
-                        <button type="submit" class="btn btn-primary">Actualizar Tenant</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card shadow">
-                <div class="card-header d-flex justify-content-between">
+        </div>
+
+        {{-- TAB 2: USERS --}}
+        <div class="tab-pane fade" id="users" role="tabpanel">
+            <div class="row mb-3">
+                <div class="col-md-12 d-flex justify-content-between">
                     <h5>Usuarios del Tenant</h5>
                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createUserModal">
                         <i class="fa-solid fa-plus"></i> Crear Usuario
                     </button>
                 </div>
-                <div class="card-block dt-responsive table-responsive">
+            </div>
+            <div class="row">
+                <div class="col-md-12 dt-responsive table-responsive">
                     @if($users->count() > 0)
                     <table class="table table-bordered table-striped">
                         <thead class="table-dark">
@@ -112,7 +127,6 @@
                                         @csrf
                                         <input type="hidden" value="{{$tenant->id}}" name="tenant_id">
                                         <input type="hidden" value="{{$user->id}}" name="id">
-
                                         <button type="submit" class="btn btn-sm btn-outline-danger">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
@@ -129,8 +143,56 @@
                     @endif
                 </div>
             </div>
+
+        </div>
+
+        {{-- TAB 3: SETTINGS --}}
+        <div class="tab-pane fade" id="settings" role="tabpanel">
+            <div class="row">
+                <div class="form-group col-md-4 mb-4">
+                    <label for="whatsapp_human" class="form-label">Número de WhatsApp:</label>
+                    <input type="text" name="whatsapp_human" id="whatsapp_human" class="form-control" value="{{ $settings['whatsapp_human'] ?? '' }}" placeholder="+58 424-1234567">
+                </div>
+                <div class="form-group col-md-4 mb-4">
+                    <label for="facebook" class="form-label">Enlace Facebook:</label>
+                    <input type="text" name="facebook" id="facebook" class="form-control" value="{{ $settings['facebook'] ?? '' }}">
+                </div>
+                <div class="form-group col-md-4 mb-4">
+                    <label for="instagram" class="form-label">Enlace Instagram:</label>
+                    <input type="text" name="instagram" id="instagram" class="form-control" value="{{ $settings['instagram'] ?? '' }}">
+                </div>
+
+                <div class="d-flex justify-content-end mt-3">
+                    <a href="{{ route('tenants.index') }}" class="btn btn-secondary me-2">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Actualizar Tenant</button>
+                </div>
+            </div>        
+        </div>
+
+        <div class="tab-pane fade" id="apariencia" role="tabpanel">
+            <div class="row align-items-center">
+                <div class="form-group col-md-3 mb-4 text-center">
+                    <label class="fw-semibold d-block mb-2">Logo actual:</label>
+                    <img src="{{ img64($settings['logo'] ?? 'assets/img/logo-color.png') }}" height="60" alt="Logo actual" class="img-thumbnail">
+                </div>
+                <div class="form-group col-md-5 mb-4">
+                    <label for="logo" class="fw-semibold">Subir nuevo logo:</label>
+                    <input type="file" name="logo" id="logo" class="form-control">
+                </div>
+                <div class="form-group col-md-4 mb-4">
+                    <label for="color_primary" class="fw-semibold">Color Primario:</label>
+                    <input type="color" name="color_primary" id="color_primary" class="form-control form-control-color" value="{{ $settings['color_primary'] ?? '#00b894' }}" title="Elige un color">
+                </div>
+
+                
+                <div class="d-flex justify-content-end mt-3">
+                    <a href="{{ route('tenants.index') }}" class="btn btn-secondary me-2">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Actualizar Tenant</button>
+                </div>
+            </div>
         </div>
     </div>
+</form>
 
 <!-- Modal de creación de usuario -->
 <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="crateUserModalLabel" aria-hidden="true">
@@ -201,6 +263,7 @@
     </form>
   </div>
 </div>
+
 @endsection
 
 @section('scripts')
@@ -211,15 +274,10 @@
             var name = $(this).data('name');
             var email = $(this).data('email');
 
-            // Rellenar los campos del formulario
             $('#editUserName').val(name);
             $('#editUserEmail').val(email);
             $('.user_id').val(userId)
-
-            // Cambiar la acción del formulario con la URL adecuada
-            $('#editUserForm').attr('action', "{{ url('tenant/users/update') }}"); // Ajusta esta ruta si es diferente
-
-            // Abrir el modal
+            $('#editUserForm').attr('action', "{{ url('tenant/users/update') }}");
             $('#editUserModal').modal('show');
         });
     });

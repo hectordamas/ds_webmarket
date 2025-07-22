@@ -18,11 +18,10 @@
                     <div class="alert alert-success"><?php echo e(session('success')); ?></div>
                 <?php endif; ?>
 
-                <table class="table table-bordered table-hover table-striped ordersTable" id="datatable-buttons-table">
+                <table class="table table-bordered table-hover ordersTable" id="datatable-buttons-table">
                     <thead class="table-dark">
                         <tr>
                             <th>#</th>
-                            <th></th>
                             <th>Cliente</th>
                             <th>Cedula</th>
                             <th>Método de Pago</th>
@@ -111,7 +110,9 @@
         $('#spinner').show().addClass('d-flex');
 
         $('#viewDetailsModal').modal('show');  // Mostrar modal ya para que se vea el spinner
-
+        $('.point' + id).removeClass('d-inline-block');
+        $('.point' + id).addClass('d-none');
+        $('.order_row_' + id).removeClass('table-secondary');
         $.ajax({
             method: 'POST',
             url: "<?php echo e(url('orden-detalle')); ?>",

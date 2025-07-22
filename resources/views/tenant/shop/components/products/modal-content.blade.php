@@ -1,5 +1,10 @@
 <div class="text-center mb-3">
     <img src="{{ img64($product->image) }}" alt="{{ $product->name }}" class="img-fluid rounded" style="max-height: 200px;">
+    @if($product->stock < 1)
+        <span class="badge bg-danger position-absolute top-0 start-0 m-2">No Disponible</span>
+    @else
+        <span class="badge bg-success position-absolute top-0 start-0 m-2">{{ $product->stock }} Disponible{{$product->stock > 1 ? 's' : ''}}</span>
+    @endif
 </div>
 
 <div class="d-flex justify-content-between">
@@ -52,12 +57,12 @@
         <div class="w-50">
             <label for="productQuantity" class="fw-bold mb-2">Cantidad</label>
             <div class="input-group" style="width: 140px;">
-                <button class="btn btn-outline-dark" type="button" id="decreaseQty">−</button>
+                <button class="btn btn-outline-dark" type="button" id="decreaseQty" @if($product->stock < 1) disabled @endif>−</button>
                 <input type="number" class="form-control text-center" value="1" min="1" id="productQuantity" readonly>
-                <button class="btn btn-outline-dark" type="button" id="increaseQty">+</button>
+                <button class="btn btn-outline-dark" type="button" id="increaseQty" @if($product->stock < 1) disabled @endif>+</button>
             </div>
         </div>
-        <button type="button" class="btn btn-tenant w-100 py-2 add-to-cart-btn"
+        <button type="button" class="btn btn-tenant w-100 py-2 add-to-cart-btn" @if($product->stock < 1) disabled @endif
                 data-product-id="{{ $product->id }}">
             <i class="fas fa-shopping-cart"></i> Agregar al Carrito
         </button>

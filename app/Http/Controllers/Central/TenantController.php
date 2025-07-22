@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\{Tenant, User};
+use App\Models\Tenant\{Setting};
 use Stancl\Tenancy\Tenancy;
 
 class TenantController extends Controller
@@ -70,11 +71,17 @@ class TenantController extends Controller
             return $clone;
         }); 
 
+        $settings = Setting::all()->mapWithKeys(function ($setting) {
+            $clone = clone $setting;
+            $clone->setConnection(null); // Quita conexión tenant
+            return [$clone->key => $clone->value];
+        })->toArray();
+
         // Cerrar contexto tenant
         app(Tenancy::class)->end(); 
 
         // Retornar vista con modelos "seguros"
-        return view('central.admin.tenant.edit', compact('tenant', 'users'));
+        return view('central.admin.tenant.edit', compact('tenant', 'users', 'settings'));
     }
 
     public function update(Request $request, string $id)
@@ -82,7 +89,10 @@ class TenantController extends Controller
         $request->validate([
             'database' => 'required|string',
             'username' => 'required|string',
-            'nombre_empresa' => 'required|string'
+            'nombre_empresa' => 'required|string',
+            'whatsapp_human' => 'required|string',
+            'color_primary' => 'required|string',
+            'logo' => 'nullable|image|max:2048',
         ]);
 
         // Actualizar datos JSON del tenant
@@ -105,10 +115,37 @@ class TenantController extends Controller
             'domain' => $id . '.' . env('CENTRAL_DOMAIN'),
         ]);
 
-        //Tenancy::initialize($tenant);        
-        //Tenancy::end();
+        app(Tenancy::class)->initialize($tenant);   
+        // Guardar logo en base64
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $base64 = base64_encode(file_get_contents($file));
+            $mime = $file->getMimeType();
+            $data = 'data:' . $mime . ';base64,' . $base64;
+        
+            Setting::updateOrCreate(['key' => 'logo'], ['value' => $data]);
+        }
 
-        return redirect()->route('tenants.index')->with('success', 'Tenant actualizado correctamente.');
+        // Guardar número humano
+        $human = $request->whatsapp_human;
+        Setting::updateOrCreate(['key' => 'whatsapp_human'], ['value' => $human]);
+
+        // Generar URL
+        $clean = preg_replace('/\D+/', '', $human);
+        $url = 'https://wa.me/' . $clean;
+        Setting::updateOrCreate(['key' => 'whatsapp_url'], ['value' => $url]);
+
+        // Color
+        Setting::updateOrCreate(['key' => 'color_primary'], ['value' => $request->color_primary]);
+
+        //Redes
+        Setting::updateOrCreate(['key' => 'facebook'], ['value' => $request->facebook]);
+        Setting::updateOrCreate(['key' => 'instagram'], ['value' => $request->instagram]);
+
+        app(Tenancy::class)->end(); 
+
+
+        return redirect('home')->with('success', 'Tenant actualizado correctamente.');
     }
 
     public function toggleActivo(Request $request, Tenant $tenant)

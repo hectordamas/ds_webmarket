@@ -1,13 +1,12 @@
-<tr data-id="{{ $order->id }}">
+<tr data-id="{{ $order->id }}" class="order_row_{{$order->id}} {{ !$order->is_read ? 'table-secondary' : '' }}">
   <td>{{ $order->id }}</td>
   <td>
     @if(!$order->is_read)
-      <span class="badge bg-warning">Nuevo</span>
-    @else
-      <span class="badge bg-success">Leído</span>
+        {{-- Punto como reemplazo del avatar --}}
+        <span class="d-inline-block rounded-circle pulse point{{$order->id}} me-2" style="width: 10px; height: 10px; margin-top: 6px; background-color: red;"></span>
     @endif
+    {{ $order->nombre }}
   </td>
-  <td>{{ $order->nombre }}</td>
   <td>{{ $order->tipo_documento }}{{ $order->cedula }}</td>
   <td>{{ $order->metodo_pago }}</td>
   <td class="text-success fw-bold">${{ number_format($order->total, 2, '.', ',') }}</td>

@@ -1,13 +1,13 @@
-<tr data-id="<?php echo e($order->id); ?>">
+<tr data-id="<?php echo e($order->id); ?>" class="order_row_<?php echo e($order->id); ?> <?php echo e(!$order->is_read ? 'table-secondary' : ''); ?>">
   <td><?php echo e($order->id); ?></td>
   <td>
     <?php if(!$order->is_read): ?>
-      <span class="badge bg-warning">Nuevo</span>
-    <?php else: ?>
-      <span class="badge bg-success">Leído</span>
+        
+        <span class="d-inline-block rounded-circle pulse point<?php echo e($order->id); ?> me-2" style="width: 10px; height: 10px; margin-top: 6px; background-color: red;"></span>
     <?php endif; ?>
+    <?php echo e($order->nombre); ?>
+
   </td>
-  <td><?php echo e($order->nombre); ?></td>
   <td><?php echo e($order->tipo_documento); ?><?php echo e($order->cedula); ?></td>
   <td><?php echo e($order->metodo_pago); ?></td>
   <td class="text-success fw-bold">$<?php echo e(number_format($order->total, 2, '.', ',')); ?></td>

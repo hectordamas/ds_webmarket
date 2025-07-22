@@ -434,6 +434,7 @@
             const metodo_pago = $('[name="metodo_pago"]').val();
             const tipoPedido = $('input[name="tipo_pedido"]:checked').val();
             const direccion = $('[name="direccion"]').val().trim();
+            const detalle_direccion = $('[name="detalle_direccion"]').val().trim();
 
             let errores = [];
 
@@ -519,6 +520,7 @@
           cedula: $('input[name="cedula"]').val(),
           telefono: $('input[name="telefono"]').val(),
           direccion: $('textarea[name="direccion"]').val(),
+          detalle_direccion: $('input[name="detalle_direccion"]').val(),
           metodo_pago: $('select[name="metodo_pago"]').val(),
           tipo_pedido: $('input[name="tipo_pedido"]:checked').val(),
         };

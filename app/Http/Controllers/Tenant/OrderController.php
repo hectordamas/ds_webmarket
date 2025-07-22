@@ -24,6 +24,7 @@ class OrderController extends Controller
             'cedula' => 'required|string',
             'telefono' => 'required|string',
             'direccion' => 'nullable|string',
+            'detalle_direccion' => 'nullable|string',
             'metodo_pago' => 'required|string',
             'tipo_pedido' => 'required|string',
             'tipo_documento' => 'required|string',
@@ -38,6 +39,7 @@ class OrderController extends Controller
         $order->cedula = $data['cedula'];
         $order->telefono = $data['telefono'];
         $order->direccion = $data['direccion'] ?? null;
+        $order->detalle_direccion = $data['detalle_direccion'] ?? null;
         $order->payment_id = $data['metodo_pago'];
         $order->metodo_pago = $payment->name;
         $order->tipo_pedido = $data['tipo_pedido'];

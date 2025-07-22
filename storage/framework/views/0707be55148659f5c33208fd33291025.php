@@ -309,9 +309,9 @@
 
     <script src="<?php echo e(asset('central/files/assets/js/script.js')); ?>"></script>
 
-    <?php echo $__env->yieldContent('scripts'); ?>
 
     <script src="<?php echo e(asset('central/files/admin/script.js')); ?>"></script>
+    <?php echo $__env->yieldContent('scripts'); ?>
 
     <?php if(session()->has('success')): ?>
     <script>	

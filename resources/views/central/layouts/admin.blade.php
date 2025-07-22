@@ -308,9 +308,9 @@
 
     <script src="{{ asset('central/files/assets/js/script.js') }}"></script>
 
-    @yield('scripts')
 
     <script src="{{ asset('central/files/admin/script.js') }}"></script>
+    @yield('scripts')
 
     @if(session()->has('success'))
     <script>	
