@@ -18,7 +18,7 @@
                     <div class="alert alert-success"><?php echo e(session('success')); ?></div>
                 <?php endif; ?>
 
-                <table class="table table-bordered table-hover ordersTable" id="datatable-buttons-table">
+                <table class="table table-hover ordersTable" id="datatable-buttons-table">
                     <thead class="table-dark">
                         <tr>
                             <th>#</th>
