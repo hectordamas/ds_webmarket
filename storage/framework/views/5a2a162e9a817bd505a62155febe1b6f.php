@@ -12,16 +12,18 @@
             <div class="card-block">
 
                 <!-- Tabs -->
-                <ul class="nav nav-tabs nav-pills mb-4" id="settingsTabs" role="tablist">
+                <ul class="nav nav-tabs md-tabs mb-4" id="settingsTabs" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="appearance-tab" data-bs-toggle="tab" data-bs-target="#appearance" type="button" role="tab">
+                        <a class="nav-link active" id="appearance-tab" data-bs-toggle="tab" href="#appearance" type="button" role="tab">
                             🎨 Apariencia
-                        </button>
+                        </a>
+                        <div class="slide"></div>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab">
+                        <a class="nav-link" id="info-tab" data-bs-toggle="tab" href="#info" type="button" role="tab">
                             🧾 Información
-                        </button>
+                        </a>
+                        <div class="slide"></div>
                     </li>
                 </ul>
 
