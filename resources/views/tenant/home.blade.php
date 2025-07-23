@@ -166,32 +166,54 @@
 
     </div>
 
-
     <div class="col-md-8">
-        <div class="card shadow h-100 border-0">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">📦 Productos más vendidos</h5>
-                <small class="text-muted">Unidades</small>
-            </div>
-            <div class="card-block p-0">
-                @forelse($productosMasVendidos as $producto)
-                    <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
-                        <div class="d-flex align-items-center gap-2">
-                            <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style="width:32px; height:32px;">
-                                <i class="fas fa-trophy text-warning"></i>
-                            </div>
-                            <span class="fw-semibold">{{ $producto['nombre'] }}</span>
-                        </div>
-                        <span class="badge bg-primary">{{ $producto['cantidad'] }} </span>
-                    </div>
-                @empty
-                    <div class="text-center text-muted d-flex align-items-center justify-content-center" style="height: 200px">
-                        No hay productos vendidos en este período.
-                    </div>
-                @endforelse
-            </div>
+      <div class="card shadow h-100 border-0">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">📦 Productos más vendidos</h5>
         </div>
+        <div class="card-block pb-0">
+          @if($productosMasVendidos->isEmpty())
+            <div class="text-center text-muted py-5">
+              No hay productos vendidos en este período.
+            </div>
+          @else
+            <div class="table-responsive">
+              <table class="table table-hover mb-0 table-striped table-bordered rounded-3">
+                <thead class="text-center align-middle table-dark">
+                  <tr>
+                    <th style="width:40px;">Top</th>
+                    <th>Producto</th>
+                    <th style="width:120px;">Unidades</th>
+                    <th style="width:140px;">Ventas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($productosMasVendidos as $index => $producto)
+                    <tr class="align-middle">
+                      <td class="text-center">
+                        <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px;">
+                          <i class="fas fa-trophy text-warning me-1"></i> {{ $index+ 1 }}
+                        </div>
+                      </td>
+                      <td class="text-truncate" style="max-width: 300px;" title="{{ $producto['nombre'] }}">
+                         {{ $producto['nombre'] }}
+                      </td>
+                      <td class="text-center fw-bold text-primary">
+                        {{ $producto['cantidad'] }}
+                      </td>
+                      <td class="text-center fw-bold text-success">
+                        ${{ number_format($producto['ventas'], 2, '.', ',') }}
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          @endif
+        </div>
+      </div>
     </div>
+
 
 
 </div>

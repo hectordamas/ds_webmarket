@@ -127,8 +127,14 @@ class HomeController extends Controller
         $datosVentas = $this->obtenerDatosVentas($from, $to, $format, $range, $labels);
 
         $productosMasVendidos = DB::table('order_products')
-        ->select('product_id', DB::raw('SUM(quantity) as total_vendidos'))
-        ->whereBetween('created_at', [$from, $to])
+        ->join('orders', 'order_products.order_id', '=', 'orders.id') // join para obtener status de la orden
+        ->select(
+            'order_products.product_id',
+            DB::raw('SUM(order_products.quantity) as total_vendidos'),
+            DB::raw('SUM(order_products.subtotal) as total_ventas')
+        )        
+        ->whereBetween('orders.created_at', [$from, $to])
+        ->where('orders.status', 'Entregado') // filtro por status entregado
         ->groupBy('product_id')
         ->orderByDesc('total_vendidos')
         ->limit(10)
@@ -138,6 +144,7 @@ class HomeController extends Controller
             return [
                 'nombre' => $producto?->name ?? 'Producto eliminado',
                 'cantidad' => $item->total_vendidos,
+                'ventas' => number_format($item->total_ventas, 2, '.', ',')
             ];
         });
 
