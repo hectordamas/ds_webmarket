@@ -135,6 +135,24 @@
             </div>
         </div>
     </div>
+
+    <div id="loadingSpinner" style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999999999999;
+        align-items: center;
+        justify-content: center;">
+
+        <div class="spinner-border text-light" role="status" style="width: 4rem; height: 4rem;">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div>
+
     <!-- Pre-loader end -->
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
@@ -383,12 +401,16 @@
             }
         }
 
-        function fetchNotificaciones() {
+        function fetchNotificaciones() {  
+            let range = $('#range').val();  // Captura el rango actual
+
             $.ajax({
                 url: "{{ url('notificaciones/polling') }}",
                 method: "GET",
-                data: { last_id: lastId }, // Enviamos el last_id como parámetro
-                success: function (data) {
+                data: { last_id: lastId, range: range }, // Enviamos el last_id como parámetro
+                success: function (data) {                        
+                    console.log(data);
+                    
                     $('.notifications-list').html(data.html);
                 
                     const badgeContainer = $('#badge-container');
@@ -402,6 +424,15 @@
                         document.title = originalTitle.replace(/^\(\d+\)\s*/, '');
                     }
                 
+                    if($('#ordersTable').length){
+                        $('.count1').html(data.pendientes);
+                        $('.count2').html(data.confirmados);
+                        $('.count3').html(data.enviados);
+                        $('.count4').html(data.entregados);
+                        $('.count5').html(data.cancelados);
+                        $('.count6').html(data.totalVentas);
+                    }
+
                     let nuevasOrdenes = [];
                     // Procesar las nuevas órdenes (si se está en la vista)
                     data.orders?.forEach(order => {
@@ -411,17 +442,17 @@
                             nuevasOrdenes.push(order); // <-- Guardamos orden nueva para notificación
                         }
                     
-                        if ($('.ordersTable').length) {
-                            const existingRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+                        if ($('#ordersTable').length) {
+                            const existingRow = $(`#ordersTable tbody tr[data-id="${order.id}"]`);
                         
                             if (existingRow.length) {
                                 existingRow.replaceWith(order.html);
-                                let newRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+                                let newRow = $(`ordersTable tbody tr[data-id="${order.id}"]`);
                                 newRow.addClass('table-warning');
                                 setTimeout(() => newRow.removeClass('table-warning'), 2000);
                             } else {
-                                $('#datatable-buttons-table tbody').prepend(order.html);
-                                let newRow = $(`#datatable-buttons-table tbody tr[data-id="${order.id}"]`);
+                                $('#ordersTable tbody').prepend(order.html);
+                                let newRow = $(`#ordersTable tbody tr[data-id="${order.id}"]`);
                                 newRow.addClass('table-success');
                                 setTimeout(() => newRow.removeClass('table-success'), 2000);
                             }

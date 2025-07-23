@@ -16,8 +16,8 @@ class CategoryController extends Controller
 		{
 			$data['codclie'][$i] = @$datosReq[$i]['CodClie'];
 			$data['descrip'][$i] = @$datosReq[$i]['Descrip'];
-			$data['rif'][$i]     = @$datosReq[$i]['Rif'];
-			$data['evento'][$i]     = @$datosReq[$i]['Evento'];
+			$data['rif'][$i] = @$datosReq[$i]['Rif'];
+			$data['evento'][$i] = @$datosReq[$i]['Evento'];
 			$data['email'][$i]     = @$datosReq[$i]['Email'];
 			$data['telef'][$i]     = @$datosReq[$i]['Telef'];			
 			$data['activo'][$i]     = @$datosReq[$i]['Activo'];

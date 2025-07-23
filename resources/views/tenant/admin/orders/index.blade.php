@@ -3,8 +3,78 @@
 @section('metadata')
 <title>{{ config('app.name') }} - Lista de Órdenes</title>
 @endsection
+@section('styles')
+<style>
+    .status-card {
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
 
+    .status-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .status-card:active {
+        transform: scale(0.95);
+    }
+</style>
+@endsection
 @section('content')
+<div class="row">
+    @php
+        $estatusCollection = [
+            ['id' => 1, 'name' => 'Pendientes',   'count' => 0, 'color' => 'c-yellow', 'icon' => 'fas fa-hourglass-start'],     // reloj esperando
+            ['id' => 2, 'name' => 'Confirmados',  'count' => 0, 'color' => 'info',    'icon' => 'fas fa-check'],               // check simple
+            ['id' => 3, 'name' => 'Enviados',     'count' => 0, 'color' => 'primary', 'icon' => 'fas fa-paper-plane'],         // enviado
+            ['id' => 4, 'name' => 'Entregados',   'count' => 0, 'color' => 'c-green', 'icon' => 'fas fa-box-open'],            // entregado
+            ['id' => 5, 'name' => 'Cancelados',   'count' => 0, 'color' => 'c-pink',  'icon' => 'fas fa-ban'],  
+            ['id' => 6, 'name' => 'Ventas Totales',   'count' => 0, 'color' => 'c-blue',  'icon' => 'fas fa-dollar'],                 // cancelado
+        ];
+    @endphp
+
+
+    @foreach($estatusCollection as $status)
+    <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6">
+        <div class="card text-white bg-{{ $status['color'] }} shadow status-card getPresupuestosByStatus" data-id="{{ $status['id'] }}">
+            <div class="card-body text-center">
+                <i class="{{ $status['icon'] }} fa-2x mb-2"></i>
+                <h5 class="my-2">{{ $status['name'] }}</h5>
+                <h5 class="fw-bold count{{ $status['id'] }}">0</h5>
+            </div>
+        </div>
+    </div>
+    @endforeach
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5>Consultar Órdenes</h5>
+                <span>🛒 Filtra las Órdenes recibidas por período de tiempo.</span>
+            </div>
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form method="GET" class="mb-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <label class="fw-bold">Filtrar por Rango:</label>
+                                <select name="range" class="form-select w-auto" id="range">
+                                    <option value="today">Hoy</option>
+                                    <option value="week">Esta semana</option>
+                                    <option value="month">Este mes</option>
+                                    <option value="year">Este año</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="row">
     <div class="col-12">
@@ -18,7 +88,7 @@
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
 
-                <table class="table table-hover ordersTable" id="datatable-buttons-table">
+                <table class="table table-hover ordersTable" id="ordersTable">
                     <thead class="table-dark">
                         <tr>
                             <th>#</th>
@@ -27,13 +97,12 @@
                             <th>Método de Pago</th>
                             <th>Total</th>
                             <th>Status</th>
+                            <th>Fecha</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach($orders as $order)
-                            @include('tenant.admin.orders.partials._rows')
-                        @endforeach
+                    <tbody id="ordersTbodyTable">
+
                     </tbody>
                 </table>
             </div>
@@ -102,6 +171,94 @@
 @endsection
 
 @section('scripts')
+<script>
+    function getOrdersData(updated){
+        $("#loadingSpinner").css("display", "flex"); 
+
+        if ($.fn.DataTable.isDataTable('#ordersTable')) {
+            $('#ordersTable').dataTable().fnClearTable();
+			$('#ordersTable').dataTable().fnDestroy();
+        }
+
+        let range = $('#range').val();
+
+        $('#ordersTable').DataTable({
+            order: [[0, 'desc']],
+            "bDeferRender": true,
+            "bProcessing": true,
+            "sAjaxSource": "{{ url('orders/getOrdersData') }}",
+            "fnServerData": function ( sSource, aoData, fnCallback ) {
+				$.getJSON( sSource, aoData, function (json) { 
+					fnCallback(json)
+                    $("#loadingSpinner").css("display", "none"); 
+
+                    $('.count1').html(json.pendientes);
+                    $('.count2').html(json.confirmados);
+                    $('.count3').html(json.enviados);
+                    $('.count4').html(json.entregados);
+                    $('.count5').html(json.cancelados);
+                    $('.count6').html(json.totalVentas);
+				} );
+			},
+            columns: [
+                { data: 'id' },
+                { data: 'nombre' },
+                { data: 'cedula' },
+                { data: 'metodo_pago' },
+                { data: 'total' },
+                { data: 'estatus' },
+                { data: 'fecha' },
+                { data: 'acciones' },
+            ],
+            createdRow: function(row, data, dataIndex) {
+                // Aquí puedes agregar data-id, clases, estilos, etc.
+                $(row).attr('data-id', data.id);
+                $(row).addClass('order_row_' + data.id);
+                if (!data.is_read) {
+                    $(row).addClass('table-secondary');
+                }
+            },
+            "bPaginate": true,
+            "sPaginationType":"full_numbers",
+            "iDisplayLength": 20,
+            "fnServerParams": function ( aoData ) {
+                aoData.push( { "name": "range", "value": range } );
+            },
+            dom: 'Bfrtip',
+			buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],	        
+            "responsive": true, 
+            "lengthChange": false, 
+            "autoWidth": false,
+            pageLength: 20,
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
+                "sInfoFiltered": "(filtrado de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            }
+        });
+
+    }
+
+    $(function(){
+        getOrdersData();
+    });
+
+    $('#range').on('change', function() {
+        getOrdersData();
+    });
+</script>
+
 <script>
     $(document).on('click', '.viewDetailsButton', function(){
         var id = $(this).data('id');
@@ -195,5 +352,4 @@
         });
     });
 </script>
-
 @endsection

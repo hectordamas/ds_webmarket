@@ -24,6 +24,9 @@
     <span class="badge bg-{{ $color }}">{{ $order->status }}</span>
   </td>
   <td>
+    {{ $order->created_at->format('d/m/Y h:i a') }}
+  </td>
+  <td>
     <a href="javascript:void(0)" data-id="{{ $order->id }}" class="btn btn-dark btn-sm viewDetailsButton">
       <i class="fas fa-list"></i> Ver Detalles
     </a>

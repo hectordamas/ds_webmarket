@@ -139,8 +139,7 @@ Route::middleware([
             Route::get('orders/ver-detalles/{id}', 'show');
             Route::post('orden-detalle', 'detalle');
             Route::post('orders/update-status', 'updateStatus');
-            Route::get('orders/polling', 'polling');
-
+            Route::get('orders/getOrdersData', 'getOrdersData');
         });
 
         Route::get('notificaciones/polling', [NotificationController::class, 'polling']);

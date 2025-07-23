@@ -25,6 +25,10 @@
     <span class="badge bg-<?php echo e($color); ?>"><?php echo e($order->status); ?></span>
   </td>
   <td>
+    <?php echo e($order->created_at->format('d/m/Y h:i a')); ?>
+
+  </td>
+  <td>
     <a href="javascript:void(0)" data-id="<?php echo e($order->id); ?>" class="btn btn-dark btn-sm viewDetailsButton">
       <i class="fas fa-list"></i> Ver Detalles
     </a>

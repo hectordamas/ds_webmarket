@@ -5,16 +5,138 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tenant\{Order, OrderProduct, OrderProductOption, Payment};
+use Carbon\Carbon;
 use Cart;
 
 class OrderController extends Controller
 {
-    public function index(){
-        $orders = Order::orderBy('id', 'desc')->get();
-        
-        return view('tenant.admin.orders.index', [
-            'orders' => $orders
-        ]); 
+    private function getOrdersByRange($range)
+    {
+        $today = Carbon::today();
+
+        switch ($range) {
+            case 'week':
+                $from = $today->copy()->startOfWeek()->startOfDay();
+                $to = $today->copy()->endOfWeek()->endOfDay();
+                break;
+            case 'month':
+                $from = $today->copy()->startOfMonth()->startOfDay();
+                $to = $today->copy()->endOfMonth()->endOfDay();
+                break;
+            case 'year':
+                $from = $today->copy()->startOfYear()->startOfDay();
+                $to = $today->copy()->endOfYear()->endOfDay();
+                break;
+            default:
+                $from = $today->copy()->startOfDay();
+                $to = $today->copy()->endOfDay();
+                break;
+        }
+
+        return Order::whereBetween('created_at', [$from, $to])->orderBy('id', 'desc');
+    }
+
+
+    public function index()
+    {
+        return view('tenant.admin.orders.index');
+    }
+
+    public function getOrdersData(Request $request)
+    {
+        $range = $request->input('range', 'today');
+
+        $ordersQuery = $this->getOrdersByRange($range);
+
+        $orders = $ordersQuery->get();
+
+        $totalRecords = $orders->count();
+
+        // Contadores por estatus usando el mismo query base para optimizar:
+        $pendientes = (clone $ordersQuery)->where('status', 'Pendiente')->count();
+        $confirmados = (clone $ordersQuery)->where('status', 'Confirmado')->count();
+        $enviados = (clone $ordersQuery)->where('status', 'Enviado')->count();
+        $entregados = (clone $ordersQuery)->where('status', 'Entregado')->count();
+        $cancelados = (clone $ordersQuery)->where('status', 'Cancelado')->count();
+        $totalVentas = (clone $ordersQuery)->where('status', 'Entregado')->sum('total');
+
+        $data = $orders->map(fn($order) => $this->getOrderRow($order))->toArray();
+
+        return response()->json([
+            "sEcho" => 1,
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            'aaData' => $data,
+            'pendientes' => $pendientes,
+            'confirmados' => $confirmados,
+            'enviados' => $enviados,
+            'entregados' => $entregados,
+            'cancelados' => $cancelados,
+            'totalVentas' => '$'. number_format($totalVentas, 2, '.', ','),
+        ]);
+    }
+
+    public function getOrderRow($order)
+    {
+        $statusColors = [
+          'Pendiente'   => 'warning',
+          'Confirmado'  => 'info',
+          'Enviado'     => 'primary',
+          'Entregado'   => 'success',
+          'Cancelado'   => 'danger',
+        ];
+
+        return [
+            'id' => $order->id,
+            'nombre' => (!$order->is_read ? '<span class="d-inline-block rounded-circle pulse point'.$order->id.' me-2" style="width: 10px; height: 10px; margin-top: 6px; background-color: red;"></span>' : '').$order->nombre,
+            'cedula' => $order->tipo_documento . $order->cedula,
+            'metodo_pago' => $order->metodo_pago,
+            'total' => '<span class="text-success fw-bold">$' . number_format($order->total, 2, '.', ',') . '</span>',
+            'estatus' => '<span class="badge bg-' . ($statusColors[$order->status] ?? 'dark') . '">' . $order->status . '</span>',
+            'fecha' => \Carbon\Carbon::parse($order->created_at)->format('d/m/Y h:i a'),
+            'acciones' => '<a href="javascript:void(0)" data-id="'.$order->id.'" class="btn btn-dark btn-sm viewDetailsButton"><i class="fas fa-list"></i> Ver Detalles</a>
+                           <a href="javascript:void(0)" class="btn btn-success btn-sm updateStatusBtn" data-id="'.$order->id.'" data-current-status="'.$order->status.'" data-bs-toggle="modal" data-bs-target="#updateStatusModal"><i class="far fa-edit"></i> Actualizar Estatus</a>',
+            'is_read' => $order->is_read, // opcional, para `createdRow`
+        ];    
+    }
+
+    public function polling(Request $request)
+    {
+        $lastId = $request->input('last_id', 0);
+        $range = $request->input('range', 'today');
+    
+        // Consulta base filtrada por rango
+        $ordersQuery = $this->getOrdersByRange($range);
+    
+        // Nuevas órdenes después de lastId
+        $newOrdersQuery = (clone $ordersQuery)->where('id', '>', $lastId);
+        $newOrders = $newOrdersQuery->get();
+    
+        // Calcular contadores en el rango (sin filtrar por lastId)
+        $pendientes = (clone $ordersQuery)->where('status', 'Pendiente')->count();
+        $confirmados = (clone $ordersQuery)->where('status', 'Confirmado')->count();
+        $enviados = (clone $ordersQuery)->where('status', 'Enviado')->count();
+        $entregados = (clone $ordersQuery)->where('status', 'Entregado')->count();
+        $cancelados = (clone $ordersQuery)->where('status', 'Cancelado')->count();
+        $totalVentas = (clone $ordersQuery)->where('status', 'Entregado')->sum('total');
+    
+        $orders = $newOrders->map(function ($order) {
+            return [
+                'id' => $order->id,
+                'html' => $this->getOrderRow($order),
+                'is_read' => $order->is_read,
+            ];
+        });
+    
+        return response()->json([
+            'orders' => $orders,
+            'pendientes' => $pendientes,
+            'confirmados' => $confirmados,
+            'enviados' => $enviados,
+            'entregados' => $entregados,
+            'cancelados' => $cancelados,
+            'totalVentas' => '$ ' . number_format($totalVentas, 2, '.', ','),
+        ]);
     }
 
     public function store(Request $request)
@@ -143,25 +265,5 @@ class OrderController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function polling(Request $request)
-    {
-        // Recibir último ID que tiene el cliente (puedes enviarlo desde JS)
-        $lastId = $request->input('last_id', 0);
 
-        // Obtener solo órdenes más nuevas que lastId
-        $newOrders = Order::where('id', '>', $lastId)->orderBy('id', 'desc')->get();
-
-        // Renderizar filas blade parciales por cada orden (o construir HTML aquí)
-        $orders = $newOrders->map(function($order) {
-            $html = view('tenant.admin.orders.partials._rows', compact('order'))->render();
-            return [
-                'id' => $order->id,
-                'html' => $html,
-            ];
-        });
-
-        return response()->json([
-            'orders' => $orders,
-        ]);
-    }
 }
