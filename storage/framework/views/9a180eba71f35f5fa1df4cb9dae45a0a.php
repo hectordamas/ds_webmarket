@@ -198,6 +198,16 @@
                     $('.count4').html(json.entregados);
                     $('.count5').html(json.cancelados);
                     $('.count6').html(json.totalVentas);
+
+                    if(updated){
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Actualizado!',
+                            text: 'El estado de la orden fue actualizado correctamente.',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    }
 				} );
 			},
             columns: [
@@ -257,9 +267,7 @@
     $('#range').on('change', function() {
         getOrdersData();
     });
-</script>
 
-<script>
     $(document).on('click', '.viewDetailsButton', function(){
         var id = $(this).data('id');
 
@@ -294,9 +302,7 @@
         });
     });
 
-</script>
 
-<script>
     let selectedOrderId = null;
 
     // Abrir modal y cargar ID
@@ -331,16 +337,10 @@
             success: function () {
                 $('#updateStatusModal').modal('hide');
 
-                Swal.fire({
-                    icon: 'success',
-                    title: '¡Actualizado!',
-                    text: 'El estado de la orden fue actualizado correctamente.',
-                    timer: 1500,
-                    showConfirmButton: false
-                });
+
 
                 // Opcional: recargar la página o actualizar directamente el texto
-                setTimeout(() => location.reload(), 1000);
+                getOrdersData(true);
             },
             error: function () {
                 Swal.fire({
