@@ -183,8 +183,8 @@
                   <tr>
                     <th style="width:40px;">Top</th>
                     <th>Producto</th>
-                    <th style="width:120px;">Unidades</th>
-                    <th style="width:140px;">Ventas</th>
+                    <th style="width:120px;">Unidades Vendidas</th>
+                    <th style="width:140px;">Ingresos Generados</th>
                   </tr>
                 </thead>
                 <tbody>
