@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth\Tenant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\User;
 
 class LoginController extends Controller
 {
