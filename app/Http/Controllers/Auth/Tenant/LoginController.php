@@ -19,12 +19,20 @@ class LoginController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
+    
+        $user = User::where('email', $credentials['email'])->first();
+    
+        if ($user && !$user->activo) {
+            return back()->withErrors([
+                'email' => 'Tu cuenta está desactivada. Contacta al administrador.',
+            ])->onlyInput('email');
+        }
+    
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
             return redirect('home');
         }
-
+    
         return back()->withErrors([
             'email' => 'Correo o contraseña inválida.',
         ])->onlyInput('email');

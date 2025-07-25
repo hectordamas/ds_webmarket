@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-xl-3">
-        <div class="card bg-c-green order-card shadow">
+        <div class="card bg-c-green order-card shadow-sm">
             <div class="card-block">
                 <h6>Total Inventario</h6>
                 <h2 id="totalInventario">...</h2>
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="col-xl-3">
-        <div class="card bg-c-blue order-card shadow">
+        <div class="card bg-c-blue order-card shadow-sm">
             <div class="card-block">
                 <h6>Total Productos</h6>
                 <h2 id="totalDeProductos">...</h2>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="col-xl-3">
-        <div class="card bg-c-pink order-card shadow">
+        <div class="card bg-c-pink order-card shadow-sm">
             <div class="card-block">
                 <h6>Total Unidades</h6>
                 <h2 id="totalUnidades">...</h2>
@@ -33,7 +33,7 @@
         </div>
     </div>
         <div class="col-xl-3">
-        <div class="card bg-c-yellow order-card shadow">
+        <div class="card bg-c-yellow order-card shadow-sm">
             <div class="card-block">
                 <h6>Productos Agotados</h6>
                 <h2 id="productosAgotados">...</h2>

@@ -36,7 +36,7 @@
 
     <?php $__currentLoopData = $estatusCollection; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6">
-        <div class="card text-white bg-<?php echo e($status['color']); ?> shadow status-card getPresupuestosByStatus" data-id="<?php echo e($status['id']); ?>">
+        <div class="card text-white bg-<?php echo e($status['color']); ?> shadow-sm status-card getPresupuestosByStatus" data-id="<?php echo e($status['id']); ?>">
             <div class="card-body text-center">
                 <i class="<?php echo e($status['icon']); ?> fa-2x mb-2"></i>
                 <h5 class="my-2"><?php echo e($status['name']); ?></h5>

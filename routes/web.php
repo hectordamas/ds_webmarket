@@ -23,12 +23,16 @@ foreach (config('tenancy.central_domains') as $domain) {
             Route::post('/tenants/{tenant}/toggle-activo', [TenantController::class, 'toggleActivo'])->name('tenants.toggle-activo');
 
             Route::resource('users', UsersController::class);
+            Route::post('users/toggle', [UsersController::class, 'toggleStatus']);
+
             Route::get('solicitudes', [FormRequestController::class, 'index']);
 
             Route::controller(TenantUserController::class)->group(function(){
                 Route::post('tenant/users/store', 'store');
                 Route::post('tenant/users/update', 'update');
                 Route::post('tenant/users/destroy', 'destroy');
+                Route::post('tenant/users/toggle', 'toggleStatus');
+
             });
             
         });    

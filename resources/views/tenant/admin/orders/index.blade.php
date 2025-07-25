@@ -36,7 +36,7 @@
 
     @foreach($estatusCollection as $status)
     <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6">
-        <div class="card text-white bg-{{ $status['color'] }} shadow status-card getPresupuestosByStatus" data-id="{{ $status['id'] }}">
+        <div class="card text-white bg-{{ $status['color'] }} shadow-sm status-card getPresupuestosByStatus" data-id="{{ $status['id'] }}">
             <div class="card-body text-center">
                 <i class="{{ $status['icon'] }} fa-2x mb-2"></i>
                 <h5 class="my-2">{{ $status['name'] }}</h5>

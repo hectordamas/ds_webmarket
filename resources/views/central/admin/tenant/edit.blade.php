@@ -91,8 +91,7 @@
         <div class="tab-pane fade" id="users" role="tabpanel">
             <div class="row mb-3">
                 <div class="col-md-12 d-flex justify-content-between">
-                    <h5>Usuarios del Tenant</h5>
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createUserModal">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createUserModal">
                         <i class="fa-solid fa-plus"></i> Crear Usuario
                     </button>
                 </div>
@@ -107,6 +106,7 @@
                                 <td>Fecha de Registro</td>
                                 <td>Usuario</td>
                                 <td>E-Mail</td>
+                                <th>Estado</th>
                                 <td>Acciones</td>
                             </tr>
                         </thead>
@@ -117,6 +117,15 @@
                                 <td>{{ $user->created_at->format('d-m-Y h:i A') }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td class="text-center align-middle">
+                                    <div class="d-flex align-items-center justify-content-center gap-3">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="activo" class="form-check-input users-active" data-id="{{ $user->id }}" data-tenantid="{{$tenant->id}}" {{ $user->activo ? 'checked' : '' }}>
+                                            Activo
+                                        </label>
+                                    
+                                    </div>
+                                </td>
                                 <td>
                                     <!-- Botón para abrir el modal de edición -->
                                     <button type="button" class="btn btn-sm btn-outline-success btn-edit-user"
@@ -284,6 +293,38 @@
             $('#editUserForm').attr('action', "{{ url('tenant/users/update') }}");
             $('#editUserModal').modal('show');
         });
+
+        $(document).on('change', '.users-active', function () {
+            const checkbox = $(this);
+            const userId = checkbox.data('id');
+            const tenantId = checkbox.data('tenantid');
+            const isChecked = checkbox.is(':checked') ? 1 : 0;
+            const field = checkbox.hasClass('users-active') ? 'activo' : 'visible';
+
+            $.ajax({
+                url: "{{ url('tenant/users/toggle') }}",
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: userId,
+                    field: field,
+                    checked: isChecked,
+                    tenantId: tenantId
+                },
+                success: function (response) {
+                    if (!response.success) {
+                        alert('Ocurrió un error al actualizar el estado.');
+                        checkbox.prop('checked', !isChecked); // revertir el cambio si falla
+                    }
+                },
+                error: function () {
+                    alert('No se pudo actualizar el estado del usuario.');
+                    checkbox.prop('checked', !isChecked); // revertir el cambio si falla
+                }
+            });
+        });
     });
 </script>
+
+
 @endsection

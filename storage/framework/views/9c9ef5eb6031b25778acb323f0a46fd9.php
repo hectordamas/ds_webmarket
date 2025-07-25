@@ -13,8 +13,8 @@
 
             <div class="card-block table-responsive">
 
-                <table class="table table-striped table-bordered">
-                    <thead class="table-dark">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
                             <th>Nombre</th>
                             <th>Slug</th>

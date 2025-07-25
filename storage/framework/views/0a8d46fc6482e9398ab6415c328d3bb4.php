@@ -21,6 +21,7 @@
                             <th>#</th>
                             <th>Usuario</th>
                             <th>E-Mail</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -30,6 +31,15 @@
                             <td><?php echo e($user->id); ?></td>
                             <td><?php echo e($user->name); ?></td>
                             <td><?php echo e($user->email); ?></td>
+                            <td class="text-center align-middle">
+                                <div class="d-flex align-items-center justify-content-center gap-3">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="activo" class="form-check-input users-active" data-id="<?php echo e($user->id); ?>" <?php echo e($user->activo ? 'checked' : ''); ?>>
+                                        Activo
+                                    </label>
+                                
+                                </div>
+                            </td>
                             <td>
                                 <a href="<?php echo e(route('users.edit', [ $user ])); ?>" class="btn btn-success">
                                     <i class="fas fa-edit"></i>
@@ -52,5 +62,40 @@
         </div>
     </div>
 </div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('scripts'); ?>
+<script>
+$(document).ready(function () {
+    // Manejador para ambos checkboxes
+    $('.users-active').on('change', function () {
+        const checkbox = $(this);
+        const userId = checkbox.data('id');
+        const isChecked = checkbox.is(':checked') ? 1 : 0;
+        const field = checkbox.hasClass('users-active') ? 'activo' : 'visible';
+
+        $.ajax({
+            url: "<?php echo e(url('users/toggle')); ?>",
+            method: 'POST',
+            data: {
+                _token: '<?php echo e(csrf_token()); ?>',
+                id: userId,
+                field: field,
+                checked: isChecked
+            },
+            success: function (response) {
+                if (!response.success) {
+                    alert('Ocurrió un error al actualizar el estado.');
+                    checkbox.prop('checked', !isChecked); // revertir el cambio si falla
+                }
+            },
+            error: function () {
+                alert('No se pudo actualizar el estado del usuario.');
+                checkbox.prop('checked', !isChecked); // revertir el cambio si falla
+            }
+        });
+    });
+});
+</script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('central.layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\dswebmarket\resources\views/central/admin/users/index.blade.php ENDPATH**/ ?>

@@ -55,6 +55,26 @@ class TenantUserController extends Controller
 
     }
 
+    public function toggleStatus(Request $request)
+    {
+        $tenant = Tenant::find($request->tenantId);
+
+        app(Tenancy::class)->initialize($tenant); 
+
+        $user = User::findOrFail($request->id);
+    
+        if ($request->has('field') && in_array($request->field, ['activo'])) {
+            $user->{$request->field} = $request->checked;
+            $user->save();
+
+            app(Tenancy::class)->end(); 
+            return response()->json(['success' => true]);
+        }
+    
+        return response()->json(['success' => false, 'message' => 'Campo no válido'], 400);
+    }    
+
+
     public function destroy(Request $request){
         $tenant = Tenant::find($request->tenant_id);
         app(Tenancy::class)->initialize($tenant); 

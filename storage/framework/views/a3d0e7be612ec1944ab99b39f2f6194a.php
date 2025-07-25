@@ -164,7 +164,12 @@
     </div>
 
     <div class="col-md-8">
-      <div class="card shadow h-100 border-0">
+      <div class="card shadow border-0" style="height: 95%;">
+        <?php if($productosMasVendidos->isEmpty()): ?>
+        <div class="card-header">
+            <h5 class="mb-0">📦 Productos más vendidos</h5>
+        </div>
+        <?php endif; ?>
         <div class="card-block pb-0">
           <?php if($productosMasVendidos->isEmpty()): ?>
             <div class="text-center text-muted py-5">
@@ -179,10 +184,10 @@
                         <h5 class="mb-0">📦 Productos más vendidos</h5>
                     </th>
                     <td class="border-bottom-0" style="width:120px;">
-                        <span class="badge bg-primary text-small" style="font-size: 11px;" >Unidades Vendidas</span>
+                        <span class="badge bg-primary text-small rounded" style="font-size: 11px;" >Unidades Vendidas</span>
                     </td>
                     <td class="border-bottom-0" style="width:140px;">
-                        <span class="badge bg-success text-small" style="font-size: 11px;" >Ingresos Generados</span>
+                        <span class="badge bg-success text-small rounded" style="font-size: 11px;" >Ingresos Generados</span>
                     </td>
                   </tr>
                 </thead>

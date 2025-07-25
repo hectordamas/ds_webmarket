@@ -132,6 +132,7 @@ Route::middleware([
             Route::get('{user}/edit', 'edit');   // Editar
             Route::put('{user}', 'update');    // Actualizar
             Route::delete('{user}', 'destroy'); // Eliminar
+            Route::post('toggle', 'toggleStatus');
         });
 
         Route::controller(OrderController::class)->group(function(){

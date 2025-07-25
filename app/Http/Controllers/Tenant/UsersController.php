@@ -58,6 +58,20 @@ class UsersController extends Controller
         return redirect('usuarios')->with('success', 'Usuario actualizado');
     }
 
+    public function toggleStatus(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+    
+        if ($request->has('field') && in_array($request->field, ['activo'])) {
+            $user->{$request->field} = $request->checked;
+            $user->save();
+        
+            return response()->json(['success' => true]);
+        }
+    
+        return response()->json(['success' => false, 'message' => 'Campo no válido'], 400);
+    }    
+
     public function destroy(User $user)
     {
         $user->delete();
