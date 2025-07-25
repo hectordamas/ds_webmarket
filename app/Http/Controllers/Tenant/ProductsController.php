@@ -5,14 +5,50 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tenant\{Product, Category};
+use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
     public function index(){
-        $products = Product::orderBy('id', 'desc')->get();
 
-        return view('tenant.admin.products.index', compact('products'));
+        return view('tenant.admin.products.index');
     }
+
+    public function getProductsData()
+    {
+        $products = Product::with('category')->orderBy('id', 'desc')->get();
+
+        $data = $products->map(function ($product) {
+            return [
+                'id' => $product->id,
+                'image' => '<img src="' . img64($product->image) . '" class="img-fluid rounded" style="max-height: 60px;">',
+                'name' => e($product->name),
+                'category' => $product->category->name ?? 'Sin categoría',
+                'price' => '$' . number_format($product->price, 2, ',', '.'),
+                'stock' => $product->stock < 1
+                    ? '<small class="text-danger fw-bold">No Disponible</small>'
+                    : '<small class="text-success fw-bold">' . $product->stock . ' Disponible' . ($product->stock > 1 ? 's' : '') . '</small>',
+                'estado' => view('tenant.admin.products.partials.estado', ['product' => $product])->render(),
+                'acciones' => '<a href="' . url("products/{$product->id}/edit") . '" class="btn btn-sm btn-warning">
+                                    <i class="fas fa-edit"></i> Editar
+                               </a>',
+            ];
+        });
+
+        $totalInventario = Product::sum(DB::raw('stock * price'));
+        $totalDeProductos = Product::count();
+        $totalUnidades = Product::sum('stock');
+        $productosAgotados = Product::where('stock', 0)->count();
+
+        return response()->json([
+            'data' => $data,
+            'totalInventario' => '$' . number_format($totalInventario, 2, '.', ','),
+            'totalDeProductos' => $totalDeProductos,
+            'totalUnidades' => $totalUnidades,
+            'productosAgotados' => $productosAgotados
+        ]);
+    }
+
 
     public function create()
     {

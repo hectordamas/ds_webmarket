@@ -16,13 +16,13 @@
                 <!-- Tabs -->
                 <ul class="nav nav-tabs md-tabs mb-4" id="settingsTabs" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="appearance-tab" data-bs-toggle="tab" href="#appearance" type="button" role="tab">
+                        <a class="nav-link fw-bold active" id="appearance-tab" data-bs-toggle="tab" href="#appearance" type="button" role="tab">
                             🎨 Apariencia
                         </a>
                         <div class="slide"></div>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="info-tab" data-bs-toggle="tab" href="#info" type="button" role="tab">
+                        <a class="nav-link fw-bold" id="info-tab" data-bs-toggle="tab" href="#info" type="button" role="tab">
                             🧾 Información
                         </a>
                         <div class="slide"></div>

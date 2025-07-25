@@ -5,21 +5,57 @@
 <?php $__env->startSection('content'); ?>
 
 <div class="row">
+    <div class="col-xl-3">
+        <div class="card bg-c-green order-card shadow">
+            <div class="card-block">
+                <h6>Total Inventario</h6>
+                <h2 id="totalInventario">...</h2>
+                <i class="card-icon fas fa-boxes-stacked"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3">
+        <div class="card bg-c-blue order-card shadow">
+            <div class="card-block">
+                <h6>Total Productos</h6>
+                <h2 id="totalDeProductos">...</h2>
+                <i class="card-icon feather icon-box"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3">
+        <div class="card bg-c-pink order-card shadow">
+            <div class="card-block">
+                <h6>Total Unidades</h6>
+                <h2 id="totalUnidades">...</h2>
+                <i class="card-icon fas fa-warehouse"></i>
+            </div>
+        </div>
+    </div>
+        <div class="col-xl-3">
+        <div class="card bg-c-yellow order-card shadow">
+            <div class="card-block">
+                <h6>Productos Agotados</h6>
+                <h2 id="productosAgotados">...</h2>
+                <i class="card-icon fas fa-triangle-exclamation"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-12">
         <div class="card shadow">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Lista de Productos</h5>
-                <a href="<?php echo e(url('products/create')); ?>" class="btn btn-sm btn-primary">
-                    <i class="fas fa-plus"></i> Nuevo Producto
-                </a>
             </div>
 
-            <div class="card-body table-responsive">
+            <div class="card-block table-responsive">
                 <?php if(session('success')): ?>
                     <div class="alert alert-success"><?php echo e(session('success')); ?></div>
                 <?php endif; ?>
 
-                <table class="table table-bordered table-hover" id="datatable-buttons-table">
+                <table class="table table-bordered table-hover" id="productsTable">
                     <thead class="table-dark">
                         <tr>
                             <th>#</th>
@@ -33,48 +69,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $__empty_1 = true; $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                            <tr>
-                                <td><?php echo e($product->id); ?></td>
-                                <td style="width: 80px">
-                                    <img src="<?php echo e(img64($product->image)); ?>" class="img-fluid rounded" style="max-height: 60px;">
-                                </td>
-                                <td><?php echo e($product->name); ?></td>
-                                <td><?php echo e($product->category->name ?? 'Sin categoría'); ?></td>
-                                <td>$<?php echo e(number_format($product->price, 2, ',', '.')); ?></td>
-                                <td>
-                                    <?php if($product->stock < 1): ?>
-                                        <small class="text-danger fw-bold">No Disponible</small>
-                                    <?php else: ?>
-                                        <small class="text-success fw-bold"><?php echo e($product->stock); ?> Disponible<?php echo e($product->stock > 1 ? 's' : ''); ?></small>
-                                    <?php endif; ?>
-                                </td>
-                                <td class="text-center align-middle">
-                                    <div class="d-flex align-items-center justify-content-center gap-3">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" name="active" class="form-check-input product-active" data-id="<?php echo e($product->id); ?>" <?php echo e($product->active ? 'checked' : ''); ?> disabled>
-                                            Activo
-                                        </label>
-                                    
-                                        <label class="form-check-label">
-                                            <input type="checkbox" name="visible" class="form-check-input product-visible" data-id="<?php echo e($product->id); ?>" <?php echo e($product->visible ? 'checked' : ''); ?>>
-                                            Visible
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="<?php echo e(url('products/' . $product->id . '/edit')); ?>" class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i> Editar
-                                    </a>
-
-                                    
-                                </td>
-                            </tr>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                            <tr>
-                                <td colspan="6" class="text-center">No hay productos registrados.</td>
-                            </tr>
-                        <?php endif; ?>
                     </tbody>
                 </table>
 
@@ -117,6 +111,76 @@ $(document).ready(function () {
         });
     });
 });
+</script>
+
+<script>
+    function getProductsData(updated){
+        $("#loadingSpinner").css("display", "flex"); 
+
+        if ($.fn.DataTable.isDataTable('#productsTable')) {
+            $('#productsTable').dataTable().fnClearTable();
+			$('#productsTable').dataTable().fnDestroy();
+        }
+
+        $('#productsTable').DataTable({
+            order: [[0, 'desc']],
+            "bDeferRender": true,
+            "bProcessing": true,
+            "sAjaxSource": "<?php echo e(url('products/getProductsData')); ?>",
+            "fnServerData": function ( sSource, aoData, fnCallback ) {
+				$.getJSON( sSource, aoData, function (json) { 
+					fnCallback(json)
+                    $("#loadingSpinner").css("display", "none"); 
+
+                    $('#totalInventario').html(json.totalInventario)
+                    $('#totalDeProductos').html(json.totalDeProductos)
+                    $('#totalUnidades').html(json.totalUnidades)
+                    $('#productosAgotados').html(json.productosAgotados);
+				} );
+			},
+            "columns": [
+                { data: "id" },
+                { data: "image" },
+                { data: "name" },
+                { data: "category" },
+                { data: "price" },
+                { data: "stock" },
+                { data: "estado" },
+                { data: "acciones" }
+            ],
+            "bPaginate": true,
+            "sPaginationType":"full_numbers",
+            "iDisplayLength": 20,
+            dom: 'Bfrtip',
+			buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],	        
+            "responsive": true, 
+            "lengthChange": false, 
+            "autoWidth": false,
+            pageLength: 20,
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
+                "sInfoFiltered": "(filtrado de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            }
+        });
+
+    }
+
+    $(function(){
+        getProductsData();
+    });
+
 </script>
 <?php $__env->stopSection(); ?>
 

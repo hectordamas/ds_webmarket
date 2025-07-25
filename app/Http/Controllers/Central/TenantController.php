@@ -31,6 +31,18 @@ class TenantController extends Controller
             'nombre_empresa' => 'required|string',
         ]);
 
+        try {
+            new \PDO(
+                "mysql:host=" . env('DB_HOST') . ";port=" . env('DB_PORT', 3306) . ";dbname=" . $request->database,
+                $request->username,
+                $request->password // Aquí no necesitas el `filled` porque es nuevo
+            );
+        } catch (\PDOException $e) {
+            return back()->withErrors([
+                'database' => '❌ Error al conectar con la base de datos, corrija los datos de conexion e intente nuevamente: ' . $e->getMessage(),
+            ])->withInput();
+        }
+
         DB::table('tenants')->insert([
             'id' => $request->id,
             'data' => json_encode([
@@ -63,7 +75,7 @@ class TenantController extends Controller
 
         // Iniciar contexto tenant
         app(Tenancy::class)->initialize($tenant);   
-
+        
         // Cargar usuarios como objetos
         $users = User::all()->map(function ($user) {
             $clone = clone $user;
@@ -95,12 +107,26 @@ class TenantController extends Controller
             'logo' => 'nullable|image|max:2048',
         ]);
 
+        $tenant = Tenant::findOrFail($id);
+
+        try {
+            new \PDO(
+                "mysql:host=" . env('DB_HOST') . ";port=" . env('DB_PORT', 3306) . ";dbname=" . $request->database,
+                $request->username,
+                $request->filled('password') ? $request->password : $tenant->tenancy_db_password
+            );
+        } catch (\PDOException $e) {
+            return back()->withErrors([
+                'database' => '❌ Error al conectar con la base de datos, corrija los datos de conexion e intente nuevamente:' . $e->getMessage(),
+            ])->withInput();
+        }
+
         // Actualizar datos JSON del tenant
         DB::table('tenants')->where('id', $id)->update([
             'data' => json_encode([
                 'tenancy_db_name' => $request->database,
                 'tenancy_db_username' => $request->username,
-                'tenancy_db_password' => $request->password,
+                'tenancy_db_password' => $request->filled('password') ? $request->password : $tenant->tenancy_db_password,
             ]),
             'fecha_vencimiento' => $request->fecha_vencimiento,
             'nombre_empresa' => $request->nombre_empresa,
@@ -109,7 +135,6 @@ class TenantController extends Controller
         ]);
 
         // Actualizar dominio (eliminar anterior y crear nuevo si quieres permitir solo 1 dominio)
-        $tenant = Tenant::findOrFail($id);
         $tenant->domains()->delete(); // elimina el anterior (opcional según lógica)
         $tenant->domains()->create([
             'domain' => $id . '.' . env('CENTRAL_DOMAIN'),
@@ -143,7 +168,6 @@ class TenantController extends Controller
         Setting::updateOrCreate(['key' => 'instagram'], ['value' => $request->instagram]);
 
         app(Tenancy::class)->end(); 
-
 
         return redirect('home')->with('success', 'Tenant actualizado correctamente.');
     }

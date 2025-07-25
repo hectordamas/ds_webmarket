@@ -13,71 +13,78 @@
                 <h5>Editar Producto</h5>
             </div>
             <div class="card-block">
-                <form method="POST" action="{{ url('products/' . $product->id . '/update') }}" enctype="multipart/form-data" class="row">
+                <form method="POST" action="{{ url('products/' . $product->id . '/update') }}" enctype="multipart/form-data">
                     @csrf
-
-                    <div class="form-group col-md-3">
-                        <label for="name">Nombre</label>
-                        <input type="text" name="name" value="{{ old('name', $product->name) }}" class="form-control" required>
-                        @error('name') <small class="text-danger">{{ $message }}</small> @enderror
+                
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label for="name" class="form-label fw-semibold">Nombre</label>
+                            <input type="text" name="name" value="{{ old('name', $product->name) }}" class="form-control" required readonly>
+                            @error('name') <small class="text-danger">{{ $message }}</small> @enderror
+                        </div>
+                    
+                        <div class="col-md-3">
+                            <label for="price" class="form-label fw-semibold">Precio</label>
+                            <input type="number" name="price" step="0.01" value="{{ old('price', $product->price) }}" class="form-control" required readonly>
+                            @error('price') <small class="text-danger">{{ $message }}</small> @enderror
+                        </div>
+                    
+                        <div class="col-md-3">
+                            <label for="stock" class="form-label fw-semibold">Stock</label>
+                            <input type="number" name="stock" value="{{ old('stock', $product->stock) }}" class="form-control" required readonly>
+                            @error('stock') <small class="text-danger">{{ $message }}</small> @enderror
+                        </div>
+                    
+                        <div class="col-md-3">
+                            <label for="category_id" class="form-label fw-semibold">Categoría</label>
+                            <select name="category_id" class="form-select" required disabled>
+                                <option value="">-- Seleccione --</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id') <small class="text-danger">{{ $message }}</small> @enderror
+                        </div>
+                    
+                        <div class="col-md-3">
+                            <label for="active" class="form-label fw-semibold">Estado</label>
+                            <select name="active" class="form-select" disabled>
+                                <option value="1" {{ old('active', $product->active) == '1' ? 'selected' : '' }}>Activo</option>
+                                <option value="0" {{ old('active', $product->active) == '0' ? 'selected' : '' }}>Inactivo</option>
+                            </select>
+                            @error('active') <small class="text-danger">{{ $message }}</small> @enderror
+                        </div>
+                    
+                        <div class="col-md-3">
+                            <label for="image" class="form-label fw-semibold">Imagen</label>
+                            <div class="form-control bg-light text-center">
+                                @if ($product->image)
+                                    <img src="{{ img64($product->image) }}" height="100" class="rounded">
+                                @else
+                                    <span class="text-muted">Sin imagen</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    
+                        <div class="col-md-6">
+                            <label for="description" class="form-label fw-semibold">Descripción</label>
+                            <textarea name="description" class="form-control" rows="3">{{ old('description', $product->description) }}</textarea>
+                            @error('description') <small class="text-danger">{{ $message }}</small> @enderror
+                        </div>
+                    
+                        <div class="col-12 d-flex justify-content-start gap-2 mt-4">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Actualizar
+                            </button>
+                            <a href="{{ url('products') }}" class="btn btn-secondary">Cancelar</a>
+                        </div>
                     </div>
-
-                    <div class="form-group col-md-3">
-                        <label for="price">Precio</label>
-                        <input type="number" name="price" step="0.01" value="{{ old('price', $product->price) }}" class="form-control" required>
-                        @error('price') <small class="text-danger">{{ $message }}</small> @enderror
-                    </div>
-
-
-
-                    <div class="form-group col-md-3">
-                        <label for="category_id">Categoría</label>
-                        <select name="category_id" class="form-control" required>
-                            <option value="">-- Seleccione --</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('category_id') <small class="text-danger">{{ $message }}</small> @enderror
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label for="active">Estado</label>
-                        <select name="active" class="form-control">
-                            <option value="1" {{ old('active', $product->active) == '1' ? 'selected' : '' }}>Activo</option>
-                            <option value="0" {{ old('active', $product->active) == '0' ? 'selected' : '' }}>Inactivo</option>
-                        </select>
-                        @error('active') <small class="text-danger">{{ $message }}</small> @enderror
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label for="image">Imagen (opcional)</label>
-                        <input type="file" name="image" class="form-control">
-                        @if ($product->image)
-                            <small class="d-block mt-1">Actual: <img src="{{ img64($product->image) }}" height="60"></small>
-                        @endif
-                        @error('image') <small class="text-danger">{{ $message }}</small> @enderror
-                    </div>
-
-                    <div class="col-md-8"></div>
-
-                    <div class="form-group col-md-8">
-                        <label for="description">Descripción</label>
-                        <textarea name="description" class="form-control" rows="3">{{ old('description', $product->description) }}</textarea>
-                        @error('description') <small class="text-danger">{{ $message }}</small> @enderror
-                    </div>
-
-                    <div class="form-group col-md-12 mt-3">
-                        <button type="submit" class="btn btn-success">
-                            <i class="fas fa-save"></i> Actualizar
-                        </button>
-                        <a href="{{ url('products') }}" class="btn btn-secondary">Cancelar</a>
-                    </div>
-
                 </form>
             </div>
+
         </div>
     </div>
 

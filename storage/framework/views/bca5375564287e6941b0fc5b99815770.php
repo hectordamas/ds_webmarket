@@ -11,13 +11,14 @@
                 <h5>Editar Producto</h5>
             </div>
             <div class="card-block">
-                <form method="POST" action="<?php echo e(url('products/' . $product->id . '/update')); ?>" enctype="multipart/form-data" class="row">
+                <form method="POST" action="<?php echo e(url('products/' . $product->id . '/update')); ?>" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
-
-                    <div class="form-group col-md-3">
-                        <label for="name">Nombre</label>
-                        <input type="text" name="name" value="<?php echo e(old('name', $product->name)); ?>" class="form-control" required>
-                        <?php $__errorArgs = ['name'];
+                
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label for="name" class="form-label fw-semibold">Nombre</label>
+                            <input type="text" name="name" value="<?php echo e(old('name', $product->name)); ?>" class="form-control" required readonly>
+                            <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -25,12 +26,12 @@ $message = $__bag->first($__errorArgs[0]); ?> <small class="text-danger"><?php e
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label for="price">Precio</label>
-                        <input type="number" name="price" step="0.01" value="<?php echo e(old('price', $product->price)); ?>" class="form-control" required>
-                        <?php $__errorArgs = ['price'];
+                        </div>
+                    
+                        <div class="col-md-3">
+                            <label for="price" class="form-label fw-semibold">Precio</label>
+                            <input type="number" name="price" step="0.01" value="<?php echo e(old('price', $product->price)); ?>" class="form-control" required readonly>
+                            <?php $__errorArgs = ['price'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -38,22 +39,12 @@ $message = $__bag->first($__errorArgs[0]); ?> <small class="text-danger"><?php e
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                    </div>
-
-
-
-                    <div class="form-group col-md-3">
-                        <label for="category_id">Categoría</label>
-                        <select name="category_id" class="form-control" required>
-                            <option value="">-- Seleccione --</option>
-                            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($category->id); ?>" <?php echo e(old('category_id', $product->category_id) == $category->id ? 'selected' : ''); ?>>
-                                    <?php echo e($category->name); ?>
-
-                                </option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </select>
-                        <?php $__errorArgs = ['category_id'];
+                        </div>
+                    
+                        <div class="col-md-3">
+                            <label for="stock" class="form-label fw-semibold">Stock</label>
+                            <input type="number" name="stock" value="<?php echo e(old('stock', $product->stock)); ?>" class="form-control" required readonly>
+                            <?php $__errorArgs = ['stock'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -61,15 +52,20 @@ $message = $__bag->first($__errorArgs[0]); ?> <small class="text-danger"><?php e
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                    </div>
+                        </div>
+                    
+                        <div class="col-md-3">
+                            <label for="category_id" class="form-label fw-semibold">Categoría</label>
+                            <select name="category_id" class="form-select" required disabled>
+                                <option value="">-- Seleccione --</option>
+                                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($category->id); ?>" <?php echo e(old('category_id', $product->category_id) == $category->id ? 'selected' : ''); ?>>
+                                        <?php echo e($category->name); ?>
 
-                    <div class="form-group col-md-3">
-                        <label for="active">Estado</label>
-                        <select name="active" class="form-control">
-                            <option value="1" <?php echo e(old('active', $product->active) == '1' ? 'selected' : ''); ?>>Activo</option>
-                            <option value="0" <?php echo e(old('active', $product->active) == '0' ? 'selected' : ''); ?>>Inactivo</option>
-                        </select>
-                        <?php $__errorArgs = ['active'];
+                                    </option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                            <?php $__errorArgs = ['category_id'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -77,15 +73,15 @@ $message = $__bag->first($__errorArgs[0]); ?> <small class="text-danger"><?php e
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label for="image">Imagen (opcional)</label>
-                        <input type="file" name="image" class="form-control">
-                        <?php if($product->image): ?>
-                            <small class="d-block mt-1">Actual: <img src="<?php echo e(img64($product->image)); ?>" height="60"></small>
-                        <?php endif; ?>
-                        <?php $__errorArgs = ['image'];
+                        </div>
+                    
+                        <div class="col-md-3">
+                            <label for="active" class="form-label fw-semibold">Estado</label>
+                            <select name="active" class="form-select" disabled>
+                                <option value="1" <?php echo e(old('active', $product->active) == '1' ? 'selected' : ''); ?>>Activo</option>
+                                <option value="0" <?php echo e(old('active', $product->active) == '0' ? 'selected' : ''); ?>>Inactivo</option>
+                            </select>
+                            <?php $__errorArgs = ['active'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -93,14 +89,24 @@ $message = $__bag->first($__errorArgs[0]); ?> <small class="text-danger"><?php e
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                    </div>
-
-                    <div class="col-md-8"></div>
-
-                    <div class="form-group col-md-8">
-                        <label for="description">Descripción</label>
-                        <textarea name="description" class="form-control" rows="3"><?php echo e(old('description', $product->description)); ?></textarea>
-                        <?php $__errorArgs = ['description'];
+                        </div>
+                    
+                        <div class="col-md-3">
+                            <label for="image" class="form-label fw-semibold">Imagen</label>
+                            <div class="form-control bg-light text-center">
+                                <?php if($product->image): ?>
+                                    <img src="<?php echo e(img64($product->image)); ?>" height="100" class="rounded">
+                                <?php else: ?>
+                                    <span class="text-muted">Sin imagen</span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    
+                        <div class="col-md-6">
+                            <label for="description" class="form-label fw-semibold">Descripción</label>
+                            <textarea name="description" class="form-control" rows="3"><?php echo e(old('description', $product->description)); ?></textarea>
+                            <?php $__errorArgs = ['description'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -108,17 +114,18 @@ $message = $__bag->first($__errorArgs[0]); ?> <small class="text-danger"><?php e
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
+                        </div>
+                    
+                        <div class="col-12 d-flex justify-content-start gap-2 mt-4">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Actualizar
+                            </button>
+                            <a href="<?php echo e(url('products')); ?>" class="btn btn-secondary">Cancelar</a>
+                        </div>
                     </div>
-
-                    <div class="form-group col-md-12 mt-3">
-                        <button type="submit" class="btn btn-success">
-                            <i class="fas fa-save"></i> Actualizar
-                        </button>
-                        <a href="<?php echo e(url('products')); ?>" class="btn btn-secondary">Cancelar</a>
-                    </div>
-
                 </form>
             </div>
+
         </div>
     </div>
 

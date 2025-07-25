@@ -8,12 +8,10 @@
         <div class="card shadow">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Lista de Categorías</h5>
-                <a href="<?php echo e(url('categories/create')); ?>" class="btn btn-sm btn-primary">
-                    <i class="fas fa-plus"></i> Nueva Categoría
-                </a>
+                
             </div>
 
-            <div class="card-body table-responsive">
+            <div class="card-block table-responsive">
 
                 <table class="table table-striped table-bordered">
                     <thead class="table-dark">

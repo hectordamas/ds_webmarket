@@ -12,18 +12,22 @@
             <h5 class="mb-4">Editar Información de Tenant</h5>
 
         </div>
-        <ul class="nav nav-tabs card-header-tabs" id="tenantTab" role="tablist">
+        <ul class="nav nav-tabs md-tabs" id="tenantTab" role="tablist">
             <li class="nav-item">
-                <button class="nav-link fw-bold active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab">Información</button>
+                <a href="#info" class="nav-link fw-bold active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab">📌 Información</a>
+                <div class="slide"></div>
             </li>
             <li class="nav-item">
-                <button class="nav-link fw-bold" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">Usuarios</button>
+                <a href="#users" class="nav-link fw-bold" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">👥 Usuarios</a>
+                <div class="slide"></div>
             </li>
             <li class="nav-item">
-                <button class="nav-link fw-bold" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab">Configuración</button>
+                <a href="#settings" class="nav-link fw-bold" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab">⚙️ Configuración</a>
+                <div class="slide"></div>
             </li>
             <li class="nav-item">
-                <button class="nav-link fw-bold" id="apariencia-tab" data-bs-toggle="tab" data-bs-target="#apariencia" type="button" role="tab">Apariencia</button>
+                <a href="#apariencia" class="nav-link fw-bold" id="apariencia-tab" data-bs-toggle="tab" data-bs-target="#apariencia" type="button" role="tab">🎨 Apariencia</a>
+                <div class="slide"></div>
             </li>
         </ul>
     </div>

@@ -165,9 +165,6 @@
 
     <div class="col-md-8">
       <div class="card shadow h-100 border-0">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="mb-0">📦 Productos más vendidos</h5>
-        </div>
         <div class="card-block pb-0">
           <?php if($productosMasVendidos->isEmpty()): ?>
             <div class="text-center text-muted py-5">
@@ -175,26 +172,25 @@
             </div>
           <?php else: ?>
             <div class="table-responsive">
-              <table class="table table-hover mb-0 table-striped table-bordered rounded-3">
-                <thead class="text-center align-middle table-dark">
+              <table class="table table-hover mb-0 rounded-3">
+                <thead class="text-center align-middle">
                   <tr>
-                    <th style="width:40px;">Top</th>
-                    <th>Producto</th>
-                    <th style="width:120px;">Unidades Vendidas</th>
-                    <th style="width:140px;">Ingresos Generados</th>
+                    <th class="border-bottom-0 text-left card-header ps-0">
+                        <h5 class="mb-0">📦 Productos más vendidos</h5>
+                    </th>
+                    <td class="border-bottom-0" style="width:120px;">
+                        <span class="badge bg-primary text-small" style="font-size: 11px;" >Unidades Vendidas</span>
+                    </td>
+                    <td class="border-bottom-0" style="width:140px;">
+                        <span class="badge bg-success text-small" style="font-size: 11px;" >Ingresos Generados</span>
+                    </td>
                   </tr>
                 </thead>
                 <tbody>
                   <?php $__currentLoopData = $productosMasVendidos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $producto): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr class="align-middle">
-                      <td class="text-center">
-                        <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px;">
-                          <i class="fas fa-trophy text-warning me-1"></i> <?php echo e($index+ 1); ?>
-
-                        </div>
-                      </td>
-                      <td class="text-truncate" style="max-width: 300px;" title="<?php echo e($producto['nombre']); ?>">
-                         <?php echo e($producto['nombre']); ?>
+                      <td class="text-truncate text-left" style="max-width: 300px;" title="<?php echo e($producto['nombre']); ?>">
+                         <i class="fas fa-trophy text-warning me-1"></i> <?php echo e($producto['nombre']); ?>
 
                       </td>
                       <td class="text-center fw-bold text-primary">

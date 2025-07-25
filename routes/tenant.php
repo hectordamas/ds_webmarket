@@ -98,7 +98,7 @@ Route::middleware([
             Route::post('products/{id}/update', 'update');
             Route::post('products/{id}/destroy', 'destroy');
             Route::post('products/toggle', 'toggleStatus');
-
+            Route::get('products/getProductsData', 'getProductsData');
         });
 
         // Grupos de opciones
