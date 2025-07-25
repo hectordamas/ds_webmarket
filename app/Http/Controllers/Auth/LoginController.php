@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
