@@ -37,6 +37,12 @@
             'subitems' => []
         ],
         [
+            'name' => 'Carga de Imágenes', 
+            'icon' => '<i class="far fa-file-image"></i>',
+            'ruta' => 'images/upload',
+            'subitems' => []
+        ],
+        [
             'name' => 'Configuración',
             'icon' => '<i class="fas fa-cog"></i>',
             'ruta' => 'settings',
@@ -83,6 +89,10 @@
     <!-- Multi Select CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('files/bower_components/bootstrap-multiselect/dist/css/bootstrap-multiselect.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('files/bower_components/multiselect/css/multi-select.css') }}" />
+
+
+    <!--Dropzone-->
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
     <!-- Main Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('files/assets/css/style.css') }}">
@@ -166,7 +176,7 @@
                             <i class="feather icon-menu"></i>
                         </a>
                         <a href="{{ url('home') }}">
-                            <img class="img-fluid w-100" style="max-width:160px;" src="{{ asset('assets/img/logo-light.png') }}" alt="{{ config('app.name') }} Logo" />
+                            <img class="img-fluid w-100" style="max-width:130px;" src="{{ asset('assets/img/logo-light.png') }}" alt="{{ config('app.name') }} Logo" />
                         </a>
                         <a class="mobile-options">
                             <i class="feather icon-more-horizontal"></i>
@@ -347,6 +357,9 @@
     <script src="{{ asset('files/bower_components/multiselect/js/jquery.multi-select.js') }}"></script>
     <script src="{{ asset('files/assets/js/jquery.quicksearch.js') }}"></script>
     <script src="{{ asset('files/assets/pages/advance-elements/select2-custom.js') }}"></script>
+
+    <!---Dropzone-->
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
     <script src="{{ asset('files/assets/js/script.js') }}"></script>
     <script src="{{ asset('assets/sweetalert2/sweetalert2.all.min.js') }}"></script>

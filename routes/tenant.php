@@ -21,7 +21,8 @@ use App\Http\Controllers\Tenant\{
     PaymentsController,
     FormRequestController,
     NotificationController,
-    ForgotPasswordController
+    ForgotPasswordController,
+    ImagesController
 };
 
 Route::middleware([
@@ -151,7 +152,11 @@ Route::middleware([
             Route::post('payments/store', 'store');
             Route::post('payments/toggle-active',  'toggleActive');
             Route::post('payments/destroy/{id}', 'destroy');
+        });
 
+        Route::controller(ImagesController::class)->group(function(){
+            Route::get('images/upload', 'upload');
+            Route::post('images/store', 'store');
         });
     });
 });
