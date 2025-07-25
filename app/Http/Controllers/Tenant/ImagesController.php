@@ -14,28 +14,21 @@ class ImagesController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
-        if ($request->hasFile('imagenes')) {
-            foreach ($request->file('imagenes') as $image) {
-                // Obtener el nombre del archivo sin la extensión
-                $nombreSinExtension = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-
-                // Buscar producto con SKU que coincida
-                $producto = Product::where('sku', $nombreSinExtension)->first();
-
-                if ($producto) {
-                    // Convertir imagen a base64
-                    $base64Image = 'data:' . $image->getMimeType() . ';base64,' . base64_encode(file_get_contents($image));
-
-                    // Asignar imagen
-                    $producto->image = $base64Image;
-                    $producto->save();
-                }
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
+        
+            $nombreSinExtension = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $producto = Product::where('sku', $nombreSinExtension)->first();
+        
+            if ($producto) {
+                $base64Image = 'data:' . $image->getMimeType() . ';base64,' . base64_encode(file_get_contents($image));
+                $producto->image = $base64Image;
+                $producto->save();
             }
-
-            return response()->json(['message' => 'Imágenes cargadas correctamente']);
+        
+            return response()->json(['message' => 'Imagen cargada correctamente']);
         }
-
-        return response()->json(['error' => 'No se enviaron imágenes'], 400);
+    
+        return response()->json(['error' => 'No se recibió imagen'], 400);
     }
 }
