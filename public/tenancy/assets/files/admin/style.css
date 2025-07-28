@@ -1,5 +1,6 @@
 thead th,
-tbody td {
+tbody td, 
+tfoot td {
     text-align: center;
     vertical-align: middle; /* ← CORRECTO */
 }
