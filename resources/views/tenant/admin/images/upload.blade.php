@@ -78,6 +78,7 @@
                                     <li>Puedes subir <strong>múltiples imágenes a la vez</strong>.</li>
                                     <li>Formatos permitidos: <strong>JPG, PNG, WEBP</strong>.</li>
                                     <li>Tamaño máximo por imagen: <strong>5MB</strong>.</li>
+                                    <li>Resolución sugeridad: <strong>500 pixeles x 500 pixeles</strong>.</li>
                             </ul>
                             <div class="alert alert-warning p-2 small mb-0">
                                 Evita usar espacios o caracteres especiales en los nombres de archivo.
