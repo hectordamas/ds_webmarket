@@ -71,7 +71,7 @@
                             <h4 class="fw-bold mb-2">Arrastra tus imágenes aquí o haz clic para seleccionar</h4>
                             <p class="text-muted">Las imágenes se vinculan automáticamente si el nombre del archivo coincide con el SKU del producto.</p>
 
-                            <div class="text-start d-inline-block mt-3">
+                            <div class="text-start d-inline-block">
                                 <h6 class="fw-bold text-dark">Instrucciones:</h6>
                                 <ul class="mb-2" style="list-style: disc;">
                                     <li>El <strong>nombre del archivo</strong> debe coincidir con el <strong>SKU</strong> del producto.</li>
