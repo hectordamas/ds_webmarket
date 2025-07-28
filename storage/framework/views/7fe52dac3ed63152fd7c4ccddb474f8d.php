@@ -59,7 +59,7 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="card shadow-sm border-0 rounded-4">
             <div class="card-header text-white rounded-top-4 d-flex align-items-center justify-content-between">
                 <h5 class="mb-0"><i class="fas fa-upload me-2"></i> Subir Imágenes de Productos</h5>
@@ -67,8 +67,22 @@
             <div class="card-block">
                 <form action="<?php echo e(url('images/store')); ?>" class="dropzone" id="dropzone" enctype="multipart/form-data" method="post">
                     <div class="dz-message text-center">
-                        <i class="fa fa-upload" style="font-size:30px; margin-bottom:20px;"></i>
-                        <h4>Subir Imágenes</h4>
+                        <i class="fa fa-cloud-upload-alt" style="font-size: 40px; margin-bottom: 15px;"></i>
+                            <h4 class="fw-bold mb-2">Arrastra tus imágenes aquí o haz clic para seleccionar</h4>
+                            <p class="text-muted">Las imágenes se vinculan automáticamente si el nombre del archivo coincide con el SKU del producto.</p>
+
+                            <div class="text-start d-inline-block mt-3">
+                                <h6 class="fw-bold text-dark">Instrucciones:</h6>
+                                <ul class="mb-2" style="list-style: disc;">
+                                    <li>El <strong>nombre del archivo</strong> debe coincidir con el <strong>SKU</strong> del producto.</li>
+                                    <li>Puedes subir <strong>múltiples imágenes a la vez</strong>.</li>
+                                    <li>Formatos permitidos: <strong>JPG, PNG, WEBP</strong>.</li>
+                                    <li>Tamaño máximo por imagen: <strong>5MB</strong>.</li>
+                            </ul>
+                            <div class="alert alert-warning p-2 small mb-0">
+                                Evita usar espacios o caracteres especiales en los nombres de archivo.
+                            </div>
+                        </div>
                     </div>
                     <?php echo csrf_field(); ?>
                     <input type="file" name="file" multiple  style="display: none;"/>
