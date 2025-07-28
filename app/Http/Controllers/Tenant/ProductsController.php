@@ -21,7 +21,9 @@ class ProductsController extends Controller
         $data = $products->map(function ($product) {
             return [
                 'id' => $product->id,
-                'image' => '<img src="' . img64($product->image) . '" class="img-fluid rounded" style="max-height: 60px;">',
+                'image' => '<a href="#" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="showImageModal(\'' . img64($product->image) . '\')">
+                                <img src="' . img64($product->image) . '" class="img-fluid rounded" style="max-height: 60px;">
+                            </a>',
                 'sku' => $product->sku ?? 'N/R',
                 'name' => $product->name,
                 'category' => $product->category->name ?? 'Sin categoría',
@@ -115,8 +117,8 @@ class ProductsController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'category_id' => 'required|exists:categories,id',
-            'active' => 'required|boolean',
+            //'category_id' => 'required|exists:categories,id',
+            //'active' => 'required|boolean',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 

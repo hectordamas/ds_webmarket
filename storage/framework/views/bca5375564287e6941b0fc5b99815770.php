@@ -13,6 +13,20 @@
             <div class="card-block">
                 <form method="POST" action="<?php echo e(url('products/' . $product->id . '/update')); ?>" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
+                    <div class="row justify-content-center">
+                        <div class="col-md-2 mb-4 text-center">
+                            <div data-bs-toggle="modal" data-bs-target="#imageModal" style="cursor:pointer;" onclick="showImageModal('<?php echo e(img64($product->image)); ?>')">
+                                <?php if($product->image): ?>
+                                    <img src="<?php echo e(img64($product->image)); ?>"
+                                         width="100"
+                                         class="rounded shadow"
+                                         style="object-fit: cover;">
+                                <?php else: ?>
+                                    <span class="text-muted">Sin imagen</span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
                 
                     <div class="row g-3">
                         <div class="col-md-3">
@@ -68,7 +82,7 @@ unset($__errorArgs, $__bag); ?>
                     
                         <div class="col-md-3">
                             <label for="category_id" class="form-label fw-semibold">Categoría</label>
-                            <select name="category_id" class="form-select" required disabled>
+                            <select name="category_id" class="form-select bg-light" required onmousedown="return false;">
                                 <option value="">-- Seleccione --</option>
                                 <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <option value="<?php echo e($category->id); ?>" <?php echo e(old('category_id', $product->category_id) == $category->id ? 'selected' : ''); ?>>
@@ -89,7 +103,7 @@ unset($__errorArgs, $__bag); ?>
                     
                         <div class="col-md-3">
                             <label for="active" class="form-label fw-semibold">Estado</label>
-                            <select name="active" class="form-select" disabled>
+                            <select name="active" class="form-select bg-light" onmousedown="return false;">
                                 <option value="1" <?php echo e(old('active', $product->active) == '1' ? 'selected' : ''); ?>>Activo</option>
                                 <option value="0" <?php echo e(old('active', $product->active) == '0' ? 'selected' : ''); ?>>Inactivo</option>
                             </select>
@@ -103,17 +117,19 @@ endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
                     
-                        <div class="col-md-3">
-                            <label for="image" class="form-label fw-semibold">Imagen</label>
-                            <div class="form-control bg-light text-center">
-                                <?php if($product->image): ?>
-                                    <img src="<?php echo e(img64($product->image)); ?>" height="100" class="rounded">
-                                <?php else: ?>
-                                    <span class="text-muted">Sin imagen</span>
-                                <?php endif; ?>
-                            </div>
+
+                        <div class="col-md-6">
+                            <label for="image" class="form-label fw-semibold">Subir Imagen</label>
+                            <input type="file" name="image" id="image" class="form-control" accept="image/*">
+                            <?php $__errorArgs = ['image'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <small class="text-danger"><?php echo e($message); ?></small> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
-                        <div class="col-md-3"></div>
                     
                         <div class="col-md-6">
                             <label for="description" class="form-label fw-semibold">Descripción</label>
@@ -141,7 +157,7 @@ unset($__errorArgs, $__bag); ?>
         </div>
     </div>
 
-    <div class="col-md-12 mt-4">
+    <div class="col-md-12">
         <div class="card shadow">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
@@ -319,11 +335,30 @@ unset($__errorArgs, $__bag); ?>
         </div>
     </div>
 
+    
+    <!-- Modal Reutilizable -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+          <div class="modal-body p-0">
+            <img id="modalImage" src="" class="img-fluid w-100 rounded">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 </div>
 <?php $__env->stopSection(); ?>
 
 
 <?php $__env->startSection('scripts'); ?>
+<script>
+function showImageModal(imageUrl) {
+    document.getElementById('modalImage').src = imageUrl;
+}
+</script>
+
 <script>
 $(document).ready(function() {
     // Resetear modal de grupo al cerrar

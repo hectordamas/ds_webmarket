@@ -15,6 +15,20 @@
             <div class="card-block">
                 <form method="POST" action="{{ url('products/' . $product->id . '/update') }}" enctype="multipart/form-data">
                     @csrf
+                    <div class="row justify-content-center">
+                        <div class="col-md-2 mb-4 text-center">
+                            <div data-bs-toggle="modal" data-bs-target="#imageModal" style="cursor:pointer;" onclick="showImageModal('{{ img64($product->image) }}')">
+                                @if ($product->image)
+                                    <img src="{{ img64($product->image) }}"
+                                         width="100"
+                                         class="rounded shadow"
+                                         style="object-fit: cover;">
+                                @else
+                                    <span class="text-muted">Sin imagen</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 
                     <div class="row g-3">
                         <div class="col-md-3">
@@ -42,7 +56,7 @@
                     
                         <div class="col-md-3">
                             <label for="category_id" class="form-label fw-semibold">Categoría</label>
-                            <select name="category_id" class="form-select" required disabled>
+                            <select name="category_id" class="form-select bg-light" required onmousedown="return false;">
                                 <option value="">-- Seleccione --</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
@@ -55,24 +69,19 @@
                     
                         <div class="col-md-3">
                             <label for="active" class="form-label fw-semibold">Estado</label>
-                            <select name="active" class="form-select" disabled>
+                            <select name="active" class="form-select bg-light" onmousedown="return false;">
                                 <option value="1" {{ old('active', $product->active) == '1' ? 'selected' : '' }}>Activo</option>
                                 <option value="0" {{ old('active', $product->active) == '0' ? 'selected' : '' }}>Inactivo</option>
                             </select>
                             @error('active') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
                     
-                        <div class="col-md-3">
-                            <label for="image" class="form-label fw-semibold">Imagen</label>
-                            <div class="form-control bg-light text-center">
-                                @if ($product->image)
-                                    <img src="{{ img64($product->image) }}" height="100" class="rounded">
-                                @else
-                                    <span class="text-muted">Sin imagen</span>
-                                @endif
-                            </div>
+
+                        <div class="col-md-6">
+                            <label for="image" class="form-label fw-semibold">Subir Imagen</label>
+                            <input type="file" name="image" id="image" class="form-control" accept="image/*">
+                            @error('image') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
-                        <div class="col-md-3"></div>
                     
                         <div class="col-md-6">
                             <label for="description" class="form-label fw-semibold">Descripción</label>
@@ -93,7 +102,7 @@
         </div>
     </div>
 
-    <div class="col-md-12 mt-4">
+    <div class="col-md-12">
         <div class="card shadow">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
@@ -271,11 +280,30 @@
         </div>
     </div>
 
+    
+    <!-- Modal Reutilizable -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+          <div class="modal-body p-0">
+            <img id="modalImage" src="" class="img-fluid w-100 rounded">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 </div>
 @endsection
 
 
 @section('scripts')
+<script>
+function showImageModal(imageUrl) {
+    document.getElementById('modalImage').src = imageUrl;
+}
+</script>
+
 <script>
 $(document).ready(function() {
     // Resetear modal de grupo al cerrar

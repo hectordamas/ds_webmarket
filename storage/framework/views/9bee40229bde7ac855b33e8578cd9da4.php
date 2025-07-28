@@ -78,9 +78,26 @@
     </div>
 </div>
 
+<!-- Modal Reutilizable -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg">
+      <div class="modal-body p-0">
+        <img id="modalImage" src="" class="img-fluid w-100 rounded">
+      </div>
+    </div>
+  </div>
+</div>
+
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('scripts'); ?>
+<script>
+function showImageModal(imageUrl) {
+    document.getElementById('modalImage').src = imageUrl;
+}
+</script>
+
 <script>
 $(document).ready(function () {
     // Manejador para ambos checkboxes
