@@ -83,7 +83,7 @@
                 <h5 class="mb-0">Lista de Órdenes</h5>
             </div>
 
-            <div class="card-body table-responsive">
+            <div class="card-block table-responsive">
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
