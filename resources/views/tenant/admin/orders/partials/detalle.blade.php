@@ -82,7 +82,7 @@
                                 <p class="small text-info mb-0"><strong>Nota:</strong> {{ $product->observations }}</p>
                             @endif
                         </td>
-                        <td class="text-center">{{ $product->sku ?? 'N/A' }}</td>
+                        <td class="text-center">{{ $product->product->sku ?? 'N/A' }}</td>
                         <td class="text-center">${{ number_format($product->unit_price, 2, '.', ',') }}</td>
                         <td class="text-center">{{ $product->quantity }}</td>
                         <td class="text-center fw-bold">${{ number_format($product->subtotal, 2, '.', ',') }}</td>
