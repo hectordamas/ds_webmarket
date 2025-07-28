@@ -22,7 +22,8 @@ class ProductsController extends Controller
             return [
                 'id' => $product->id,
                 'image' => '<img src="' . img64($product->image) . '" class="img-fluid rounded" style="max-height: 60px;">',
-                'name' => e($product->name),
+                'sku' => $product->sku ?? 'N/R',
+                'name' => $product->name,
                 'category' => $product->category->name ?? 'Sin categoría',
                 'price' => '$' . number_format($product->price, 2, ',', '.'),
                 'stock' => $product->stock < 1
@@ -87,6 +88,7 @@ class ProductsController extends Controller
         // Crear el producto
         Product::create([
             'name' => $request->name,
+            'sku' => $request->sku,
             'slug' => $slug,
             'description' => $request->description,
             'price' => $request->price,
@@ -142,10 +144,13 @@ class ProductsController extends Controller
 
         // Actualizar los demás campos
         $product->name = $request->name;
+        $product->sku = $request->sku;
+
         $product->description = $request->description;
         $product->price = $request->price;
         $product->category_id = $request->category_id;
         $product->active = $request->active;
+
         $product->save();
 
         return redirect('products')->with('success', 'Producto actualizado correctamente.');

@@ -16,6 +16,18 @@
                 
                     <div class="row g-3">
                         <div class="col-md-3">
+                            <label for="sku" class="form-label fw-semibold">SKU</label>
+                            <input type="text" name="sku" value="<?php echo e(old('sku', $product->sku)); ?>" class="form-control" required readonly>
+                            <?php $__errorArgs = ['sku'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <small class="text-danger"><?php echo e($message); ?></small> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+                        <div class="col-md-3">
                             <label for="name" class="form-label fw-semibold">Nombre</label>
                             <input type="text" name="name" value="<?php echo e(old('name', $product->name)); ?>" class="form-control" required readonly>
                             <?php $__errorArgs = ['name'];
@@ -101,7 +113,7 @@ unset($__errorArgs, $__bag); ?>
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="col-md-6"></div>
+                        <div class="col-md-3"></div>
                     
                         <div class="col-md-6">
                             <label for="description" class="form-label fw-semibold">Descripción</label>

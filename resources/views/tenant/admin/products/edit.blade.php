@@ -18,6 +18,11 @@
                 
                     <div class="row g-3">
                         <div class="col-md-3">
+                            <label for="sku" class="form-label fw-semibold">SKU</label>
+                            <input type="text" name="sku" value="{{ old('sku', $product->sku) }}" class="form-control" required readonly>
+                            @error('sku') <small class="text-danger">{{ $message }}</small> @enderror
+                        </div>
+                        <div class="col-md-3">
                             <label for="name" class="form-label fw-semibold">Nombre</label>
                             <input type="text" name="name" value="{{ old('name', $product->name) }}" class="form-control" required readonly>
                             @error('name') <small class="text-danger">{{ $message }}</small> @enderror
@@ -67,7 +72,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-6"></div>
+                        <div class="col-md-3"></div>
                     
                         <div class="col-md-6">
                             <label for="description" class="form-label fw-semibold">Descripción</label>

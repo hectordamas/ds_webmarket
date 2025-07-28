@@ -62,10 +62,11 @@
                         <tr>
                             <th>#</th>
                             <th>Imagen</th>
+                            <th>SKU</th>
                             <th>Nombre</th>
                             <th>Categoría</th>
                             <th>Precio</th>
-                            <th>Disponibilidad</th>
+                            <th>Existencia</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
@@ -143,6 +144,7 @@ $(document).ready(function () {
             "columns": [
                 { data: "id" },
                 { data: "image" },
+                { data: "sku" },
                 { data: "name" },
                 { data: "category" },
                 { data: "price" },
