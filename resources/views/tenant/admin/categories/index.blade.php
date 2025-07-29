@@ -8,8 +8,9 @@
 <div class="row">
     <div class="col-12">
         <div class="card shadow">
-            <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="card-header">
                 <h5 class="mb-0">Lista de Categorías</h5>
+                <span>Puedes arrastrar y soltar para ordenar las categorias</span>
                 {{--
                 <a href="{{ url('categories/create') }}" class="btn btn-sm btn-primary">
                     <i class="fas fa-plus"></i> Nueva Categoría
@@ -29,7 +30,7 @@
                     </thead>
                     <tbody id="sortable-categories">
                         @forelse ($categories as $category)
-                            <tr data-id="{{ $category->id }}">
+                            <tr data-id="{{ $category->id }}" style="cursor: all-scroll;">
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->slug }}</td>
                                 <td class="text-center align-middle">

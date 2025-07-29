@@ -6,8 +6,9 @@
 <div class="row">
     <div class="col-12">
         <div class="card shadow">
-            <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="card-header">
                 <h5 class="mb-0">Lista de Categorías</h5>
+                <span>Puedes arrastrar y soltar para ordenar las categorias</span>
                 
             </div>
 
@@ -24,7 +25,7 @@
                     </thead>
                     <tbody id="sortable-categories">
                         <?php $__empty_1 = true; $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                            <tr data-id="<?php echo e($category->id); ?>">
+                            <tr data-id="<?php echo e($category->id); ?>" style="cursor: all-scroll;">
                                 <td><?php echo e($category->name); ?></td>
                                 <td><?php echo e($category->slug); ?></td>
                                 <td class="text-center align-middle">
