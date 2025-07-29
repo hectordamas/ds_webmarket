@@ -14,10 +14,10 @@ foreach (config('tenancy.central_domains') as $domain) {
 
         Auth::routes();
 
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::post('solicitudes/store', [FormRequestController::class, 'store']);
 
-        Route::group(['middleware' => [ 'auth' ]], function(){
+        Route::group(['middleware' => [ 'auth', 'check.active' ]], function(){
+            Route::get('/home', [HomeController::class, 'index'])->name('home');
 
             Route::resource('tenants', TenantController::class);
             Route::post('/tenants/{tenant}/toggle-activo', [TenantController::class, 'toggleActivo'])->name('tenants.toggle-activo');

@@ -82,7 +82,7 @@
                                 <p class="small text-info mb-0"><strong>Nota:</strong> <?php echo e($product->observations); ?></p>
                             <?php endif; ?>
                         </td>
-                        <td class="text-center"><?php echo e($product->sku ?? 'N/A'); ?></td>
+                        <td class="text-center"><?php echo e($product->product->sku ?? 'N/A'); ?></td>
                         <td class="text-center">$<?php echo e(number_format($product->unit_price, 2, '.', ',')); ?></td>
                         <td class="text-center"><?php echo e($product->quantity); ?></td>
                         <td class="text-center fw-bold">$<?php echo e(number_format($product->subtotal, 2, '.', ',')); ?></td>

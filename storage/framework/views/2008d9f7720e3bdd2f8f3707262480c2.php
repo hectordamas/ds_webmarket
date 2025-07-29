@@ -97,6 +97,41 @@
 	<!-- Common JS -->
 	<script src="<?php echo e(asset('central/files/assets/js/common-pages.js')); ?>"></script>
 
+    <script src="<?php echo e(asset('central/assets/sweetalert2/sweetalert2.all.min.js')); ?>"></script>
+
+    <?php if(session()->has('success')): ?>
+    <script>	
+        Swal.fire({
+            text: "<?php echo e(session('success')); ?>",
+            icon: "success",
+            confirmButtonText: "Continuar", 
+            confirmButtonColor: '#28a745'
+        });
+    </script>
+    <?php endif; ?>	
+
+    <?php if(session()->has('error')): ?>
+    <script>	
+        Swal.fire({
+            text: "<?php echo e(session('error')); ?>",
+            icon: "error",
+            confirmButtonText: "Entendido!", 
+            confirmButtonColor: '#dc3545'
+        });
+    </script>
+    <?php endif; ?>	
+
+    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <script>	
+        Swal.fire({
+            text: "<?php echo e($error); ?>",
+            icon: "error",
+            confirmButtonText: "Entendido!", 
+            confirmButtonColor: '#dc3545'
+        });
+    </script>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
 </body>
 
 </html><?php /**PATH C:\laragon\www\dswebmarket\resources\views/central/layouts/auth.blade.php ENDPATH**/ ?>
