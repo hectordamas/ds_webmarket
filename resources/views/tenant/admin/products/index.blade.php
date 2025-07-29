@@ -84,7 +84,7 @@
 <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg">
-      <div class="modal-body p-0">
+      <div class="modal-body">
         <img id="modalImage" src="" class="img-fluid w-100 rounded">
       </div>
     </div>

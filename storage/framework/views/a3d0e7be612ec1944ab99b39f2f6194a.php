@@ -93,7 +93,7 @@
     <div class="col-12 col-xl-4 mb-3">
         <div class="card border-0 shadow h-100">
             <div class="card-header">
-                <h5 class="mb-0">Pedidos por Estado</h5>
+                <h5 class="mb-0">🛒 Pedidos por Estado</h5>
             </div>
             <div class="card-block" style="height: 300px;">
                 <?php if(array_sum($pedidosOrdenados) === 0): ?>
@@ -105,12 +105,12 @@
                 <?php endif; ?>
             </div>
         </div>
-    </div>
+    </div> 
 
     <div class="col-12 col-xl-8 mb-3">
         <div class="card border-0 shadow h-100">
             <div class="card-header">
-                <h5 class="mb-0">Ingresos por Ventas</h5>
+                <h5 class="mb-0">💸 Ingresos por Ventas</h5>
             </div>
             <div class="card-block" style="height: 300px;">
                 <?php if(collect($datosVentas)->sum() > 0): ?>
