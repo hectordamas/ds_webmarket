@@ -34,7 +34,7 @@ class ProductController extends Controller
 
                 $product->name = $item['Descrip'] ?? '';
                 $product->description = $item['Descripcion'] ?? '';
-                $product->codinst = $item['CodInst'] ?? 0;
+                $product->codinst = $item['CodInst'];
                 $product->stock = $item['Existen'] ?? 0;
                 $product->active = $item['Activo'];
                 $product->price = $item['Precio'] ?? 0;
