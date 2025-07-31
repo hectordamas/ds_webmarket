@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Tenant\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tenant\{Category, Product};
+use Validator;
 
 class ProductController extends Controller
 {
     public function store(Request $request)
     {
-        $request->validate([
+        $regla = Validator::make($request->all(), [
             '*.CodProd'     => 'required|string|max:100',
             '*.Evento'      => 'required|in:A,U,D',
             '*.Descrip'     => 'required|string|max:255',
@@ -19,7 +20,22 @@ class ProductController extends Controller
             '*.Existen'     => 'nullable|numeric',
             '*.Activo'      => 'required|boolean',
             '*.Precio'      => 'nullable|numeric',
+        ], [
+            'required'  => 'El campo :attribute es obligatorio.',
+            'string'    => 'El campo :attribute debe ser una cadena de texto.',
+            'numeric'   => 'El campo :attribute debe ser un número.',
+            'boolean'   => 'El campo :attribute debe ser verdadero o falso.',
+            'in'        => 'El campo :attribute debe ser uno de los siguientes valores: :values.',
+            'max'       => 'El campo :attribute no debe tener más de :max caracteres.',
         ]);
+
+		if ($regla->fails())
+        {
+			foreach($regla->errors()->messages() as $error){
+				$mensaje=$error;
+			}            
+			return redirect()->back()->withErrors($mensaje[0]."-4");
+        }
         
         $datosReq = $request->all(); 
 
