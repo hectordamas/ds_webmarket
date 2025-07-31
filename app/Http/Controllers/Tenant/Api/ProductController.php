@@ -36,7 +36,7 @@ class ProductController extends Controller
                 //$product->description = $request->description ?? ''; // si es general
                 //$product->category_id = $request->codcategory ?? ''; // si es general
                 $product->stock = $item['Existen'] ?? 0;
-                $product->active = $item['Activo'] ?? true;
+                $product->active = $item['Activo'];
                 $product->price = $item['Pvpdolar1'] ?? 0;
 
                 $product->save();
