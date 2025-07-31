@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Tenant\Api\{ProductController, CategoryController};
+use App\Http\Controllers\Tenant\Api\{ProductController, CategoryController, OrderController};
 
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -15,6 +15,7 @@ Route::middleware([
     Route::prefix('v1')->group(function () {
         Route::post('productos/store', [ProductController::class, 'store']);
         Route::post('categorias/store', [CategoryController::class, 'store']);
+        Route::get('orders/getCompletedOrders', [OrderController::class, 'getCompletedOrders']);
     });
 
 });
