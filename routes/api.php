@@ -12,15 +12,14 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () { 
+    
     Route::prefix('v1')->group(function () {
         Route::post('productos/store', [ProductController::class, 'store']);
+
         Route::post('categorias/store', [CategoryController::class, 'store']);
+
         Route::get('orders/getCompletedOrders', [OrderController::class, 'getCompletedOrders']);
+        Route::post('orders/storeSaintData', [OrderController::class, 'storeSaintData']);
     });
 
 });
-
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
-
