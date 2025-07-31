@@ -12,14 +12,14 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $regla = Validator::make($request->all(), [
-            '*.CodProd'     => 'required|string|max:100',
-            '*.Evento'      => 'required|in:A,U,D',
-            '*.Descrip'     => 'required|string|max:255',
-            '*.Descripcion' => 'nullable|string',
-            '*.CodInst'     => 'required|string|max:50',
-            '*.Existen'     => 'nullable|numeric',
-            '*.Activo'      => 'required|boolean',
-            '*.Precio'      => 'nullable|numeric',
+            'CodProd'     => 'required|string|max:100',
+            'Evento'      => 'required|in:A,U,D',
+            'Descrip'     => 'required|string|max:255',
+            'Descripcion' => 'nullable|string',
+            'CodInst'     => 'required|string|max:50',
+            'Existen'     => 'nullable|numeric',
+            'Activo'      => 'required|boolean',
+            'Precio'      => 'nullable|numeric',
         ], [
             'required'  => 'El campo :attribute es obligatorio.',
             'string'    => 'El campo :attribute debe ser una cadena de texto.',

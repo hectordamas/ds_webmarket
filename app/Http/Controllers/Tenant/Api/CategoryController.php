@@ -11,21 +11,20 @@ class CategoryController extends Controller
 {
     public function store(Request $request)
     {
-		$regla = Validator::make(['data' => $request->all()], [
-		    'data' => 'required|array|min:1',
-		    'data.*.Descrip' => 'required|string|max:255',
-		    'data.*.Activo' => 'required|boolean',
-		    'data.*.CodInst' => 'required|string|max:50',
+		$regla = Validator::make($request->all(), [
+		    'Descrip' => 'required|string|max:255',
+		    'Activo' => 'required|boolean',
+		    'CodInst' => 'required|string|max:50',
 		], [
-		    'data.required' => 'No se enviaron datos para procesar.',
-		    'data.array' => 'Los datos deben ser un arreglo.',
-		    'data.min' => 'Se requiere al menos un elemento en el arreglo de datos.',
+		    'required' => 'No se enviaron datos para procesar.',
+		    'array' => 'Los datos deben ser un arreglo.',
+		    'min' => 'Se requiere al menos un elemento en el arreglo de datos.',
 		    'required' => 'El campo :attribute es obligatorio.',
 		    'string' => 'El campo :attribute debe ser una cadena de texto.',
 		    'boolean' => 'El campo :attribute debe ser verdadero o falso.',
 		    'max' => 'El campo :attribute no debe tener más de :max caracteres.',
 		]);
-		
+
 		if ($regla->fails()) {
 		    return response()->json([
 		        'success' => false,
