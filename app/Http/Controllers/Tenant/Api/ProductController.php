@@ -22,7 +22,7 @@ class ProductController extends Controller
 
             $product = Product::where('sku', $sku)->first();
 
-            if ($evento === 'D') {
+            if ($evento == 'D') {
                 if ($product) {
                     $product->delete();
                 }
