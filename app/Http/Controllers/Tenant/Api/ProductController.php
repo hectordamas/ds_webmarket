@@ -9,67 +9,51 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    public function store(Request $request)
-    {
+    public function store(Request $request){
+	    $data = [];
+        $datosReq = $request->all(); 
 
-        $regla = Validator::make($request->all(), [
-            'CodProd'     => 'required|string|max:100',
-            'Evento'      => 'required|in:A,U,D',
-            'Descrip'     => 'required|string|max:255',
-            'Descripcion' => 'nullable|string',
-            'CodInst'     => 'required|string|max:50',
-            'Existen'     => 'nullable|numeric',
-            'Activo'      => 'required|boolean',
-            'Precio'      => 'nullable|numeric',
-        ], [
-            'required'  => 'El campo :attribute es obligatorio.',
-            'string'    => 'El campo :attribute debe ser una cadena de texto.',
-            'numeric'   => 'El campo :attribute debe ser un número.',
-            'boolean'   => 'El campo :attribute debe ser verdadero o falso.',
-            'in'        => 'El campo :attribute debe ser uno de los siguientes valores: :values.',
-            'max'       => 'El campo :attribute no debe tener más de :max caracteres.',
-        ]);
-
-		if ($regla->fails()) {
-		    return response()->json([
-		        'success' => false,
-		        'errors' => $regla->errors()
-		    ], 422);
+        for ($i = 0; $i < count($datosReq); $i++) {
+            $data['CodProd'][$i] = @$datosReq[$i]['CodProd'];
+			$data['Descrip'][$i] = @$datosReq[$i]['Descrip'];
+			$data['Activo'][$i] = @$datosReq[$i]['Activo'];
+			$data['CodInst'][$i] = @$datosReq[$i]['CodInst'];
+            $data['Evento'][$i] = @$datosReq[$i]['Evento'];
+            $data['Existen'][$i] = @$datosReq[$i]['Existen'];
+            $data['Precio'][$i] = @$datosReq[$i]['Precio'];
+            $data['Descripcion'][$i] = @$datosReq[$i]['Descripcion'];
 		}
 
+        for ($i = 0; $i < count($data['CodProd']); $i++) {
+            $sku = $item['CodProd'][$i]  ?? null;
+            $evento = $item['Evento'][$i] ?? null;
 
-    $datosReq = $request->all(); 
-
-foreach ($datosReq as $i => $item) {
-    $sku = $item['CodProd'] ?? null;
-    $evento = $item['Evento'] ?? null;
-
-    if (!$sku || !$evento) {
-        continue;
-    }
-
-    $product = Product::where('sku', $sku)->first();
-
-    if ($evento == 'D') {
-        if ($product) {
-            $product->delete();
+            if (!$sku || !$evento) {
+                continue;
+            }
+        
+            $product = Product::where('sku', $sku)->first();
+        
+            if ($evento == 'D') {
+                if ($product) {
+                    $product->delete();
+                }
+            } else {
+                if (!$product) {
+                    $product = new Product();
+                    $product->sku = $sku;
+                }
+            
+                $product->sku = $item['CodProd'][$i];
+                $product->name = $item['Descrip'][$i];
+                $product->description = $item['Descripcion'][$i];
+                $product->codinst = $item['CodInst'][$i];
+                $product->stock = $item['Existen'][$i];
+                $product->active = $item['Activo'][$i];
+                $product->price = $item['Precio'][$i];
+                $product->save();
+            }
         }
-    } else {
-        if (!$product) {
-            $product = new Product();
-            $product->sku = $sku;
-        }
-
-        $product->name = $item['Descrip'] ?? '';
-        $product->description = $item['Descripcion'] ?? '';
-        $product->codinst = $item['CodInst'] ?? null;
-        $product->stock = $item['Existen'] ?? 0;
-        $product->active = $item['Activo'] ?? false;
-        $product->price = $item['Precio'] ?? 0;
-
-        $product->save();
-    }
-}
 
         return response()->json([
             'success' => true
