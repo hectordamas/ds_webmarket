@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tenant\{Category, Product};
+use Validator;
 
 class CategoryController extends Controller
 {
