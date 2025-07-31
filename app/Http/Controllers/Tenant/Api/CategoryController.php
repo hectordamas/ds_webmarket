@@ -33,7 +33,7 @@ class CategoryController extends Controller
 			    ], 422);
 			}
 
-			$data = Array();
+			$data = [];
         	$datosReq = $request->all(); 
 		
 			for ($i = 0; $i < count($datosReq); $i++) {
