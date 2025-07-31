@@ -8,20 +8,34 @@ use App\Models\Tenant\{Category, Product};
 
 class CategoryController extends Controller
 {
-    public function store(Request $request){
-		$data = [];
-		$datosReq = $request->all(); 
-	        
-		for ($i = 0; $i < count($datosReq); $i++) 
-		{
-			$data['codclie'][$i] = @$datosReq[$i]['CodClie'];
-			$data['descrip'][$i] = @$datosReq[$i]['Descrip'];
-			$data['rif'][$i] = @$datosReq[$i]['Rif'];
-			$data['evento'][$i] = @$datosReq[$i]['Evento'];
-			$data['email'][$i]     = @$datosReq[$i]['Email'];
-			$data['telef'][$i]     = @$datosReq[$i]['Telef'];			
-			$data['activo'][$i]     = @$datosReq[$i]['Activo'];
+    public function store(Request $request)
+    {
+        $datosReq = $request->all(); 
 
-		}
+        foreach ($datosReq as $item) {
+            $nombre = $item['Descrip'] ?? null;
+            $activo = $item['Activo'];
+
+            if (!$nombre) {
+                continue; // ignorar si no hay nombre
+            }
+
+            // Puedes buscar por nombre si aún no tienes CodCat o un ID único
+            $category = Category::where('name', $nombre)->first();
+
+            if (!$category) {
+                $category = new Category();
+            }
+
+            $category->name = $nombre;
+            $category->active = $activo;
+
+            $category->save();
+        }
+
+        return response()->json([
+            'success' => true
+        ]);
     }
+
 }

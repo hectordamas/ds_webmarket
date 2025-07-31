@@ -13,9 +13,7 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(function () { 
     Route::prefix('v1')->group(function () {
-        Route::get('productos', [ProductController::class, 'index']);
         Route::post('productos/store', [ProductController::class, 'store']);
-
         Route::post('categorias/store', [CategoryController::class, 'store']);
     });
 
