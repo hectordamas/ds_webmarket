@@ -13,23 +13,16 @@ class CategoryController extends Controller
         $datosReq = $request->all(); 
 
         foreach ($datosReq as $item) {
-            $nombre = $item['Descrip'] ?? null;
-            $activo = $item['Activo'];
-
-            if (!$nombre) {
-                continue; // ignorar si no hay nombre
-            }
-
             // Puedes buscar por nombre si aún no tienes CodCat o un ID único
-            $category = Category::where('name', $nombre)->first();
+            $category = Category::where('condinst', $item['CodInst'])->first();
 
             if (!$category) {
                 $category = new Category();
             }
 
-            $category->name = $nombre;
-            $category->active = $activo;
-
+            $category->name = $item['Descrip'] ;
+            $category->active = $item['Activo'];
+			$category->codinst = $item['CodInst'];
             $category->save();
         }
 

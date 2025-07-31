@@ -33,11 +33,11 @@ class ProductController extends Controller
                 }
 
                 $product->name = $item['Descrip'] ?? '';
-                //$product->description = $request->description ?? ''; // si es general
-                //$product->category_id = $request->codcategory ?? ''; // si es general
+                $product->description = $item['Descripcion'] ?? '';
+                $product->codinst = $item['CodInst'] ?? 0;
                 $product->stock = $item['Existen'] ?? 0;
                 $product->active = $item['Activo'];
-                $product->price = $item['Pvpdolar1'] ?? 0;
+                $product->price = $item['Precio'] ?? 0;
 
                 $product->save();
             }
