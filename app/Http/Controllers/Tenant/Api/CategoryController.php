@@ -13,9 +13,9 @@ class CategoryController extends Controller
     {
 		try {
 			$regla = Validator::make($request->all(), [
-			    'Descrip' => 'required|string|max:255',
-			    'Activo' => 'required|boolean',
-			    'CodInst' => 'required|string|max:50',
+			    '*.Descrip' => 'required|string|max:255',
+			    '*.Activo' => 'required|boolean',
+			    '*.CodInst' => 'required|string|max:50',
 			], [
 			    'required' => 'No se enviaron datos para procesar.',
 			    'array' => 'Los datos deben ser un arreglo.',
