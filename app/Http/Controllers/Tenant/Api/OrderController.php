@@ -21,17 +21,19 @@ class OrderController extends Controller
                 'total' => $order->total,
                 'productos' => $order->products->map(function ($op) {
                     return [
+                        'nombre' => $op->product->name ?? null,
+                        'sku' => $op->product->sku ?? null,
                         'cantidad' => $op->quantity,
                         'precio_unitario' => $op->unit_price,
                         'subtotal' => $op->subtotal,
                         'id' => $op->product->id ?? null,
-                        'nombre' => $op->product->name ?? null,
-                        'sku' => $op->product->sku ?? null,
-                        'extras' => [
-                            'grupo' => $op->option_group_name,
-                            'opcion' => $op->option_name,
-                            'precio' => $op->option_price
-                        ]
+                        'extras' => $op->options->map(function ($extra) {
+                            return [
+                                'grupo' => $extra->group_name,
+                                'opcion' => $extra->name,
+                                'precio' => $extra->price
+                            ];
+                        })
                     ];
                 })
             ];
