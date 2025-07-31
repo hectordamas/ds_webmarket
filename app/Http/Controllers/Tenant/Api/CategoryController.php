@@ -32,19 +32,18 @@ class CategoryController extends Controller
 
 	        $datosReq = $request->all();
 
-	        foreach ($datosReq as $i => $item) {
-	            // Acceso con array asociativo, no objeto ni con $item[$index]
-	            $category = Category::where('codinst', $item[$i]['CodInst'])->first();
+foreach ($datosReq as $i => $item) {
+    $category = Category::where('codinst', $item['CodInst'])->first();
 
-	            if (!$category) {
-	                $category = new Category();
-	            }
+    if (!$category) {
+        $category = new Category();
+    }
 
-	            $category->name = $item[$i]['Descrip'];
-	            $category->active = $item[$i]['Activo'];
-	            $category->codinst = $item[$i]['CodInst'];
-	            $category->save();
-	        }
+    $category->name = $item['Descrip'];
+    $category->active = $item['Activo'];
+    $category->codinst = $item['CodInst'];
+    $category->save();
+}
 
 	        return response()->json(['success' => true]);
 	    } catch (\Exception $e) {

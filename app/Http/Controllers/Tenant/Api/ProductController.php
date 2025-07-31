@@ -39,36 +39,36 @@ class ProductController extends Controller
 
     $datosReq = $request->all(); 
 
-    foreach ($datosReq as $i => $item) {
-        $sku = $item[$i]['CodProd'] ?? null;
-        $evento = $item[$i]['Evento'] ?? null;
+foreach ($datosReq as $i => $item) {
+    $sku = $item['CodProd'] ?? null;
+    $evento = $item['Evento'] ?? null;
 
-        if (!$sku || !$evento) {
-            continue;
-        }
-
-        $product = Product::where('sku', $sku)->first();
-
-        if ($evento == 'D') {
-            if ($product) {
-                $product->delete();
-            }
-        } else {
-            if (!$product) {
-                $product = new Product();
-                $product->sku = $sku;
-            }
-
-            $product->name = $item[$i]['Descrip'] ?? '';
-            $product->description = $item[$i]['Descripcion'] ?? '';
-            $product->codinst = $item[$i]['CodInst'] ?? null;
-            $product->stock = $item[$i]['Existen'] ?? 0;
-            $product->active = $item[$i]['Activo'] ?? false;
-            $product->price = $item[$i]['Precio'] ?? 0;
-
-            $product->save();
-        }
+    if (!$sku || !$evento) {
+        continue;
     }
+
+    $product = Product::where('sku', $sku)->first();
+
+    if ($evento == 'D') {
+        if ($product) {
+            $product->delete();
+        }
+    } else {
+        if (!$product) {
+            $product = new Product();
+            $product->sku = $sku;
+        }
+
+        $product->name = $item['Descrip'] ?? '';
+        $product->description = $item['Descripcion'] ?? '';
+        $product->codinst = $item['CodInst'] ?? null;
+        $product->stock = $item['Existen'] ?? 0;
+        $product->active = $item['Activo'] ?? false;
+        $product->price = $item['Precio'] ?? 0;
+
+        $product->save();
+    }
+}
 
         return response()->json([
             'success' => true
