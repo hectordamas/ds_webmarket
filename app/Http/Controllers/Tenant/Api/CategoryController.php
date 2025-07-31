@@ -38,7 +38,7 @@ class CategoryController extends Controller
 
         	foreach ($datosReq as $index => $item) {
         	    // Puedes buscar por nombre si aún no tienes CodCat o un ID único
-        	    $category = Category::where('condinst', $item->CodInst)->first();
+        	    $category = Category::where('codinst', $item->CodInst)->first();
 			
         	    if (!$category) {
         	        $category = new Category();
