@@ -29,13 +29,13 @@ class ProductController extends Controller
             'max'       => 'El campo :attribute no debe tener más de :max caracteres.',
         ]);
 
-		if ($regla->fails())
-        {
-			foreach($regla->errors()->messages() as $error){
-				$mensaje=$error;
-			}            
-			return redirect()->back()->withErrors($mensaje[0]."-4");
-        }
+		if ($regla->fails()) {
+		    return response()->json([
+		        'success' => false,
+		        'errors' => $regla->errors()
+		    ], 422);
+		}
+
 
         $datosReq = $request->all(); 
 
