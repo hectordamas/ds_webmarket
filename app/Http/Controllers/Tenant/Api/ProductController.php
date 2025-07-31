@@ -10,6 +10,17 @@ class ProductController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            '*.CodProd'     => 'required|string|max:100',
+            '*.Evento'      => 'required|in:A,U,D',
+            '*.Descrip'     => 'required|string|max:255',
+            '*.Descripcion' => 'nullable|string',
+            '*.CodInst'     => 'required|string|max:50',
+            '*.Existen'     => 'nullable|numeric',
+            '*.Activo'      => 'required|boolean',
+            '*.Precio'      => 'nullable|numeric',
+        ]);
+        
         $datosReq = $request->all(); 
 
         foreach ($datosReq as $item) {

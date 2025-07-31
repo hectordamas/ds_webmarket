@@ -10,6 +10,12 @@ class CategoryController extends Controller
 {
     public function store(Request $request)
     {
+		$request->validate([
+            '*.Descrip' => 'required|string|max:255',
+            '*.Activo' => 'required|boolean',
+            '*.CodInst' => 'required|string|max:50',
+        ]);
+
         $datosReq = $request->all(); 
 
         foreach ($datosReq as $item) {
