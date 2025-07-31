@@ -67,7 +67,6 @@ class ProductsController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'category_id' => 'required|exists:categories,id',
             'active' => 'required|boolean',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
@@ -94,7 +93,7 @@ class ProductsController extends Controller
             'slug' => $slug,
             'description' => $request->description,
             'price' => $request->price,
-            'category_id' => $request->category_id,
+            //'category_id' => $request->category_id,
             'active' => $request->active,
             'image' => $base64Image,
         ]);
@@ -150,7 +149,7 @@ class ProductsController extends Controller
 
         $product->description = $request->description;
         $product->price = $request->price;
-        $product->category_id = $request->category_id;
+       // $product->category_id = $request->category_id;
         $product->active = $request->active;
 
         $product->save();

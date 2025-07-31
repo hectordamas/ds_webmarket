@@ -59,7 +59,7 @@
                             <select name="category_id" class="form-select bg-light" required onmousedown="return false;">
                                 <option value="">-- Seleccione --</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                                    <option value="{{ $category->codinst }}" @isset($product->codinst) {{ $product->codinst == $category->codinst ? 'selected' : '' }} @endisset>
                                         {{ $category->name }}
                                     </option>
                                 @endforeach

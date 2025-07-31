@@ -85,7 +85,7 @@ unset($__errorArgs, $__bag); ?>
                             <select name="category_id" class="form-select bg-light" required onmousedown="return false;">
                                 <option value="">-- Seleccione --</option>
                                 <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($category->id); ?>" <?php echo e(old('category_id', $product->category_id) == $category->id ? 'selected' : ''); ?>>
+                                    <option value="<?php echo e($category->codinst); ?>" <?php if(isset($product->codinst)): ?> <?php echo e($product->codinst == $category->codinst ? 'selected' : ''); ?> <?php endif; ?>>
                                         <?php echo e($category->name); ?>
 
                                     </option>
