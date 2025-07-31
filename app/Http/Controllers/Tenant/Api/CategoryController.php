@@ -34,7 +34,7 @@ class CategoryController extends Controller
 
 	        foreach ($datosReq as $i => $item) {
 	            // Acceso con array asociativo, no objeto ni con $item[$index]
-	            $category = Category::where('codinst', $item['CodInst'])->first();
+	            $category = Category::where('codinst', $item[$i]['CodInst'])->first();
 
 	            if (!$category) {
 	                $category = new Category();
