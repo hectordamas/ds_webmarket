@@ -10,9 +10,7 @@ class OrderController extends Controller
 {
     public function getCompletedOrders(){
         try {
-            $orders = Order::where('status', 'Entregado')->with(['products.options', 'products.product' => function ($query) {
-                $query->select('id', 'name', 'sku');
-            }])
+            $orders = Order::where('status', 'Entregado')->with(['products.options', 'products.product'])
             ->get()
             ->map(function ($order) {
                 return [
@@ -40,7 +38,7 @@ class OrderController extends Controller
             });
 
             return response()->json($orders);
-            
+
         }catch(\Exception $e){
 			return response()->json([$e->getMessage(), 'Linea ' . $e->getLine()]);
         }
