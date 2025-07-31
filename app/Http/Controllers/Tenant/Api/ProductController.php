@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Tenant\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tenant\{Category, Product};
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -36,7 +36,7 @@ class ProductController extends Controller
 			}            
 			return redirect()->back()->withErrors($mensaje[0]."-4");
         }
-        
+
         $datosReq = $request->all(); 
 
         foreach ($datosReq as $item) {

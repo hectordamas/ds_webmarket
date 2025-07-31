@@ -5,32 +5,33 @@ namespace App\Http\Controllers\Tenant\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tenant\{Category, Product};
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
     public function store(Request $request)
     {
-		$regla = Validator::make($request->all(), [
-            '*.Descrip' => 'required|string|max:255',
-            '*.Activo' => 'required|boolean',
-            '*.CodInst' => 'required|string|max:50',
-        ], [
-            'required'  => 'El campo :attribute es obligatorio.',
-            'string'    => 'El campo :attribute debe ser una cadena de texto.',
-            'numeric'   => 'El campo :attribute debe ser un número.',
-            'boolean'   => 'El campo :attribute debe ser verdadero o falso.',
-            'in'        => 'El campo :attribute debe ser uno de los siguientes valores: :values.',
-            'max'       => 'El campo :attribute no debe tener más de :max caracteres.',
-        ]);
-
-		if ($regla->fails())
-        {
-			foreach($regla->errors()->messages() as $error){
-				$mensaje=$error;
-			}            
-			return redirect()->back()->withErrors($mensaje[0]."-4");
-        }
+		$regla = Validator::make(['data' => $request->all()], [
+		    'data' => 'required|array|min:1',
+		    'data.*.Descrip' => 'required|string|max:255',
+		    'data.*.Activo' => 'required|boolean',
+		    'data.*.CodInst' => 'required|string|max:50',
+		], [
+		    'data.required' => 'No se enviaron datos para procesar.',
+		    'data.array' => 'Los datos deben ser un arreglo.',
+		    'data.min' => 'Se requiere al menos un elemento en el arreglo de datos.',
+		    'required' => 'El campo :attribute es obligatorio.',
+		    'string' => 'El campo :attribute debe ser una cadena de texto.',
+		    'boolean' => 'El campo :attribute debe ser verdadero o falso.',
+		    'max' => 'El campo :attribute no debe tener más de :max caracteres.',
+		]);
+		
+		if ($regla->fails()) {
+		    return response()->json([
+		        'success' => false,
+		        'errors' => $regla->errors()
+		    ], 422);
+		}
 
         $datosReq = $request->all(); 
 
