@@ -32,20 +32,28 @@ class CategoryController extends Controller
 			        'errors' => $regla->errors()
 			    ], 422);
 			}
-		
+
+			$data = Array();
         	$datosReq = $request->all(); 
 		
-        	foreach ($datosReq as $i => $item) {
+			for ($i = 0; $i < count($datosReq); $i++) {
+				$data['Descrip'][$i] = @$datosReq[$i]['Descrip'];
+				$data['Activo'][$i] = @$datosReq[$i]['Activo'];
+				$data['CodInst'][$i]     = @$datosReq[$i]['CodInst'];
+			}
+
+        	for ($i = 0; $i < count($data['CodInst']); $i++) {
         	    // Puedes buscar por nombre si aún no tienes CodCat o un ID único
-        	    $category = Category::where('codinst', $item[$i]->CodInst)->first();
+        	    $category = Category::where('codinst', $item[$i]['CodInst'])->first();
 			
         	    if (!$category) {
         	        $category = new Category();
         	    }
 			
-        	    $category->name = $item[$i]->Descrip;
-        	    $category->active = $item[$i]->Activo;
-				$category->codinst = $item[$i]->CodInst;
+        	    $category->name = $item[$i]['Descrip'];
+        	    $category->active = $item[$i]['Activo'];
+				$category->codinst = $item[$i]['CodInst'];
+				$category->slug = Str::slug($item[$i]['Descrip']);
         	    $category->save();
         	}
 		
@@ -53,7 +61,7 @@ class CategoryController extends Controller
         	    'success' => true
         	]);
 		} catch (\Exception $e) {
-			return response()->json([$e->getMessage(), $e->getLine()]);
+			return response()->json([$e->getMessage(), 'Linea ' . $e->getLine()]);
 		}
 
     }
