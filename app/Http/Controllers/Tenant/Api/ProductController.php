@@ -11,6 +11,9 @@ class ProductController extends Controller
 {
     public function store(Request $request)
     {
+        return response()->json([
+    'input' => $request->all()
+]);
         $regla = Validator::make($request->all(), [
             'CodProd'     => 'required|string|max:100',
             'Evento'      => 'required|in:A,U,D',

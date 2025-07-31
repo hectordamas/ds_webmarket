@@ -12,6 +12,9 @@ class CategoryController extends Controller
 	public function store(Request $request)
 	{
 	    try {
+			return response()->json([
+    'input' => $request->all()
+]);
 	        $regla = Validator::make($request->all(), [
 	            'Descrip' => 'required|string|max:255',
 	            'Activo'  => 'required|boolean',
