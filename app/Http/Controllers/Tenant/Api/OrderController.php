@@ -27,8 +27,8 @@ class OrderController extends Controller
                             'subtotal' => $op->subtotal,
                             'extras' => $op->options->map(function ($extra) {
                                 return [
-                                    'grupo' => $extra->group_name,
-                                    'opcion' => $extra->name,
+                                    'grupo' => $extra->option_group_name,
+                                    'opcion' => $extra->option_name,
                                     'precio' => $extra->price
                                 ];
                             })
