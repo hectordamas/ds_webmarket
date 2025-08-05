@@ -23,7 +23,7 @@
                 @foreach($cartItem->options->extras as $group => $opts)
                     <li class="mb-1">
                         <span class="text-dark fw-semibold">{{ $group }}:</span><br>
-                        <span class="text-muted">– {{ implode('<br>– ', $opts) }}</span>
+                        <span class="text-muted">– {!! implode('<br>– ', $opts) !!}</span>
                     </li>
                 @endforeach
             </ul>

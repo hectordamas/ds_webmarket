@@ -23,7 +23,7 @@
                 <?php $__currentLoopData = $cartItem->options->extras; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $group => $opts): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="mb-1">
                         <span class="text-dark fw-semibold"><?php echo e($group); ?>:</span><br>
-                        <span class="text-muted">– <?php echo e(implode('<br>– ', $opts)); ?></span>
+                        <span class="text-muted">– <?php echo implode('<br>– ', $opts); ?></span>
                     </li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>

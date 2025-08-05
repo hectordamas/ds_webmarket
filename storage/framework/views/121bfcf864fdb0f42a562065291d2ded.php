@@ -14,10 +14,6 @@
     </div>
     <!-- Datos del Cliente -->
     <div class="mb-3">
-        <label class="form-label fw-semibold">Nombre y Apellido</label>
-        <input type="text" class="form-control" name="nombre" placeholder="Ingrese su nombre completo" required>
-    </div>
-    <div class="mb-3">
         <label class="form-label fw-semibold">Cédula de identidad</label>
         <div class="input-group">
             <select name="tipo_documento" class="form-select" style="max-width: 80px;" required>
@@ -31,6 +27,12 @@
             <input type="tel" class="form-control" name="cedula" placeholder="Ej: 12345678" required>
         </div>
     </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Nombre y Apellido</label>
+        <input type="text" class="form-control" name="nombre" placeholder="Ingrese su nombre completo" required>
+    </div>
+    
     <div class="mb-3">
         <label class="form-label fw-semibold">Teléfono</label>
         <div class="input-group">
