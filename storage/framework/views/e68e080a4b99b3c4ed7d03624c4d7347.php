@@ -21,9 +21,9 @@
 
     </head>
     <body>
-
-        <?php echo $__env->yieldContent('content'); ?>
-        
+        <div class="content-wrapper">
+            <?php echo $__env->yieldContent('content'); ?>
+        </div>
         <script src="<?php echo e(asset('central/assets/jquery.js')); ?>"></script>
         <script src="<?php echo e(asset('central/assets/bootstrap/js/bootstrap.min.js')); ?>"></script>
         <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>

@@ -21,9 +21,9 @@
 
     </head>
     <body>
-
-        @yield('content')
-        
+        <div class="content-wrapper">
+            @yield('content')
+        </div>
         <script src="{{ asset('central/assets/jquery.js') }}"></script>
         <script src="{{ asset('central/assets/bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
