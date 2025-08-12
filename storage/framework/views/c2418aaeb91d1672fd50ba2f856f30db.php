@@ -56,7 +56,7 @@
     }
     .display-2{
       font-family: 'Poppins';
-      font-weight: 500 !important;
+      font-weight: 600 !important;
     }
   </style>
 <?php $__env->stopSection(); ?>
