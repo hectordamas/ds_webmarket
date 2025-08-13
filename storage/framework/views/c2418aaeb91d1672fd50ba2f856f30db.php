@@ -102,7 +102,7 @@
               </div>
               <div class="col-md-6">
                 <div class="input-group">
-                  <span class="input-group-text">+58</span>
+                  <span class="input-group-text bg-light shadow-lg">+58</span>
                   <input type="text" class="form-control" name="whatsapp" placeholder="412-1234567" required>
                 </div>
               </div>
