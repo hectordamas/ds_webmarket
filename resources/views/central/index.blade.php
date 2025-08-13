@@ -76,9 +76,15 @@
             Muestra tus productos, recibe pedidos por WhatsApp y aumenta tus ventas sin complicaciones.
           </p>
           <ul class="icon-list bullet-bg bullet-soft-primary mb-6">
-            <li><i class="uil uil-check"></i> Compatible con Saint</li>
-            <li><i class="uil uil-check"></i> Catálogo responsive y rápido</li>
-            <li><i class="uil uil-check"></i> Pedidos por WhatsApp en un clic</li>
+            <li>
+              <i class="uil uil-check"></i> Compatible con Saint
+            </li>
+            <li>
+              <i class="uil uil-check"></i> Catálogo responsive y rápido
+            </li>
+            <li>
+              <i class="uil uil-check"></i> Pedidos por WhatsApp en un click
+            </li>
           </ul>
         </div>
 
