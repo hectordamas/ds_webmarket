@@ -122,7 +122,10 @@
                     <p class="mb-0" style="font-size: 14px;">
                         &copy; {{ date('Y') }} {{ config('app.name') }}. Todos los derechos reservados.
                     </p>
-                    <div class="my-4">
+                    <p class="mt-3 mb-0" style="font-size: 14px;">
+                        Desarrollado con ❤️ Por:
+                    </p>
+                    <div class="mb-4 mt-3">
                         <img src="{{ asset('assets/img/saint-light.png') }}" style="max-width: 100px;" alt="">
                         <img src="{{ asset('assets/img/dsapps.png') }}" style="max-width: 100px;" alt="">
                     </div>
