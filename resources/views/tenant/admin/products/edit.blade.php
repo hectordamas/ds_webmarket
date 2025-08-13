@@ -101,7 +101,7 @@
 
         </div>
     </div>
-
+    {{--
     <div class="col-md-12">
         <div class="card shadow">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -191,7 +191,7 @@
                 @endif
             </div>
         </div>
-    </div>
+    </div>--}}
 
     <!-- Modal para Grupos -->
     <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-hidden="true">
