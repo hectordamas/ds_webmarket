@@ -27,8 +27,8 @@ class ProductController extends Controller
 		    }
 
             for ($i = 0; $i < count($data['CodProd']); $i++) {
-                $sku = $item['CodProd'][$i]  ?? null;
-                $evento = $item['Evento'][$i] ?? null;
+                $sku = $data['CodProd'][$i]  ?? null;
+                $evento = $data['Evento'][$i] ?? null;
 
                 if (!$sku || !$evento) {
                     continue;
@@ -46,13 +46,13 @@ class ProductController extends Controller
                         $product->sku = $sku;
                     }
                 
-                    $product->sku = $item['CodProd'][$i];
-                    $product->name = $item['Descrip'][$i];
-                    $product->description = $item['Descripcion'][$i];
-                    $product->codinst = $item['CodInst'][$i];
-                    $product->stock = $item['Existen'][$i];
-                    $product->active = $item['Activo'][$i];
-                    $product->price = $item['Precio'][$i];
+                    $product->sku = $data['CodProd'][$i];
+                    $product->name = $data['Descrip'][$i];
+                    $product->description = $data['Descripcion'][$i];
+                    $product->codinst = $data['CodInst'][$i];
+                    $product->stock = $data['Existen'][$i];
+                    $product->active = $data['Activo'][$i];
+                    $product->price = $data['Precio'][$i];
                     $product->save();
                 }
             }
