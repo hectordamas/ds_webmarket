@@ -33,7 +33,7 @@
     {{-- Botones secundarios --}}
     <div class="d-grid gap-2 mb-4">
         <a href="{{ url('track-order-page/' . $order->id) }}" target="_blank" class="btn btn-tenant">Seguimiento del pedido</a>
-        <a href="{{ url('/') }}" target="_blank"  class="btn btn-outline-dark">Hacer otro pedido</a>
+        <a href="{{ url('/') }}"  class="btn btn-outline-dark">Hacer otro pedido</a>
     </div>
 
     {{-- Footer --}}

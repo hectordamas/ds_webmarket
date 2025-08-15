@@ -33,7 +33,7 @@
     
     <div class="d-grid gap-2 mb-4">
         <a href="<?php echo e(url('track-order-page/' . $order->id)); ?>" target="_blank" class="btn btn-tenant">Seguimiento del pedido</a>
-        <a href="<?php echo e(url('/')); ?>" target="_blank"  class="btn btn-outline-dark">Hacer otro pedido</a>
+        <a href="<?php echo e(url('/')); ?>"  class="btn btn-outline-dark">Hacer otro pedido</a>
     </div>
 
     

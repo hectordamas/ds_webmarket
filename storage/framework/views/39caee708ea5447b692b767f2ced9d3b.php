@@ -1,2 +1,2 @@
 <i class="fas fa-shopping-cart me-2"></i> 
-<span>Su Pedido: $<?php echo e(number_format(Cart::subtotal() ?? 0, 2, '.', ',')); ?></span><?php /**PATH C:\laragon\www\dswebmarket\resources\views/tenant/shop/components/cart/button-content.blade.php ENDPATH**/ ?>
+<span>Su Pedido: $<?php echo e(Cart::subtotal()); ?></span><?php /**PATH C:\laragon\www\dswebmarket\resources\views/tenant/shop/components/cart/button-content.blade.php ENDPATH**/ ?>

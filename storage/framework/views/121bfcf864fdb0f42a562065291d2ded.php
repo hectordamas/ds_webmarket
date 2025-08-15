@@ -30,14 +30,14 @@
 
     <div class="mb-3">
         <label class="form-label fw-semibold">Nombre y Apellido</label>
-        <input type="text" class="form-control" name="nombre" placeholder="Ingrese su nombre completo" required>
+        <input type="text" class="form-control" name="nombre" placeholder="Ingrese su nombre completo" required onkeyup="this.value=this.value.toUpperCase();">
     </div>
     
     <div class="mb-3">
         <label class="form-label fw-semibold">Teléfono</label>
         <div class="input-group">
             <span class="input-group-text">+58</span>
-            <input type="tel" class="form-control" name="telefono" placeholder="Ej: 4121234567" required>
+            <input type="tel" class="form-control" name="telefono" placeholder="Ej: 4121234567" required onkeyup="this.value=this.value.toUpperCase();">
         </div>
     </div>
     
@@ -45,11 +45,11 @@
     <div id="direccionFields">
         <div class="mb-3">
             <label class="form-label fw-semibold">Dirección completa</label>
-            <textarea class="form-control" name="direccion" rows="2" placeholder="Ej: Av. Principal, Edif. 10, Piso 2" required></textarea>
+            <textarea class="form-control" name="direccion" rows="2" placeholder="Ej: Av. Principal, Edif. 10, Piso 2" required onkeyup="this.value=this.value.toUpperCase();"></textarea>
         </div>
         <div class="mb-3">
             <label class="form-label fw-semibold">Apartamento, oficina, etc <span class="text-muted small">(opcional)</span></label>
-            <input type="text" class="form-control" name="detalle_direccion" placeholder="Ej: Apto. 3B">
+            <input type="text" class="form-control" name="detalle_direccion" placeholder="Ej: Apto. 3B" onkeyup="this.value=this.value.toUpperCase();">
         </div>
     </div>
 

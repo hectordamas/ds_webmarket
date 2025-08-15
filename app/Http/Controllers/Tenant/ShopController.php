@@ -13,6 +13,10 @@ class ShopController extends Controller
         $categories = Category::with(['products' => function ($query) {
             $query->where('active', true)->where('visible', true);
         }])
+        ->whereHas('products', function ($query) {
+            $query->where('active', true)
+                  ->where('visible', true);
+        })
         ->where('active', true)
         ->where('visible', true)
         ->orderBy('order')

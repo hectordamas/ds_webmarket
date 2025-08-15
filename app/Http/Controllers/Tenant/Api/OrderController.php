@@ -18,6 +18,10 @@ class OrderController extends Controller
                     'nombre' => $order->nombre, 
                     'tipo_documento' => $order->tipo_documento, 
                     'numero_documento' => $order->cedula, 
+                    'direccion' => $order->direccion, 
+                    'detalle_direccion' => $order->detalle_direccion, 
+                    'telefono' => $order->telefono, 
+                    'metodo_pago' => $order->metodo_pago, 
                     'estado' => $order->status,
                     'total' => $order->total,
                     'productos' => $order->products->map(function ($op) {
