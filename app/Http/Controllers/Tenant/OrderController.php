@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Tenant\{Order, OrderProduct, OrderProductOption, Payment};
+use App\Models\Tenant\{Order, OrderProduct, OrderProductOption, Payment, Customer};
 use Carbon\Carbon;
 use Cart;
 
@@ -155,6 +155,15 @@ class OrderController extends Controller
         // Crear la orden (adaptar según modelo)
         $payment = Payment::find($data['metodo_pago']);
 
+        $customer = new Customer();
+        $customer->nombre = $data['nombre'];
+        $customer->tipo_documento = $data['tipo_documento'];
+        $customer->cedula = $data['cedula'];
+        $customer->telefono = $data['telefono'];
+        $customer->direccion = $data['direccion'] ?? null;
+        $customer->detalle_direccion = $data['detalle_direccion'] ?? null;
+        $customer->save();
+
         $order = new Order();
         $order->nombre = $data['nombre'];
         $order->tipo_documento = $data['tipo_documento'];
@@ -167,6 +176,7 @@ class OrderController extends Controller
         $order->tipo_pedido = $data['tipo_pedido'];
         $order->total = Cart::subtotal();
         $order->items = json_encode(Cart::content()); // O guardar en tabla relacionada
+        $order->customer_id = $customer->id;
         $order->save();
 
         foreach (Cart::content() as $item) {

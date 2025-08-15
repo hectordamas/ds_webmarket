@@ -22,7 +22,8 @@ use App\Http\Controllers\Tenant\{
     FormRequestController,
     NotificationController,
     ForgotPasswordController,
-    ImagesController
+    ImagesController,
+    CustomersController
 };
 
 Route::middleware([
@@ -157,6 +158,10 @@ Route::middleware([
         Route::controller(ImagesController::class)->group(function(){
             Route::get('images/upload', 'upload');
             Route::post('images/store', 'store');
+        });
+
+        Route::controller(CustomersController::class)->group(function(){
+            Route::post('getCustomer', 'getCustomer');
         });
     });
 });

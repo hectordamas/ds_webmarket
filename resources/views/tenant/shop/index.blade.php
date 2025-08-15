@@ -474,6 +474,24 @@
                 $('#summaryDireccion').text('');
             }
         });
+
+        $('[name="tipo_documento"], [name="cedula"]').change(function(){
+            $.ajax({
+                url: '{{ url("getCustomer") }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    tipo_documento: $('[name="tipo_documento"]').val(),
+                    cedula: $('[name="cedula"]').val()
+                },
+                success: function (response) {
+
+                },
+                error: function () {
+                   // Swal.fire("Error", "No se pudo vaciar el carrito", "error");
+                }
+            });
+        })
     });
 </script>
 
