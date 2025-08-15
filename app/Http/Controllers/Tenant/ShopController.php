@@ -38,6 +38,7 @@ class ShopController extends Controller
                 'referrer' => $request->header('referer'),
             ]);
         }
+        dd(Cart::subtotal());
     
         return view('tenant.shop.index', compact('categories', 'settings', 'payments' , 'whatsapp_url'));
     }
