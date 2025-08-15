@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tenant\{Category, Product, Setting, Payment, Visit};
-
+use Cart;
 class ShopController extends Controller
 {
     public function index(Request $request)
