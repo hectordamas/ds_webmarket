@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tenant\{Category, Product};
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -53,6 +54,7 @@ class ProductController extends Controller
                     $product->stock = $data['Existen'][$i];
                     $product->active = $data['Activo'][$i];
                     $product->price = $data['Precio'][$i];
+                    $product->slug = Str::slug($data['Descrip'][$i]);
                     $product->save();
                 }
             }
