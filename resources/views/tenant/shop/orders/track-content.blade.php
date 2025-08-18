@@ -13,13 +13,12 @@
 {{-- Cabecera Pedido --}}
 <div class="card shadow-sm mb-3">
     <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-        <div>
-            <span class="badge bg-success mb-2 mb-md-0">
+        <div class="text-md-start mt-2 mt-md-0">
+            <span class="badge bg-success mb-2">
                 {{ $order->tipo_pedido === 'Pickup' ? 'Recoger en local' : 'Delivery' }}
             </span>
-            <div class="fw-bold fs-5">
-                Pedido #{{ $order->id }}
-                <small class="text-muted ms-2">{{ $order->created_at->format('d/m/Y h:i A') }}</small>
+            <div class="fw-bold fs-6">
+                Pedido #{{ $order->numero_orden }}
             </div>
         </div>
         <div class="text-md-end mt-2 mt-md-0">
@@ -33,7 +32,9 @@
                 ];
                 $color = $statusColors[$order->status] ?? 'dark';
             @endphp
-            <span class="badge bg-{{ $color }} fs-6">Estatus: {{ $order->status }}</span>
+            <span class="badge bg-{{ $color }} mb-2">Estatus: {{ $order->status }}</span> <br>
+            <small class="text-muted ms-2">{{ $order->created_at->format('d/m/Y h:i A') }}</small>
+
         </div>
     </div>
 </div>

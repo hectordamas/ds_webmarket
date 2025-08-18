@@ -91,7 +91,8 @@
                 <table class="table table-hover ordersTable" id="ordersTable">
                     <thead class="table-dark">
                         <tr>
-                            <th>#</th>
+                            <th>ID</th>
+                            <th>Número</th>
                             <th>Cliente</th>
                             <th>Cedula</th>
                             <th>Método de Pago</th>
@@ -150,7 +151,7 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="viewDetailsModalLabel">Detalles de la Orden</h5>
+        <h5 class="modal-title" id="viewDetailsModalLabel">Detalles de la Orden: </h5><strong class="ms-2">#</strong><strong id="orderNumeroTitle"></strong>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="orderDetails">
@@ -212,6 +213,7 @@
 			},
             columns: [
                 { data: 'id' },
+                { data: 'numero_orden' },
                 { data: 'nombre' },
                 { data: 'cedula' },
                 { data: 'metodo_pago' },
@@ -287,7 +289,8 @@
             },
             success: function(response){
                 $('#spinner').hide().removeClass('d-flex');
-                $('#orderContent').html(response);  // Muestra detalle
+                $('#orderContent').html(response.html);  // Muestra detalle
+                $('#orderNumeroTitle').html(response.order.numero_orden);
             },
             error: function(){
                 $('#spinner').hide().removeClass('d-flex');

@@ -88,6 +88,7 @@ class OrderController extends Controller
 
         return [
             'id' => $order->id,
+            'numero_orden' => $order->numero_orden,
             'nombre' => (!$order->is_read ? '<span class="d-inline-block rounded-circle pulse point'.$order->id.' me-2" style="width: 10px; height: 10px; margin-top: 6px; background-color: red;"></span>' : '').$order->nombre,
             'cedula' => $order->tipo_documento . $order->cedula,
             'metodo_pago' => $order->metodo_pago,
@@ -155,7 +156,13 @@ class OrderController extends Controller
         // Crear la orden (adaptar según modelo)
         $payment = Payment::find($data['metodo_pago']);
 
-        $customer = new Customer();
+        $customer = Customer::where('cedula', $request->cedula)
+        ->where('tipo_documento', $request->tipo_documento)
+        ->first();
+
+        if(!$customer){
+            $customer = new Customer();
+        }
         $customer->nombre = $data['nombre'];
         $customer->tipo_documento = $data['tipo_documento'];
         $customer->cedula = $data['cedula'];
@@ -238,7 +245,12 @@ class OrderController extends Controller
         $order->save();
         
         // Retornamos un view parcial con los datos
-        return view('tenant.admin.orders.partials.detalle', compact('order'))->render();
+        $html = view('tenant.admin.orders.partials.detalle', compact('order'))->render();
+        return response()->json([
+            'html' => $html,
+            'order' => $order
+        ]);  
+        
     }
 
     public function track($id){

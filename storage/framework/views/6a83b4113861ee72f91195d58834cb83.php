@@ -13,15 +13,14 @@
 
 <div class="card shadow-sm mb-3">
     <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-        <div>
-            <span class="badge bg-success mb-2 mb-md-0">
+        <div class="text-md-start mt-2 mt-md-0">
+            <span class="badge bg-success mb-2">
                 <?php echo e($order->tipo_pedido === 'Pickup' ? 'Recoger en local' : 'Delivery'); ?>
 
             </span>
-            <div class="fw-bold fs-5">
-                Pedido #<?php echo e($order->id); ?>
+            <div class="fw-bold fs-6">
+                Pedido #<?php echo e($order->numero_orden); ?>
 
-                <small class="text-muted ms-2"><?php echo e($order->created_at->format('d/m/Y h:i A')); ?></small>
             </div>
         </div>
         <div class="text-md-end mt-2 mt-md-0">
@@ -35,7 +34,9 @@
                 ];
                 $color = $statusColors[$order->status] ?? 'dark';
             ?>
-            <span class="badge bg-<?php echo e($color); ?> fs-6">Estatus: <?php echo e($order->status); ?></span>
+            <span class="badge bg-<?php echo e($color); ?> mb-2">Estatus: <?php echo e($order->status); ?></span> <br>
+            <small class="text-muted ms-2"><?php echo e($order->created_at->format('d/m/Y h:i A')); ?></small>
+
         </div>
     </div>
 </div>

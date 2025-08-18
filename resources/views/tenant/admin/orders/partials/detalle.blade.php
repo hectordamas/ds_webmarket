@@ -26,6 +26,9 @@
         <div class="col-md-6">
             <div class="bg-light p-3 rounded shadow-sm h-100">
                 <ul class="list-unstyled mb-0">
+                    <li>
+                        <i class="fas fa-file-invoice me-2 text-dark"></i> <strong>Número de Orden:</strong> {{ $order->numero_orden }}
+                    </li>
                     <li><i class="fas fa-truck me-2 text-dark"></i><strong>Tipo de Pedido:</strong> {{ $order->tipo_pedido }}</li>
                     <li><i class="fas fa-credit-card me-2 text-dark"></i><strong>Método de Pago:</strong> {{ $order->payment->name }}</li>
                     @php

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Tenant\{Product, Setting, Payment};
+use App\Models\Tenant\{Product, Setting, Payment,Order};
 use Cart;
 
 class CartController extends Controller
@@ -151,7 +151,7 @@ class CartController extends Controller
             'tipo_documento' => 'required|string',
         ]);
 
-        $pedidoId = rand(1000, 9999);
+        $order = Order::find($request->orderId);
 
         // Preparar número telefónico
         $telefono = $data['telefono'];
@@ -160,7 +160,7 @@ class CartController extends Controller
         }
 
         $mensaje = "============================\n";
-        $mensaje .= "*ORDEN N.º {$pedidoId}* \n";
+        $mensaje .= "*ORDEN N.º {$order->numero_orden}* \n";
         $mensaje .= "============================\n";
         $mensaje .= "*DATOS DEL CLIENTE*\n";
         $mensaje .= "----------------------------------\n";

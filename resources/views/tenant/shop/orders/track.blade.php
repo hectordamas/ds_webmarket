@@ -1,6 +1,6 @@
 @extends('tenant.layouts.app')
 @section('metadata')
-<title>Seguimiento de Pedido #{{$order->id}} - {{ tenant('nombre_empresa') }}</title>
+<title>Seguimiento de Pedido #{{$order->numero_orden}} - {{ tenant('nombre_empresa') }}</title>
 @endsection
 @section('content')
 <div class="container my-4" >

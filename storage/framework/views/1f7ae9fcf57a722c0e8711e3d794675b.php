@@ -1,6 +1,6 @@
 
 <?php $__env->startSection('metadata'); ?>
-<title>Seguimiento de Pedido #<?php echo e($order->id); ?> - <?php echo e(tenant('nombre_empresa')); ?></title>
+<title>Seguimiento de Pedido #<?php echo e($order->numero_orden); ?> - <?php echo e(tenant('nombre_empresa')); ?></title>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
 <div class="container my-4" >

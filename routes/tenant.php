@@ -73,6 +73,10 @@ Route::middleware([
         Route::get('track-content/{id}', 'trackContent');
     });
 
+    Route::controller(CustomersController::class)->group(function(){
+        Route::post('getCustomer', 'getCustomer');
+    });
+
     //Rutas con Auth
     Route::middleware('tenant.auth')->group(function () {
 
@@ -160,9 +164,7 @@ Route::middleware([
             Route::post('images/store', 'store');
         });
 
-        Route::controller(CustomersController::class)->group(function(){
-            Route::post('getCustomer', 'getCustomer');
-        });
+
     });
 });
 

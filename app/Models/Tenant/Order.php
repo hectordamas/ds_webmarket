@@ -12,6 +12,15 @@ class Order extends Model
 
     protected $guarded = [];
 
+    protected static function booted()
+    {
+        static::created(function ($order) {
+            // Generar número único: YYYYMMDD + ID
+            $order->numero_orden = 'ORD' . now()->format('Ymd') . $order->id;
+            $order->save();
+        });
+    }
+
     public function products()
     {
         return $this->hasMany(OrderProduct::class);

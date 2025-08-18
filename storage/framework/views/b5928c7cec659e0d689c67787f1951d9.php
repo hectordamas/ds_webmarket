@@ -475,6 +475,36 @@
                 $('#summaryDireccion').text('');
             }
         });
+
+        $('[name="tipo_documento"], [name="cedula"]').on('input', function(){
+            console.log('run')
+            $.ajax({
+                url: '<?php echo e(url("getCustomer")); ?>',
+                method: 'POST',
+                data: {
+                    _token: '<?php echo e(csrf_token()); ?>',
+                    tipo_documento: $('[name="tipo_documento"]').val(),
+                    cedula: $('[name="cedula"]').val()
+                },
+                success: function (response) {
+                    if(response.customer){
+                        $('[name="nombre"]').val(response.customer.nombre);
+                        $('[name="telefono"]').val(response.customer.telefono);
+                        $('[name="direccion"]').val(response.customer.direccion);
+                        $('[name="detalle_direccion"]').val(response.customer.detalle_direccion);
+                    }else{
+                        $('[name="nombre"]').val('');
+                        $('[name="telefono"]').val('');
+                        $('[name="direccion"]').val('');
+                        $('[name="detalle_direccion"]').val('');
+                    }
+
+                },
+                error: function () {
+                   // Swal.fire("Error", "No se pudo vaciar el carrito", "error");
+                }
+            });
+        })
     });
 </script>
 
@@ -490,6 +520,7 @@
             detalle_direccion: $('input[name="detalle_direccion"]').val(),
             metodo_pago: $('select[name="metodo_pago"]').val(),
             tipo_pedido: $('input[name="tipo_pedido"]:checked').val(),
+            orderId: $('#orderIdReturn').val()
         };
 
         $.ajax({

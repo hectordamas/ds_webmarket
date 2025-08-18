@@ -475,7 +475,8 @@
             }
         });
 
-        $('[name="tipo_documento"], [name="cedula"]').change(function(){
+        $('[name="tipo_documento"], [name="cedula"]').on('input', function(){
+            console.log('run')
             $.ajax({
                 url: '{{ url("getCustomer") }}',
                 method: 'POST',
@@ -485,6 +486,17 @@
                     cedula: $('[name="cedula"]').val()
                 },
                 success: function (response) {
+                    if(response.customer){
+                        $('[name="nombre"]').val(response.customer.nombre);
+                        $('[name="telefono"]').val(response.customer.telefono);
+                        $('[name="direccion"]').val(response.customer.direccion);
+                        $('[name="detalle_direccion"]').val(response.customer.detalle_direccion);
+                    }else{
+                        $('[name="nombre"]').val('');
+                        $('[name="telefono"]').val('');
+                        $('[name="direccion"]').val('');
+                        $('[name="detalle_direccion"]').val('');
+                    }
 
                 },
                 error: function () {
@@ -507,6 +519,7 @@
             detalle_direccion: $('input[name="detalle_direccion"]').val(),
             metodo_pago: $('select[name="metodo_pago"]').val(),
             tipo_pedido: $('input[name="tipo_pedido"]:checked').val(),
+            orderId: $('#orderIdReturn').val()
         };
 
         $.ajax({

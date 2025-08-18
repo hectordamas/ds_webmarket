@@ -9,7 +9,7 @@
 
     {{-- Número del pedido --}}
     <p class="mb-1 text-muted">Su número de pedido es:</p>
-    <h2 class="fw-bold text-tenant mb-3" id="numeroPedido">{{ $order->id ?? '—' }}</h2>
+    <h5 class="fw-bold text-tenant mb-3" id="numeroPedido">#{{ $order->numero_orden ?? '—' }}</h5>
 
     {{-- Tiempo estimado --}}
     <p class="small  mb-3">
@@ -34,6 +34,7 @@
     <div class="d-grid gap-2 mb-4">
         <a href="{{ url('track-order-page/' . $order->id) }}" target="_blank" class="btn btn-tenant">Seguimiento del pedido</a>
         <a href="{{ url('/') }}"  class="btn btn-outline-dark">Hacer otro pedido</a>
+        <input type="hidden" id="orderIdReturn" value="{{ $order->id }}">
     </div>
 
     {{-- Footer --}}

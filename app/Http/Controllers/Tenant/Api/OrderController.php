@@ -15,6 +15,7 @@ class OrderController extends Controller
             ->map(function ($order) {
                 return [
                     'id' => $order->id,
+                    'numero_orden' => $order->numero_orden,
                     'nombre' => $order->nombre, 
                     'tipo_documento' => $order->tipo_documento, 
                     'numero_documento' => $order->cedula, 
