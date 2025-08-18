@@ -160,7 +160,7 @@ class CartController extends Controller
         }
 
         $mensaje = "============================\n";
-        $mensaje .= "*ORDEN N.º {$order->numero_orden}* \n";
+        $mensaje .= "*ORDEN # {$order->numero_orden}* \n";
         $mensaje .= "============================\n";
         $mensaje .= "*DATOS DEL CLIENTE*\n";
         $mensaje .= "----------------------------------\n";

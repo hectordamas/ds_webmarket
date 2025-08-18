@@ -521,7 +521,10 @@
             tipo_pedido: $('input[name="tipo_pedido"]:checked').val(),
             orderId: $('#orderIdReturn').val()
         };
-
+    
+        // 👇 abrir ventana vacía desde el click (no será bloqueada)
+        const win = window.open('', '_blank');
+    
         $.ajax({
             url: "{{ url('enviar-pedido') }}",
             method: "POST",
@@ -531,13 +534,14 @@
             },
             success: function(response) {
                 if (response.url) {
-                    console.log(response.url);
-                    window.open(response.url, '_blank');
+                    win.location.href = response.url; // 👈 asignar aquí la URL
                 } else {
+                    win.close();
                     alert('No se pudo generar el mensaje.');
                 }
             },
             error: function(xhr) {
+                win.close();
                 alert('Error al enviar el pedido.');
             },
             complete: function() {

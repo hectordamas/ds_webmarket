@@ -163,12 +163,24 @@ class OrderController extends Controller
         if(!$customer){
             $customer = new Customer();
         }
-        $customer->nombre = $data['nombre'];
-        $customer->tipo_documento = $data['tipo_documento'];
-        $customer->cedula = $data['cedula'];
-        $customer->telefono = $data['telefono'];
-        $customer->direccion = $data['direccion'] ?? null;
-        $customer->detalle_direccion = $data['detalle_direccion'] ?? null;
+        if($data['nombre']){
+            $customer->nombre = $data['nombre'];
+        }
+        if($data['tipo_documento']){
+            $customer->tipo_documento = $data['tipo_documento'];
+        }
+        if($data['cedula']){
+            $customer->cedula = $data['cedula'];
+        }
+        if($data['telefono']){
+            $customer->telefono = $data['telefono'];
+        }
+        if($data['direccion']){
+            $customer->direccion = $data['direccion'];
+        }
+        if($data['detalle_direccion']){
+            $customer->detalle_direccion = $data['detalle_direccion'];
+        }
         $customer->save();
 
         $order = new Order();
