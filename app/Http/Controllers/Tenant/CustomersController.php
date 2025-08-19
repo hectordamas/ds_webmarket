@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Tenant\{Customer};
+use App\Models\Tenant\{Customer, Order};
 
 class CustomersController extends Controller
 {
@@ -36,11 +36,24 @@ class CustomersController extends Controller
 
         $totalRecords = $customers->count();
 
+        $ticketPromedio = Order::where('status', 'Entregado')
+            ->avg('total');
+        $totalClientes = $totalRecords;
+        $nuevosClientesMes = Customer::whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
+        $comprasPromedioPorCliente = Order::where('status', 'Entregado')->count() / $totalClientes;
+
         return response()->json([
             "sEcho" => 1,
             "iTotalRecords" => $totalRecords,
             "iTotalDisplayRecords" => $totalRecords,
-            "aaData" => $data, // 👈 clave que DataTables leerá
+            "aaData" => $data, // 👈 clave que DataTables leer
+
+            "ticketPromedio" => "$" . number_format($ticketPromedio, 2, '.', ','),
+            "totalClientes" => $totalClientes,
+            "nuevosClientesMes" => $nuevosClientesMes,
+            "comprasPromedioPorCliente" => $comprasPromedioPorCliente
         ]);
     }
 

@@ -6,6 +6,45 @@
 
 @section('content')
 <div class="row">
+    <div class="col-xl-3">
+        <div class="card bg-c-green order-card shadow-sm">
+            <div class="card-block">
+                <h6>Ticket Promedio</h6>
+                <h2 id="ticketPromedio">...</h2>
+                <i class="card-icon fas fa-ticket"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3">
+        <div class="card bg-c-blue order-card shadow-sm">
+            <div class="card-block">
+                <h6>Total Clientes</h6>
+                <h2 id="totalClientes">...</h2>
+                <i class="card-icon fas fa-user-tie"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3">
+        <div class="card bg-c-pink order-card shadow-sm">
+            <div class="card-block">
+                <h6>Nuevos Clientes / Mes</h6>
+                <h2 id="nuevosClientesMes">...</h2>
+                <i class="card-icon far fa-calendar"></i>
+            </div>
+        </div>
+    </div>
+        <div class="col-xl-3">
+        <div class="card bg-c-yellow order-card shadow-sm">
+            <div class="card-block">
+                <h6>Compra Promedio / Cliente</h6>
+                <h2 id="comprasPromedioPorCliente">...</h2>
+                <i class="card-icon fas fa-sack-dollar"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -58,10 +97,10 @@
 					fnCallback(json)
                     $("#loadingSpinner").css("display", "none"); 
 
-                    $('#totalInventario').html(json.totalInventario)
-                    $('#totalDeProductos').html(json.totalDeProductos)
-                    $('#totalUnidades').html(json.totalUnidades)
-                    $('#productosAgotados').html(json.productosAgotados);
+                    $('#ticketPromedio').html(json.ticketPromedio)
+                    $('#totalClientes').html(json.totalClientes)
+                    $('#nuevosClientesMes').html(json.nuevosClientesMes)
+                    $('#comprasPromedioPorCliente').html(json.comprasPromedioPorCliente);
 				} );
 			},
             columns: [
