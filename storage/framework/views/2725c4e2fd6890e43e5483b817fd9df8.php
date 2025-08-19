@@ -43,6 +43,12 @@
             'subitems' => []
         ],
         [
+            'name' => 'Clientes',
+            'icon' => '<i class="fas fa-user-tie"></i>',
+            'ruta' => 'customers',
+            'subitems' => []
+        ],
+        [
             'name' => 'Configuración',
             'icon' => '<i class="fas fa-cog"></i>',
             'ruta' => 'settings',

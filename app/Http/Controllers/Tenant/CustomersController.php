@@ -17,4 +17,36 @@ class CustomersController extends Controller
             'customer' => $customer
         ]);
     }
+
+    public function getCustomersData()
+    {
+        $customers = Customer::orderBy('id', 'desc')->get();
+
+        $data = $customers->map(function ($customer) {
+            return [
+                "id"               => $customer->id,
+                "created_at"       => $customer->created_at->format('Y-m-d H:i:s'),
+                "updated_at"       => $customer->updated_at->format('Y-m-d H:i:s'),
+                "nombre"           => $customer->nombre,
+                "cedula"           => $customer->tipo_documento . $customer->cedula,
+                "telefono"         => '+58' . $customer->telefono,
+                "direccion"        => $customer->direccion,
+                "detalle_direccion"=> $customer->detalle_direccion,
+            ];
+        });
+
+        $totalRecords = $customers->count();
+
+        return response()->json([
+            "sEcho" => 1,
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $data, // 👈 clave que DataTables leerá
+        ]);
+    }
+
+    public function index(){
+
+        return view('tenant.admin.customers.index');
+    }
 }

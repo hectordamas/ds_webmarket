@@ -164,6 +164,11 @@ Route::middleware([
             Route::post('images/store', 'store');
         });
 
+        Route::controller(CustomersController::class)->group(function(){
+            Route::get('customers', 'index');
+            Route::get('getCustomersData', 'getCustomersData');
+
+        });
 
     });
 });
