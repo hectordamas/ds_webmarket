@@ -24,7 +24,6 @@
                                     <th>Documento de identidad</th>
                                     <th>Teléfono</th>
                                     <th>Dirección</th>
-                                    <th>Detalle Dirección</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,8 +71,7 @@
                 { data: "nombre" },
                 { data: "cedula" },
                 { data: "telefono" },
-                { data: "direccion" },
-                { data: "detalle_direccion" }
+                { data: "direccion" }
             ],
             "bPaginate": true,
             "sPaginationType":"full_numbers",

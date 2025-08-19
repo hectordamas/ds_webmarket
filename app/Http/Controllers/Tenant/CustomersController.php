@@ -30,8 +30,7 @@ class CustomersController extends Controller
                 "nombre"           => $customer->nombre,
                 "cedula"           => $customer->tipo_documento . $customer->cedula,
                 "telefono"         => '+58' . $customer->telefono,
-                "direccion"        => $customer->direccion,
-                "detalle_direccion"=> $customer->detalle_direccion,
+                "direccion"        => $customer->direccion . ' ' . $customer->detalle_direccion,
             ];
         });
 

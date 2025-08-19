@@ -14,7 +14,7 @@
             <div class="card-block">
                 <div class="row">
                     <div class="col-md-12">
-                        <table class="table" id="customersTable">
+                        <table class="table table-bordered table-striped" id="customersTable">
                             <thead class="table-dark">
                                 <tr>
                                     <th>#</th>
