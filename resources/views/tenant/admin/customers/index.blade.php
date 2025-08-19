@@ -57,12 +57,12 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th>#</th>
-                                    <th>Creado</th>
-                                    <th>Actualizado</th>
                                     <th>Nombre</th>
                                     <th>Documento de identidad</th>
                                     <th>Teléfono</th>
                                     <th>Dirección</th>
+                                    <th>Total Órdenes</th>
+                                    <th>Ticket Promedio</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,12 +105,12 @@
 			},
             columns: [
                 { data: "id" },
-                { data: "created_at" },
-                { data: "updated_at" },
                 { data: "nombre" },
                 { data: "cedula" },
                 { data: "telefono" },
-                { data: "direccion" }
+                { data: "direccion" },
+                { data: "total" },
+                { data: "ticketPromedio" },
             ],
             "bPaginate": true,
             "sPaginationType":"full_numbers",

@@ -25,12 +25,12 @@ class CustomersController extends Controller
         $data = $customers->map(function ($customer) {
             return [
                 "id"               => $customer->id,
-                "created_at"       => $customer->created_at->format('Y-m-d H:i:s'),
-                "updated_at"       => $customer->updated_at->format('Y-m-d H:i:s'),
                 "nombre"           => $customer->nombre,
                 "cedula"           => $customer->tipo_documento . $customer->cedula,
                 "telefono"         => '+58' . $customer->telefono,
                 "direccion"        => $customer->direccion . ' ' . $customer->detalle_direccion,
+                "total"            => '$' . number_format($customer->orders()->where('status', 'Entregado')->sum('total'), 2, '.', ','),
+                "ticketPromedio"   => '$' . number_format($customer->orders()->where('status', 'Entregado')->avg('total'), 2, '.', ',')
             ];
         });
 
