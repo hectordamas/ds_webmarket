@@ -18,16 +18,38 @@
     </head>
     <body>
 
+        <style>
+            .loader-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #141e30; /* Fondo oscuro o el que prefieras */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+            }
+        
+            /* Spinner CSS */
+            .spinner {
+                width: 50px;
+                height: 50px;
+                border: 6px solid rgba(255, 255, 255, 0.2);
+                border-top: 6px solid #00ffa2; /* Color principal */
+                border-radius: 50%;
+                animation: spin 0.8s linear infinite;
+            }
+        
+            @keyframes spin {
+                100% { transform: rotate(360deg); }
+            }
+        </style>
+        
         <!-- LOADER -->
         <div id="loader" class="loader-overlay">
-            <dotlottie-player 
-                src="{{ asset('assets/img/loading.lottie') }}" 
-                background="transparent" 
-                style="max-width: 250px;"
-                speed="1" 
-                loop 
-                autoplay>
-            </dotlottie-player>
+            <div class="spinner"></div>
         </div>
 
         @yield('content')
