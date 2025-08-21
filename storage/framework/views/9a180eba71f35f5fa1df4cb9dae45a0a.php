@@ -83,29 +83,67 @@
                 <h5 class="mb-0">Lista de Órdenes</h5>
             </div>
 
-            <div class="card-block table-responsive">
+            <div class="card-block">                
+                
                 <?php if(session('success')): ?>
                     <div class="alert alert-success"><?php echo e(session('success')); ?></div>
                 <?php endif; ?>
 
-                <table class="table table-hover ordersTable" id="ordersTable">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Número</th>
-                            <th>Cliente</th>
-                            <th>Cedula</th>
-                            <th>Método de Pago</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                            <th>Fecha</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ordersTbodyTable">
+                <ul class="nav nav-tabs md-tabs mb-4" id="ordersTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link fw-bold active" id="appearance-tab" data-bs-toggle="tab" href="#delivery" type="button" role="tab">
+                            🎨 Delivery
+                        </a>
+                        <div class="slide"></div>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link fw-bold" id="info-tab" data-bs-toggle="tab" href="#pickup" type="button" role="tab">
+                            🧾 Entrega en el Local
+                        </a>
+                        <div class="slide"></div>
+                    </li>
+                </ul>
 
-                    </tbody>
-                </table>
+                <div class="tab-content" id="ordersTabContent">
+                    <div class="tab-pane fade show active table-responsive" id="delivery" role="tabpanel">
+                        <table class="table table-hover ordersTable" id="ordersDeliveryTable">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Número</th>
+                                    <th>Cliente</th>
+                                    <th>Cedula</th>
+                                    <th>Método de Pago</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Fecha</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersDeliveryTbodyTable"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane fade table-responsive" id="pickup" role="tabpanel">
+                        <table class="table table-hover ordersPickupTable" id="ordersPickupTable">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Número</th>
+                                    <th>Cliente</th>
+                                    <th>Cedula</th>
+                                    <th>Método de Pago</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Fecha</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersPickupTbodyTable"></tbody>
+                        </table>
+                    </div>
+                <div>
+
             </div>
         </div>
     </div>
@@ -176,18 +214,23 @@
     function getOrdersData(updated){
         $("#loadingSpinner").css("display", "flex"); 
 
-        if ($.fn.DataTable.isDataTable('#ordersTable')) {
-            $('#ordersTable').dataTable().fnClearTable();
-			$('#ordersTable').dataTable().fnDestroy();
-        }
-
         let range = $('#range').val();
 
-        $('#ordersTable').DataTable({
+        if ($.fn.DataTable.isDataTable('#ordersDeliveryTable')) {
+            $('#ordersDeliveryTable').dataTable().fnClearTable();
+			$('#ordersDeliveryTable').dataTable().fnDestroy();
+        }
+
+        if ($.fn.DataTable.isDataTable('#ordersPickupTable')) {
+            $('#ordersPickupTable').dataTable().fnClearTable();
+			$('#ordersPickupTable').dataTable().fnDestroy();
+        }
+
+        $('#ordersDeliveryTable').DataTable({
             order: [[0, 'desc']],
             "bDeferRender": true,
             "bProcessing": true,
-            "sAjaxSource": "<?php echo e(url('orders/getOrdersData')); ?>",
+            "sAjaxSource": "<?php echo e(url('orders/getOrdersDeliveryData')); ?>",
             "fnServerData": function ( sSource, aoData, fnCallback ) {
 				$.getJSON( sSource, aoData, function (json) { 
 					fnCallback(json)
@@ -200,6 +243,74 @@
                     $('.count5').html(json.cancelados);
                     $('.count6').html(json.totalVentas);
 
+                    if(updated){
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Actualizado!',
+                            text: 'El estado de la orden fue actualizado correctamente.',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    }
+				} );
+			},
+            columns: [
+                { data: 'id' },
+                { data: 'numero_orden' },
+                { data: 'nombre' },
+                { data: 'cedula' },
+                { data: 'metodo_pago' },
+                { data: 'total' },
+                { data: 'estatus' },
+                { data: 'fecha' },
+                { data: 'acciones' },
+            ],
+            createdRow: function(row, data, dataIndex) {
+                // Aquí puedes agregar data-id, clases, estilos, etc.
+                $(row).attr('data-id', data.id);
+                $(row).addClass('order_row_' + data.id);
+                if (!data.is_read) {
+                    $(row).addClass('table-secondary');
+                }
+            },
+            "bPaginate": true,
+            "sPaginationType":"full_numbers",
+            "iDisplayLength": 20,
+            "fnServerParams": function ( aoData ) {
+                aoData.push( { "name": "range", "value": range } );
+            },
+            dom: 'Bfrtip',
+			buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],	        
+            "responsive": true, 
+            "lengthChange": false, 
+            "autoWidth": false,
+            pageLength: 20,
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
+                "sInfoFiltered": "(filtrado de _MAX_ registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                }
+            }
+        });
+
+        $('#ordersPickupTable').DataTable({
+            order: [[0, 'desc']],
+            "bDeferRender": true,
+            "bProcessing": true,
+            "sAjaxSource": "<?php echo e(url('orders/getOrdersPickupData')); ?>",
+            "fnServerData": function ( sSource, aoData, fnCallback ) {
+				$.getJSON( sSource, aoData, function (json) { 
+					fnCallback(json)
                     if(updated){
                         Swal.fire({
                             icon: 'success',

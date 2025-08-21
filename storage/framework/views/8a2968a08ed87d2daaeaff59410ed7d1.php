@@ -77,7 +77,7 @@
                             <?php if($product->options->count()): ?>
                                 <ul class="small ps-3 mb-1">
                                     <?php $__currentLoopData = $product->options; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $opt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <li><?php echo e($opt->option_group_name); ?>: <?php echo e($opt->option_name); ?> - $<?php echo e(number_format($opt->option_price, 2, '.', ',')); ?></li>
+                                        <li><?php echo e($opt->option_group_name); ?>: <?php echo e($opt->option_name); ?> - $<?php echo e(number_format($opt->price, 2, '.', ',')); ?></li>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </ul>
                             <?php endif; ?>

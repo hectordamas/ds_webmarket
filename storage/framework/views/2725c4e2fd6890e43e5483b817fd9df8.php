@@ -463,20 +463,10 @@
                             nuevasOrdenes.push(order); // <-- Guardamos orden nueva para notificación
                         }
                     
-                        if ($('#ordersTable').length) {
-                            const existingRow = $(`#ordersTable tbody tr[data-id="${order.id}"]`);
-                        
-                            if (existingRow.length) {
-                                existingRow.replaceWith(order.html);
-                                let newRow = $(`ordersTable tbody tr[data-id="${order.id}"]`);
-                                newRow.addClass('table-warning');
-                                setTimeout(() => newRow.removeClass('table-warning'), 2000);
-                            } else {
-                                $('#ordersTable tbody').prepend(order.html);
-                                let newRow = $(`#ordersTable tbody tr[data-id="${order.id}"]`);
-                                newRow.addClass('table-success');
-                                setTimeout(() => newRow.removeClass('table-success'), 2000);
-                            }
+                        if (order.tipo_pedido === "Delivery") {
+                            updateOrderRow(order, "ordersDeliveryTable");
+                        } else if (order.tipo_pedido === "Pickup") {
+                            updateOrderRow(order, "ordersPickupTable");
                         }
                     });
 
@@ -491,6 +481,24 @@
                     contadorActual = data.contador;
                 }
             });
+        }
+
+        function updateOrderRow(order, tableId) {
+             if ($(`#${tableId}`).length) {
+                const existingRow = $(`#${tableId} tbody tr[data-id="${order.id}"]`);
+
+                if (existingRow.length) {
+                    existingRow.replaceWith(order.html);
+                    let newRow = $(`#${tableId} tbody tr[data-id="${order.id}"]`);
+                    newRow.addClass('table-warning');
+                    setTimeout(() => newRow.removeClass('table-warning'), 2000);
+                } else {
+                    $(`#${tableId} tbody`).prepend(order.html);
+                    let newRow = $(`#${tableId} tbody tr[data-id="${order.id}"]`);
+                    newRow.addClass('table-success');
+                    setTimeout(() => newRow.removeClass('table-success'), 2000);
+                }
+            }
         }
 
         if (Notification.permission === 'default') {

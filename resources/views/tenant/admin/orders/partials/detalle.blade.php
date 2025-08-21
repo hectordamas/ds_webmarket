@@ -76,7 +76,7 @@
                             @if ($product->options->count())
                                 <ul class="small ps-3 mb-1">
                                     @foreach ($product->options as $opt)
-                                        <li>{{ $opt->option_group_name }}: {{ $opt->option_name }} - ${{ number_format($opt->option_price, 2, '.', ',') }}</li>
+                                        <li>{{ $opt->option_group_name }}: {{ $opt->option_name }} - ${{ number_format($opt->price, 2, '.', ',') }}</li>
                                     @endforeach
                                 </ul>
                             @endif

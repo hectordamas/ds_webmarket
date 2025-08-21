@@ -85,6 +85,11 @@
                                             data-bs-target="#productModal"
                                             style="cursor:pointer;"
                                         >
+                                        @if($product->stock < 1)
+                                            <span class="badge bg-danger position-absolute top-0 end-0 m-2">No Disponible</span>
+                                        @else
+                                            <span class="badge bg-success position-absolute top-0 end-0 m-2">{{ $product->stock }} Disponible{{$product->stock > 1 ? 's' : ''}}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -532,9 +537,9 @@
             success: function(response) {
                 if (response.url) {
                     console.log(response.url);
-                    window.location.href = response.url; // 👈 redirige en la misma pestaña
+                    window.location.href = response.url; 👈 redirige en la misma pestaña
 
-                   // window.open(response.url, '_blank');
+                    //window.open(response.url, '_blank');
                 } else {
                     alert('No se pudo generar el mensaje.');
                 }

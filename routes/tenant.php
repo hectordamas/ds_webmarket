@@ -71,6 +71,8 @@ Route::middleware([
         Route::post('orders/store', 'store');
         Route::get('track-order-page/{id}', 'track');
         Route::get('track-content/{id}', 'trackContent');
+        Route::get('orders-screen/data', 'ordersScreen');
+        Route::get('kds', 'kds');
     });
 
     Route::controller(CustomersController::class)->group(function(){
@@ -146,7 +148,8 @@ Route::middleware([
             Route::get('orders/ver-detalles/{id}', 'show');
             Route::post('orden-detalle', 'detalle');
             Route::post('orders/update-status', 'updateStatus');
-            Route::get('orders/getOrdersData', 'getOrdersData');
+            Route::get('orders/getOrdersDeliveryData', 'getOrdersDeliveryData');
+            Route::get('orders/getOrdersPickupData', 'getOrdersPickupData');
         });
 
         Route::get('notificaciones/polling', [NotificationController::class, 'polling']);

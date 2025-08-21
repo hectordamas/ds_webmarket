@@ -1,5 +1,6 @@
 <tr data-id="{{ $order->id }}" class="order_row_{{$order->id}} {{ !$order->is_read ? 'table-secondary' : '' }}">
   <td>{{ $order->id }}</td>
+  <td>{{$order->numero_orden}}</td>
   <td>
     @if(!$order->is_read)
         {{-- Punto como reemplazo del avatar --}}

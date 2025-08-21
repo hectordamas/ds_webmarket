@@ -86,6 +86,11 @@
                                             data-bs-target="#productModal"
                                             style="cursor:pointer;"
                                         >
+                                        <?php if($product->stock < 1): ?>
+                                            <span class="badge bg-danger position-absolute top-0 end-0 m-2">No Disponible</span>
+                                        <?php else: ?>
+                                            <span class="badge bg-success position-absolute top-0 end-0 m-2"><?php echo e($product->stock); ?> Disponible<?php echo e($product->stock > 1 ? 's' : ''); ?></span>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>

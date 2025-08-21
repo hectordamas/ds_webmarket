@@ -1,5 +1,6 @@
 <tr data-id="<?php echo e($order->id); ?>" class="order_row_<?php echo e($order->id); ?> <?php echo e(!$order->is_read ? 'table-secondary' : ''); ?>">
   <td><?php echo e($order->id); ?></td>
+  <td><?php echo e($order->numero_orden); ?></td>
   <td>
     <?php if(!$order->is_read): ?>
         

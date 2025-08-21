@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Tenant\{Order, OrderProduct, OrderProductOption, Payment, Customer};
+use App\Models\Tenant\{Order, OrderProduct, OrderProductOption, Payment, Customer, Setting};
 use Carbon\Carbon;
 use Cart;
 
@@ -42,15 +42,11 @@ class OrderController extends Controller
         return view('tenant.admin.orders.index');
     }
 
-    public function getOrdersData(Request $request)
+    public function getOrdersDeliveryData(Request $request)
     {
         $range = $request->input('range', 'today');
 
         $ordersQuery = $this->getOrdersByRange($range);
-
-        $orders = $ordersQuery->get();
-
-        $totalRecords = $orders->count();
 
         // Contadores por estatus usando el mismo query base para optimizar:
         $pendientes = (clone $ordersQuery)->where('status', 'Pendiente')->count();
@@ -60,6 +56,10 @@ class OrderController extends Controller
         $cancelados = (clone $ordersQuery)->where('status', 'Cancelado')->count();
         $totalVentas = (clone $ordersQuery)->where('status', 'Entregado')->sum('total');
 
+        
+        $orders = $ordersQuery->where('tipo_pedido', 'Delivery')->get();
+        $totalRecords = $orders->count();
+        
         $data = $orders->map(fn($order) => $this->getOrderRow($order))->toArray();
 
         return response()->json([
@@ -73,6 +73,26 @@ class OrderController extends Controller
             'entregados' => $entregados,
             'cancelados' => $cancelados,
             'totalVentas' => '$'. number_format($totalVentas, 2, '.', ','),
+        ]);
+    }
+
+    public function getOrdersPickupData(Request $request)
+    {
+        $range = $request->input('range', 'today');
+
+        $ordersQuery = $this->getOrdersByRange($range);
+
+        $orders = $ordersQuery->where('tipo_pedido', 'Pickup')->get();
+
+        $totalRecords = $orders->count();
+
+        $data = $orders->map(fn($order) => $this->getOrderRow($order))->toArray();
+
+        return response()->json([
+            "sEcho" => 1,
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            'aaData' => $data,
         ]);
     }
 
@@ -297,6 +317,36 @@ class OrderController extends Controller
         $order->save();
     
         return response()->json(['success' => true]);
+    }
+
+    public function kds(){
+        $settings = Setting::pluck('value', 'key');
+
+        return view('tenant.shop.orders.orders-screen', [
+            'settings' => $settings
+        ]);
+    }
+
+    public function ordersScreen()
+    {
+        // Filtramos solo las órdenes de HOY
+        $todayOrders = Order::whereDate('created_at', now()->toDateString())
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        // Recorremos y asignamos un número consecutivo
+        foreach ($todayOrders as $index => $order) {
+            $order->numero = $index + 1;
+        }
+
+        // Separamos en pendientes y finalizadas
+        $pending = $todayOrders->where('status', 'Pendiente')->values();
+        $finished = $todayOrders->where('status', 'Enviado')->values();
+
+        return response()->json([
+            'pending' => $pending,
+            'finished' => $finished,
+        ]);
     }
 
 

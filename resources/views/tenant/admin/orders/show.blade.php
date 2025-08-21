@@ -1,7 +1,7 @@
 @extends('tenant.layouts.admin')
 
 @section('metadata')
-<title>{{ config('app.name') }} - Orden {{$order->id}}</title>
+<title>{{ config('app.name') }} - Orden {{$order->numero_orden}}</title>
 @endsection
 
 @section('content')

@@ -8,9 +8,12 @@ use App\Models\Tenant\{Order};
 
 class OrderController extends Controller
 {
-    public function getCompletedOrders(){
+    public function getCompletedOrders(Request $request){
         try {
-            $orders = Order::where('status', 'Entregado')->with(['products.options', 'products.product'])
+
+            $status = $request->status ?? 'Entregado';
+
+            $orders = Order::where('status', $status)->with(['products.options', 'products.product'])
             ->get()
             ->map(function ($order) {
                 return [
