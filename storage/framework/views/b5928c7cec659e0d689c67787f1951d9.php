@@ -538,9 +538,9 @@
             success: function(response) {
                 if (response.url) {
                     console.log(response.url);
-                    window.location.href = response.url; // 👈 redirige en la misma pestaña
+                    window.location.href = response.url; 👈 redirige en la misma pestaña
 
-                   // window.open(response.url, '_blank');
+                    //window.open(response.url, '_blank');
                 } else {
                     alert('No se pudo generar el mensaje.');
                 }
