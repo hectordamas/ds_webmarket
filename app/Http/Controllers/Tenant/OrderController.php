@@ -213,7 +213,7 @@ class OrderController extends Controller
         $order->payment_id = $data['metodo_pago'];
         $order->metodo_pago = $payment->name;
         $order->tipo_pedido = $data['tipo_pedido'];
-        $order->total = Cart::subtotal();
+        $order->total = (float) str_replace(',', '', Cart::subtotal());
         $order->items = json_encode(Cart::content()); // O guardar en tabla relacionada
         $order->customer_id = $customer->id;
         $order->save();
