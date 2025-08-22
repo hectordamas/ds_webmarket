@@ -36,7 +36,6 @@ class OrderController extends Controller
         return Order::whereBetween('created_at', [$from, $to])->orderBy('id', 'desc');
     }
 
-
     public function index()
     {
         return view('tenant.admin.orders.index');
@@ -213,7 +212,7 @@ class OrderController extends Controller
         $order->payment_id = $data['metodo_pago'];
         $order->metodo_pago = $payment->name;
         $order->tipo_pedido = $data['tipo_pedido'];
-        $order->total = (float) str_replace(',', '', Cart::subtotal());
+        $order->total = Cart::subtotal(2, '.', ''); 
         $order->items = json_encode(Cart::content()); // O guardar en tabla relacionada
         $order->customer_id = $customer->id;
         $order->save();
