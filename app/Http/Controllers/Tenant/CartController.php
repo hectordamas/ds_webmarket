@@ -85,7 +85,7 @@ class CartController extends Controller
             'name' => $product->name,
             'qty' => $request->input('quantity', 1),
             'price' => $total,
-            'options' => ['image' => $product->image, 'extras' => $optionsCart, 'observations' => $request->observations],
+            'options' => ['image' => $product->image, 'extras' => $optionsCart, 'observations' => $request->observations, 'base_price' => $product->price],
             'weight' => 0
         ]);
 
@@ -154,7 +154,7 @@ class CartController extends Controller
         $order = Order::find($request->orderId);
 
         // Preparar número telefónico
-        $telefono = $data['telefono'];
+        $telefono = $order->telefono;
         if (!str_starts_with($telefono, '+')) {
             $telefono = '+58' . ltrim($telefono, '0');
         }
@@ -164,12 +164,12 @@ class CartController extends Controller
         $mensaje .= "============================\n";
         $mensaje .= "*DATOS DEL CLIENTE*\n";
         $mensaje .= "----------------------------------\n";
-        $mensaje .= "*Cédula / RIF:* {$data['tipo_documento']}{$data['cedula']}\n";
-        $mensaje .= "*Nombre:* {$data['nombre']}\n";
+        $mensaje .= "*Cédula / RIF:* {$order->tipo_documento}{$order->cedula}\n";
+        $mensaje .= "*Nombre:* {$order->nombre}\n";
         $mensaje .= "*Teléfono:* {$telefono}\n";
 
-        if ($data['tipo_pedido'] === 'Delivery') {
-            $direccion = trim($data['direccion'] . ' ' . ($data['detalle_direccion'] ?? ''));
+        if ($order->tipo_pedido === 'Delivery') {
+            $direccion = trim($order->direccion . ' ' . ( $order->detalle_direccion ?? ''));
             $mensaje .= "*Dirección:* {$direccion}\n";
         } else {
             $mensaje .= "*Dirección:* Para recoger en local\n";
@@ -182,28 +182,36 @@ class CartController extends Controller
         $total = 0;
         $cantidadTotal = 0;
 
-        foreach (Cart::content() as $item) {
-            $cantidad = $item->qty;
-            $precioUnitario = number_format($item->price, 2, '.', ',');
-            $precioTotal = number_format($item->price * $cantidad, 2, '.', ',');
-            $nombreProducto = $item->name;
+        foreach ($order->products as $item) {
+            $cantidad = $item->quantity;
+            $precioTotal = number_format($item->subtotal, 2, '.', ',');
+            $nombreProducto = $item->product->name;
+            
+            $precioUnitario = number_format($item->base_price, 2, '.', ',');
 
             $mensaje .= "{$nombreProducto}\n";
             $mensaje .= "{$cantidad} x {$precioUnitario} US$ = *{$precioTotal} US$* \n";
 
-            // Extras
-            foreach ($item->options->extras as $grupo => $opciones) {
-                $mensaje .= "  - {$grupo}: " . implode(', ', $opciones) . "\n";
+            // Primero agrupamos
+            $groupedOptions = [];
+
+            foreach ($item->options as $opt) {
+                $groupedOptions[$opt->option_group_name][] = "{$opt->option_name} (+$" . number_format($opt->price, 2, '.', ',') . ")";
+            }
+
+            // Luego armamos el mensaje
+            foreach ($groupedOptions as $groupName => $options) {
+                $mensaje .= "  - {$groupName}: " . implode(', ', $options) . "\n";
             }
 
             // Observaciones
-            if ($item->options->observations) {
-                $mensaje .= "  - *Nota:* {$item->options->observations}\n";
+            if ($item->observations) {
+                $mensaje .= "  - *Nota:* {$item->observations}\n";
             }
 
             $mensaje .= "----------------------------------\n";
 
-            $total += $item->price * $cantidad;
+            $total += $item->unit_price * $cantidad;
             $cantidadTotal += $cantidad;
         }
 
@@ -212,16 +220,14 @@ class CartController extends Controller
         $mensaje .= "*Total:* " . number_format($total, 2, '.', ',') . " US$\n";
         $mensaje .= "=====================\n";
 
-        $payment = Payment::find($data['metodo_pago']);
-        $mensaje .= "*Método de pago:* {$payment->name}\n";
-        $mensaje .= "*Tipo de pedido:* {$data['tipo_pedido']}\n";
+        $payment = Payment::find($order->payment_id);
+        $mensaje .= "*Método de pago:* {$order->metodo_pago}\n";
+        $mensaje .= "*Tipo de pedido:* {$order->tipo_pedido}\n";
 
         // Redirigir al número de WhatsApp
         $settings = Setting::pluck('value', 'key');
         $numeroWhatsApp = $settings = Setting::pluck('value', 'key');
         $url = "{$settings['whatsapp_url']}?text=" . urlencode($mensaje);
-
-        Cart::destroy();
 
         return response()->json(['url' => $url]);
     }

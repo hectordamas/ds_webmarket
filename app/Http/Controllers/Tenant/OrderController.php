@@ -222,6 +222,7 @@ class OrderController extends Controller
             $orderProduct->order_id = $order->id;
             $orderProduct->product_id = $item->id;
             $orderProduct->quantity = $item->qty;
+            $orderProduct->price = $item->options->base_price ?? null;
             $orderProduct->unit_price = $item->price;
             $orderProduct->subtotal = $item->price * $item->qty;
             $orderProduct->observations = $item->options->observations ?? null;
@@ -246,6 +247,8 @@ class OrderController extends Controller
                 }
             }
         }
+
+        Cart::destroy();
 
         $html = view('tenant.shop.components.cart.completed', [
             'order' => $order
