@@ -260,7 +260,7 @@
             url: '<?php echo e(url("add")); ?>',
             method: 'POST',
             data: {
-                _token: '<?php echo e(csrf_token()); ?>',
+                _token: $('meta[name="csrf-token"]').attr('content'),
                 product_id: productId,
                 quantity: quantity,
                 options: selectedOptions,
@@ -305,7 +305,7 @@
             url: '<?php echo e(url("cart/remove")); ?>',
             method: 'POST',
             data: {
-                _token: '<?php echo e(csrf_token()); ?>',
+                _token: $('meta[name="csrf-token"]').attr('content'),
                 rowId: rowId
             },
             success: function (response) {
@@ -336,7 +336,7 @@
             url: '<?php echo e(url("cart/destroy")); ?>',
             method: 'POST',
             data: {
-                _token: '<?php echo e(csrf_token()); ?>',
+                _token: $('meta[name="csrf-token"]').attr('content'),
             },
             success: function (response) {
                 if (response.success) {
@@ -487,7 +487,7 @@
                 url: '<?php echo e(url("getCustomer")); ?>',
                 method: 'POST',
                 data: {
-                    _token: '<?php echo e(csrf_token()); ?>',
+                    _token: $('meta[name="csrf-token"]').attr('content'),
                     tipo_documento: $('[name="tipo_documento"]').val(),
                     cedula: $('[name="cedula"]').val()
                 },
@@ -516,7 +516,7 @@
 <script>
     function enviarPedidoPorWhatsapp() {
         const data = {
-            _token: '<?php echo e(csrf_token()); ?>',
+            _token: $('meta[name="csrf-token"]').attr('content'),
             nombre: $('input[name="nombre"]').val(),
             tipo_documento: $('select[name="tipo_documento"]').val(),
             cedula: $('input[name="cedula"]').val(),
@@ -556,7 +556,7 @@
 
     $('#btnConfirmar').on('click', function() {
         const data = {
-          _token: '<?php echo e(csrf_token()); ?>',
+          _token: $('meta[name="csrf-token"]').attr('content'),
           nombre: $('input[name="nombre"]').val(),
           tipo_documento: $('select[name="tipo_documento"]').val(),
           cedula: $('input[name="cedula"]').val(),

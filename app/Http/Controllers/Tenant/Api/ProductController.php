@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tenant\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Tenant\{Category, Product};
+use App\Models\Tenant\{Category, Product, Setting};
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -15,6 +15,8 @@ class ProductController extends Controller
 
 	        $data = [];
             $datosReq = $request->all(); 
+            $settings = Setting::pluck('value', 'key');
+            $priceList = $settings['price_list'] ?? 'precio1'; // 👈 default precio1
 
             for ($i = 0; $i < count($datosReq); $i++) {
                 $data['CodProd'][$i] = @$datosReq[$i]['CodProd'];
@@ -53,7 +55,20 @@ class ProductController extends Controller
                     $product->codinst = $data['CodInst'][$i];
                     $product->stock = $data['Existen'][$i];
                     $product->active = $data['Activo'][$i];
-                    $product->price = $data['Precio'][$i];
+
+                    // 👇 elegir el precio dinámicamente
+                    switch ($priceList) {
+                        case 'precio2':
+                            $product->price = $data['Precio2'][$i];
+                            break;
+                        case 'precio3':
+                            $product->price = $data['Precio3'][$i];
+                            break;
+                        default: // precio1
+                            $product->price = $data['Precio1'][$i];
+                            break;
+                    }    
+                                    
                     $product->image = $data['Image'][$i];
                     $product->slug = Str::slug($data['Descrip'][$i] . '-' . $data['CodProd'][$i]);
                     $product->save();

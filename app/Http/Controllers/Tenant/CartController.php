@@ -186,8 +186,7 @@ class CartController extends Controller
             $cantidad = $item->quantity;
             $precioTotal = number_format($item->subtotal, 2, '.', ',');
             $nombreProducto = $item->product->name;
-            
-            $precioUnitario = number_format($item->base_price, 2, '.', ',');
+            $precioUnitario = number_format($item->price, 2, '.', ',');
 
             $mensaje .= "{$nombreProducto}\n";
             $mensaje .= "{$cantidad} x {$precioUnitario} US$ = *{$precioTotal} US$* \n";

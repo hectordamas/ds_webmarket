@@ -27,6 +27,12 @@
                         </a>
                         <div class="slide"></div>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link fw-bold" id="preferences-tab" data-bs-toggle="tab" href="#preferences" type="button" role="tab">
+                            ⚙️ Preferencias
+                        </a>
+                        <div class="slide"></div>
+                    </li>
                 </ul>
 
                 <form method="POST" action="{{ url('settings/update') }}" enctype="multipart/form-data">
@@ -76,6 +82,46 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Preferencias -->
+                        <div class="tab-pane fade" id="preferences" role="tabpanel">
+                            <div class="bg-light p-4 rounded shadow-sm"> 
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-check form-switch">
+                                            <input type="hidden" name="allow_out_of_stock" value="0"> <!-- fallback -->
+                                            <input 
+                                                class="form-check-input" 
+                                                type="checkbox" 
+                                                id="allowOutOfStock" 
+                                                name="allow_out_of_stock" 
+                                                value="1" 
+                                                {{ filter_var($settings['allow_out_of_stock'] ?? false, FILTER_VALIDATE_BOOLEAN) ? 'checked' : '' }}
+                                            >
+                                            <label class="form-check-label" for="allowOutOfStock">
+                                                Mostrar productos sin stock
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-light p-4 rounded shadow-sm mt-3">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="priceList" class="form-label">
+                                            Lista de precios a sincronizar
+                                        </label>
+                                        <select class="form-select" id="priceList" name="price_list">
+                                            <option value="precio1" {{ ($settings['price_list'] ?? 'precio1') === 'precio1' ? 'selected' : '' }}>Precio 1</option>
+                                            <option value="precio2" {{ ($settings['price_list'] ?? '') === 'precio2' ? 'selected' : '' }}>Precio 2</option>
+                                            <option value="precio3" {{ ($settings['price_list'] ?? '') === 'precio3' ? 'selected' : '' }}>Precio 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     
                     </div>
