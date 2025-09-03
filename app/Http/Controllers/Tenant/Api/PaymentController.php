@@ -16,7 +16,6 @@ class PaymentController extends Controller
 			for ($i = 0; $i < count($datosReq); $i++) {
 				$data['Descrip'][$i] = @$datosReq[$i]['Descrip'];
 				$data['Activo'][$i] = @$datosReq[$i]['Activo'];
-				//$data['CodInst'][$i] = @$datosReq[$i]['CodInst'];
 			}
 
             for ($i = 0; $i < count($data['CodProd']); $i++) {
@@ -27,7 +26,7 @@ class PaymentController extends Controller
                     continue;
                 }
             
-                $product = Product::where('sku', $sku)->first();
+                $product = Payment::where('sku', $sku)->first();
             
                 if ($evento == 'D') {
                     if ($product) {
