@@ -53,6 +53,7 @@ class ProductController extends Controller
                     $product->stock = $data['Existen'][$i];
                     $product->active = $data['Activo'][$i];
                     $product->price = $data['Precio'][$i];
+                    $product->image = $data['Image'][$i];
                     $product->slug = Str::slug($data['Descrip'][$i] . '-' . $data['CodProd'][$i]);
                     $product->save();
                 }
