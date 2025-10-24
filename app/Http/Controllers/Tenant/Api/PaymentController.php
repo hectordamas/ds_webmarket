@@ -16,40 +16,40 @@ class PaymentController extends Controller
 			for ($i = 0; $i < count($datosReq); $i++) {
 				$data['Descrip'][$i] = @$datosReq[$i]['Descrip'];
 				$data['Activo'][$i] = @$datosReq[$i]['Activo'];
+                $data['CodMe'][$i] = @$datosReq[$i]['CodMe'];
 			}
 
-            for ($i = 0; $i < count($data['CodProd']); $i++) {
-                $sku = $data['CodProd'][$i]  ?? null;
+            for ($i = 0; $i < count($data['CodMe']); $i++) {
+                $codme = $data['CodMe'][$i]  ?? null;
                 $evento = $data['Evento'][$i] ?? null;
 
-                if (!$sku || !$evento) {
+                if (!$codme || !$evento) {
                     continue;
                 }
             
-                $product = Payment::where('sku', $sku)->first();
+                $payment = Payment::where('codme', $codme)->first();
             
                 if ($evento == 'D') {
-                    if ($product) {
-                        $product->delete();
+                    if ($payment) {
+                        $payment->delete();
                     }
                 } else {
-                    if (!$product) {
-                        $product = new Product();
-                        $product->sku = $sku;
+                    if (!$payment) {
+                        $payment = new Payment();
+                        $payment->codme = $codme;
                     }
                 
-                    $product->sku = $data['CodProd'][$i];
-                    $product->name = $data['Descrip'][$i];
-                    $product->description = $data['Descripcion'][$i];
-                    $product->codinst = $data['CodInst'][$i];
-                    $product->stock = $data['Existen'][$i];
-                    $product->active = $data['Activo'][$i];
-                    $product->save();
+                    $payment->codme = $data['CodMe'][$i];
+                    $payment->name = $data['Descrip'][$i];
+                    $payment->active = $data['Activo'][$i];
+                    $payment->save();
                 }
             }
+            
             return response()->json([
                 'success' => true
             ]);
+
         }catch(\Exception $e){
 			return response()->json([$e->getMessage(), 'Linea ' . $e->getLine()]);
         };
