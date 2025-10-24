@@ -13,7 +13,8 @@ class OrderController extends Controller
 
             $status = $request->status ?? 'Entregado';
 
-            $orders = Order::where('status', $status)->with(['products.options', 'products.product'])
+            $orders = Order::where('status', $status)
+            ->with(['products.options', 'products.product'])
             ->get()
             ->map(function ($order) {
                 return [

@@ -19,7 +19,7 @@ Route::middleware([
         Route::post('categorias/store', [CategoryController::class, 'store']);
 
         Route::get('orders/getCompletedOrders', [OrderController::class, 'getCompletedOrders']);
-        Route::post('orders/storeSaintData', [OrderController::class, 'storeSaintData']);
+        Route::any('orders/storeSaintData', [OrderController::class, 'storeSaintData']);
     });
 
 });
