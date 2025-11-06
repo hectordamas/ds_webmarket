@@ -172,6 +172,9 @@ class OrderController extends Controller
             'tipo_documento' => 'required|string',
         ]);
 
+        $settings = Setting::pluck('value', 'key');
+        $factor = $settings['factor'] ?? 0;
+
         // Crear la orden (adaptar según modelo)
         $payment = Payment::find($data['metodo_pago']);
 
@@ -215,6 +218,7 @@ class OrderController extends Controller
         $order->total = Cart::subtotal(2, '.', ''); 
         $order->items = json_encode(Cart::content()); // O guardar en tabla relacionada
         $order->customer_id = $customer->id;
+        $order->factor = $factor;
         $order->save();
 
         foreach (Cart::content() as $item) {

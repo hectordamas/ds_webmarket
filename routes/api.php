@@ -20,6 +20,8 @@ Route::middleware([
 
         Route::get('orders/getCompletedOrders', [OrderController::class, 'getCompletedOrders']);
         Route::any('orders/storeSaintData', [OrderController::class, 'storeSaintData']);
+
+        Route::any('orders/setFactor', [OrderController::class, 'setFactor']);
     });
 
 });
