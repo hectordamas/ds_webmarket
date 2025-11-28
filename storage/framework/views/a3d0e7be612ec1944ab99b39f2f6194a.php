@@ -203,7 +203,7 @@
 
                       </td>
                       <td class="text-center fw-bold text-success">
-                        $<?php echo e(number_format($producto['ventas'], 2, '.', ',')); ?>
+                        $<?php echo e($producto['ventas']); ?>
 
                       </td>
                     </tr>

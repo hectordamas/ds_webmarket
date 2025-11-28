@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tenant\{Order, Setting};
+use ReCaptcha\Response;
 
 class OrderController extends Controller
 {
@@ -92,13 +93,20 @@ class OrderController extends Controller
     public function setFactor(Request $request)
     {
         try {
+            if ($request->factor) {
+                Setting::updateOrCreate(['key' => 'factor'], ['value' => $request->factor]);
 
-            Setting::updateOrCreate(['key' => 'factor'], ['value' => $request->factor]);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'exitoso'
+
+                ]);
+            }
 
             return response()->json([
-                'success' => true
-            ]);  
-                      
+                'success' => false,
+                'message' => 'Falta valor de tasa'
+            ]);
         } catch (\Exception $e) {
             return response()->json([$e->getMessage(), 'Linea ' . $e->getLine()]);
         }

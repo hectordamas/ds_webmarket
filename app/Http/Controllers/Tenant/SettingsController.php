@@ -56,10 +56,10 @@ class SettingsController extends Controller
         Setting::updateOrCreate(['key' => 'allow_out_of_stock'], ['value' => $request->allow_out_of_stock]);
 
         //precio a sincronizar
-        Setting::updateOrCreate(
+        /*Setting::updateOrCreate(
             ['key' => 'price_list'],
             ['value' => $request->price_list]
-        );
+        );*/
 
         $tenant = Tenant::find(tenant('id'));
         $tenant->nombre_empresa = $request->nombre_empresa;

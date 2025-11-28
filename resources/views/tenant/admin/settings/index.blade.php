@@ -107,6 +107,7 @@
                                 </div>
                             </div>
 
+                            <!--
                             <div class="bg-light p-4 rounded shadow-sm mt-3">
                                 <div class="row">
                                     <div class="col-md-3">
@@ -120,7 +121,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
                         </div>
                     
