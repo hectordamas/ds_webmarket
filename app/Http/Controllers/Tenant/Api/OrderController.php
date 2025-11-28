@@ -92,11 +92,15 @@ class OrderController extends Controller
 
     public function setFactor(Request $request)
     {
-       
-        return response()->json($request->all());
+        $data = [];
+        $datosReq = $request->all();
+        for ($i = 0; $i < count($datosReq); $i++) {
+            $data['factor'][$i] = @$datosReq[$i]['factor'];
+        }
+               
         try {
-            if ($request->get('factor')) {
-                Setting::updateOrCreate(['key' => 'factor'], ['value' => $request->get('factor') ]);
+            if ($data['factor'][$i]) {
+                Setting::updateOrCreate(['key' => 'factor'], ['value' => $data['factor'][0] ]);
 
                 return response()->json([
                     'success' => true,
