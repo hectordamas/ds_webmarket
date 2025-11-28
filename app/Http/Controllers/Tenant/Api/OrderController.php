@@ -93,20 +93,19 @@ class OrderController extends Controller
     public function setFactor(Request $request)
     {
         try {
-            if ($request->factor) {
-                Setting::updateOrCreate(['key' => 'factor'], ['value' => $request->factor]);
+            if ($request->get('factor')) {
+                Setting::updateOrCreate(['key' => 'factor'], ['value' => $request->get('factor') ]);
 
                 return response()->json([
                     'success' => true,
                     'message' => 'exitoso'
-
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Falta valor de tasa'
                 ]);
             }
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Falta valor de tasa'
-            ]);
         } catch (\Exception $e) {
             return response()->json([$e->getMessage(), 'Linea ' . $e->getLine()]);
         }
