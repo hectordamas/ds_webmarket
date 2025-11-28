@@ -99,7 +99,7 @@ class OrderController extends Controller
         }
                
         try {
-            if ($data['factor'][$i]) {
+            if ($data['factor'][0]) {
                 Setting::updateOrCreate(['key' => 'factor'], ['value' => $data['factor'][0] ]);
 
                 return response()->json([
